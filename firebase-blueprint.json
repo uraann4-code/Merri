@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "Guest": {
+      "title": "Guest",
+      "description": "An invited guest or family group with a unique personalized invitation token",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "familyGroup": { "type": "string", "maxLength": 100 },
+        "invitationToken": { "type": "string", "maxLength": 64 },
+        "maxGuests": { "type": "number" },
+        "phone": { "type": "string", "maxLength": 30 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "invitationToken"]
+    },
+    "Rsvp": {
+      "title": "Rsvp",
+      "description": "RSVP response for a guest or family",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "guestId": { "type": "string", "maxLength": 128 },
+        "invitationToken": { "type": "string", "maxLength": 64 },
+        "guestName": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "enum": ["attending", "declined", "pending"] },
+        "attendeesCount": { "type": "number" },
+        "dietaryOrNotes": { "type": "string", "maxLength": 500 },
+        "submittedAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["guestId", "invitationToken", "status", "attendeesCount"]
+    },
+    "WeddingSetting": {
+      "title": "WeddingSetting",
+      "description": "Admin configurable wedding information, gallery activation, and media",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "memoriesActivated": { "type": "boolean" },
+        "welcomeMessage": { "type": "string", "maxLength": 500 },
+        "musicEnabled": { "type": "boolean" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["memoriesActivated"]
+    },
+    "GuestWish": {
+      "title": "GuestWish",
+      "description": "Blessings and wishes left by wedding guests",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "guestName": { "type": "string", "maxLength": 100 },
+        "message": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["guestName", "message"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator account record with RBAC privileges",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 120 },
+        "role": { "type": "string", "enum": ["admin"] }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/guests/{guestId}": {
+      "schema": { "$ref": "Guest" },
+      "description": "Guest records created and managed by the administrator"
+    },
+    "/rsvps/{rsvpId}": {
+      "schema": { "$ref": "Rsvp" },
+      "description": "RSVP submissions submitted securely using guest invitation tokens"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "WeddingSetting" },
+      "description": "Global settings for gallery memories, announcements, and wedding state"
+    },
+    "/wishes/{wishId}": {
+      "schema": { "$ref": "GuestWish" },
+      "description": "Celebratory messages and dua wishes left by guests"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "Admin" },
+      "description": "Admin privileges mapped to user authentication UID"
+    }
+  }
+}

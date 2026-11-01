@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+    function isAdmin() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        (request.auth.token.email == 'mubasshirqayyum2@gmail.com')
+      );
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Guests: Public can look up their own guest record by ID/token; Admin can list/create/edit/delete
+    match /guests/{guestId} {
+      allow read: if isValidId(guestId);
+      allow create, update, delete: if isAdmin();
+    }
+
+    // RSVPs: Guests submit and update; Admin has full overview
+    match /rsvps/{rsvpId} {
+      allow read: if isValidId(rsvpId) && (isAdmin() || resource.data.guestId == rsvpId);
+      allow create: if isValidId(rsvpId) && incoming().guestId is string && incoming().status in ['attending', 'declined', 'pending'];
+      allow update: if isValidId(rsvpId) && incoming().guestId is string && (isAdmin() || incoming().guestId == existing().guestId);
+      allow delete: if isAdmin();
+    }
+
+    // Wedding Settings (memories activation, hero announcement)
+    match /settings/{settingId} {
+      allow read: if isValidId(settingId);
+      allow write: if isAdmin();
+    }
+
+    // Wishes & Duas
+    match /wishes/{wishId} {
+      allow read: if isValidId(wishId);
+      allow create: if isValidId(wishId) && incoming().guestName is string && incoming().message is string;
+      allow update, delete: if isAdmin();
+    }
+  }
+}
