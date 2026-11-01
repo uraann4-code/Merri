@@ -422,19 +422,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto select-none">
-      <div className="w-full max-w-5xl bg-[#1C0912] border-2 border-[#D4AF67] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-[#F8F5EF]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-stone-900/60 backdrop-blur-md overflow-y-auto select-none">
+      <div className="w-full max-w-5xl bg-[#FAF7F2] border-2 border-[#D4AF67] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] text-[#2C2621]">
         {/* Top Header */}
-        <div className="px-6 py-4 bg-[#2D0F1D] border-b border-[#D4AF67]/30 flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#EDE4D5] border-b border-[#D4AF67]/40 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full border border-[#D4AF67] flex items-center justify-center text-[#D4AF67] bg-[#641D32]">
+            <div className="w-9 h-9 rounded-full border border-[#D4AF67] flex items-center justify-center text-[#845E1B] bg-white shadow-xs">
               <Shield size={18} />
             </div>
             <div>
-              <h2 className="font-serif-royal text-base sm:text-lg font-bold text-white tracking-wide">
+              <h2 className="font-serif-royal text-base sm:text-lg font-bold text-[#2C2621] tracking-wide">
                 Royal Wedding Administrator
               </h2>
-              <div className="flex items-center gap-1.5 text-[10px] text-[#D4AF67] uppercase tracking-widest font-serif-royal">
+              <div className="flex items-center gap-1.5 text-[10px] text-[#845E1B] uppercase tracking-widest font-serif-royal font-bold">
                 <span>Mubasshir &amp; Tasmia</span>
                 <span aria-hidden="true">·</span>
                 <span>Grand Walima Portal</span>
@@ -449,7 +449,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   logoutUser();
                   setIsAuthenticated(false);
                 }}
-                className="px-3 py-1.5 text-xs rounded-lg border border-red-500/40 text-red-300 hover:bg-red-500/20 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-1.5 text-xs rounded-lg border border-red-400 text-red-700 bg-red-50 hover:bg-red-100 transition-all flex items-center gap-1.5 cursor-pointer font-medium"
                 title="Log Out"
               >
                 <LogOut size={13} />
@@ -459,7 +459,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full text-stone-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              className="p-1.5 rounded-full text-stone-500 hover:text-[#2C2621] hover:bg-stone-200/60 transition-colors cursor-pointer"
             >
               <X size={20} />
             </button>
@@ -469,19 +469,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         {/* Authentication Gate */}
         {!isAuthenticated ? (
           <div className="p-8 sm:p-14 flex flex-col items-center justify-center text-center max-w-md mx-auto my-auto">
-            <div className="w-18 h-18 rounded-full border-2 border-[#D4AF67] bg-[#641D32]/60 text-[#D4AF67] flex items-center justify-center mb-4 shadow-xl">
+            <div className="w-18 h-18 rounded-full border-2 border-[#D4AF67] bg-[#EDE4D5] text-[#845E1B] flex items-center justify-center mb-4 shadow-md">
               <Lock size={30} />
             </div>
 
-            <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-white mb-1">
+            <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-[#2C2621] mb-1">
               Admin Access Required
             </h3>
-            <p className="text-xs text-[#F8F5EF]/75 mb-6 font-sans">
+            <p className="text-xs text-[#5C4D3C] mb-6 font-sans">
               Sign in with your verified administrator credentials or enter the master passcode.
             </p>
 
             {authError && (
-              <div className="w-full mb-4 p-3.5 rounded-xl bg-red-950/80 border border-red-500/50 text-red-300 text-xs font-serif-royal">
+              <div className="w-full mb-4 p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-900 text-xs font-serif-royal">
                 {authError}
               </div>
             )}
@@ -493,40 +493,40 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 placeholder="Enter Wedding Passcode..."
-                className="w-full px-4 py-3.5 rounded-xl border border-[#D4AF67]/50 bg-black/50 text-white placeholder:text-stone-500 text-sm focus:border-[#D4AF67] outline-none text-center tracking-widest font-mono"
+                className="w-full px-4 py-3.5 rounded-xl border border-[#D4AF67]/60 bg-white text-[#2C2621] placeholder:text-stone-400 text-sm focus:border-[#845E1B] outline-none text-center tracking-widest font-mono shadow-xs"
               />
 
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-widest hover:brightness-110 transition-all shadow-md cursor-pointer"
+                className="w-full py-3.5 rounded-xl gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold uppercase tracking-widest hover:brightness-105 transition-all shadow-md cursor-pointer"
               >
                 Unlock Dashboard
               </button>
             </form>
 
-            <div className="w-full flex items-center gap-3 my-2 text-xs text-stone-500">
-              <div className="flex-1 h-[1px] bg-white/10" />
+            <div className="w-full flex items-center gap-3 my-2 text-xs text-stone-400">
+              <div className="flex-1 h-[1px] bg-stone-300" />
               <span>OR</span>
-              <div className="flex-1 h-[1px] bg-white/10" />
+              <div className="flex-1 h-[1px] bg-stone-300" />
             </div>
 
             <button
               onClick={handleGoogleSignIn}
               type="button"
-              className="w-full py-3.5 px-4 rounded-xl border border-white/20 bg-white/5 hover:bg-white/15 text-white font-serif-royal text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all mt-2 cursor-pointer"
+              className="w-full py-3.5 px-4 rounded-xl border border-[#D4AF67]/50 bg-white hover:bg-[#EDE4D5] text-[#2C2621] font-serif-royal text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all mt-2 cursor-pointer shadow-xs"
             >
-              <KeyRound size={16} className="text-[#D4AF67]" />
+              <KeyRound size={16} className="text-[#845E1B]" />
               <span>Sign in with Google Account</span>
             </button>
 
-            <p className="mt-4 text-[11px] text-[#D4AF67]/75 font-serif-royal">
+            <p className="mt-4 text-[11px] text-[#845E1B] font-serif-royal">
               Authorized admin: {ADMIN_EMAIL}
             </p>
           </div>
         ) : (
           /* Authenticated Dashboard Tabs */
           <div className="flex-1 flex flex-col overflow-hidden">
-            <div className="px-6 py-2.5 bg-[#260B18] border-b border-[#D4AF67]/25 flex flex-wrap items-center justify-between gap-4">
+            <div className="px-6 py-2.5 bg-[#F8F5EF] border-b border-[#D4AF67]/30 flex flex-wrap items-center justify-between gap-4">
               <div className="flex gap-2 overflow-x-auto">
                 {[
                   { key: 'overview', label: 'Overview & Stats' },
@@ -541,8 +541,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     onClick={() => setActiveTab(tab.key as any)}
                     className={`px-3.5 py-1.5 rounded-lg text-xs font-serif-royal font-semibold uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
                       activeTab === tab.key
-                        ? 'bg-[#641D32] text-[#D4AF67] border border-[#D4AF67]/50 shadow-sm'
-                        : 'text-stone-300 hover:text-white hover:bg-white/5'
+                        ? 'bg-[#D4AF67] text-[#2C2621] border border-[#845E1B]/30 shadow-xs'
+                        : 'text-stone-600 hover:text-[#2C2621] hover:bg-[#EDE4D5]'
                     }`}
                   >
                     {tab.label}
@@ -566,71 +566,71 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               {activeTab === 'overview' && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div className="bg-[#2D0F1D] border-2 border-[#D4AF67]/30 rounded-2xl p-5">
-                      <div className="flex items-center justify-between text-xs text-[#D4AF67] uppercase font-bold tracking-wider font-serif-royal">
+                    <div className="bg-white border-2 border-[#D4AF67]/40 rounded-2xl p-5 shadow-xs">
+                      <div className="flex items-center justify-between text-xs text-[#845E1B] uppercase font-bold tracking-wider font-serif-royal">
                         <span>Total Guests</span>
                         <Users size={16} />
                       </div>
-                      <div className="text-3xl font-bold font-serif-royal text-white mt-2">
+                      <div className="text-3xl font-bold font-serif-royal text-[#2C2621] mt-2">
                         {totalGuestsCount}
                       </div>
-                      <div className="text-[11px] text-stone-400 mt-1 font-sans">
+                      <div className="text-[11px] text-stone-500 mt-1 font-sans">
                         Reserved seats: {totalReservedSeats}
                       </div>
                     </div>
 
-                    <div className="bg-[#2D0F1D] border-2 border-emerald-500/30 rounded-2xl p-5">
-                      <div className="flex items-center justify-between text-xs text-emerald-400 uppercase font-bold tracking-wider font-serif-royal">
+                    <div className="bg-white border-2 border-emerald-500/40 rounded-2xl p-5 shadow-xs">
+                      <div className="flex items-center justify-between text-xs text-emerald-700 uppercase font-bold tracking-wider font-serif-royal">
                         <span>Attending (Headcount)</span>
                         <CheckCircle size={16} />
                       </div>
-                      <div className="text-3xl font-bold font-serif-royal text-emerald-300 mt-2">
+                      <div className="text-3xl font-bold font-serif-royal text-emerald-800 mt-2">
                         {totalAttendingHeadcount}
                       </div>
-                      <div className="text-[11px] text-stone-400 mt-1 font-sans">
+                      <div className="text-[11px] text-stone-500 mt-1 font-sans">
                         From {attendingRsvps.length} confirmations
                       </div>
                     </div>
 
-                    <div className="bg-[#2D0F1D] border-2 border-red-500/30 rounded-2xl p-5">
-                      <div className="flex items-center justify-between text-xs text-red-400 uppercase font-bold tracking-wider font-serif-royal">
+                    <div className="bg-white border-2 border-stone-300 rounded-2xl p-5 shadow-xs">
+                      <div className="flex items-center justify-between text-xs text-stone-600 uppercase font-bold tracking-wider font-serif-royal">
                         <span>Declined</span>
                         <XCircle size={16} />
                       </div>
-                      <div className="text-3xl font-bold font-serif-royal text-red-300 mt-2">
+                      <div className="text-3xl font-bold font-serif-royal text-stone-700 mt-2">
                         {declinedRsvpsCount}
                       </div>
-                      <div className="text-[11px] text-stone-400 mt-1 font-sans">
+                      <div className="text-[11px] text-stone-500 mt-1 font-sans">
                         Unable to attend
                       </div>
                     </div>
 
-                    <div className="bg-[#2D0F1D] border-2 border-amber-500/30 rounded-2xl p-5">
-                      <div className="flex items-center justify-between text-xs text-amber-400 uppercase font-bold tracking-wider font-serif-royal">
+                    <div className="bg-white border-2 border-amber-400/50 rounded-2xl p-5 shadow-xs">
+                      <div className="flex items-center justify-between text-xs text-amber-700 uppercase font-bold tracking-wider font-serif-royal">
                         <span>Pending</span>
                         <Clock size={16} />
                       </div>
-                      <div className="text-3xl font-bold font-serif-royal text-amber-300 mt-2">
+                      <div className="text-3xl font-bold font-serif-royal text-amber-800 mt-2">
                         {pendingCount}
                       </div>
-                      <div className="text-[11px] text-stone-400 mt-1 font-sans">
+                      <div className="text-[11px] text-stone-500 mt-1 font-sans">
                         Awaiting response
                       </div>
                     </div>
                   </div>
 
                   {guests.length === 0 && (
-                    <div className="p-6 rounded-2xl border-2 border-[#D4AF67]/50 bg-[#341421] text-center">
-                      <Sparkles size={24} className="text-[#D4AF67] mx-auto mb-2" />
-                      <h4 className="font-serif-royal text-base font-bold text-white">
+                    <div className="p-6 rounded-2xl border-2 border-[#D4AF67]/50 bg-[#EDE4D5] text-center shadow-xs">
+                      <Sparkles size={24} className="text-[#845E1B] mx-auto mb-2" />
+                      <h4 className="font-serif-royal text-base font-bold text-[#2C2621]">
                         Guest Database is Ready
                       </h4>
-                      <p className="text-xs text-[#F8F5EF]/80 max-w-md mx-auto mt-1 mb-4 font-sans">
+                      <p className="text-xs text-[#5C4D3C] max-w-md mx-auto mt-1 mb-4 font-sans">
                         Add individual guests or preload initial sample families to test personalized links and WhatsApp invitations.
                       </p>
                       <button
                         onClick={handleSeedSampleGuests}
-                        className="px-6 py-2 rounded-full gold-foil-bg text-[#29101A] text-xs font-serif-royal font-bold uppercase tracking-wider hover:brightness-110 cursor-pointer"
+                        className="px-6 py-2 rounded-full gold-foil-bg text-[#2C2621] text-xs font-serif-royal font-bold uppercase tracking-wider hover:brightness-105 cursor-pointer shadow-xs"
                       >
                         Seed Initial Guests
                       </button>
@@ -638,11 +638,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   )}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-[#2D0F1D] border-2 border-[#D4AF67]/25 rounded-2xl p-6">
-                      <h4 className="font-serif-royal text-sm font-bold text-[#D4AF67] uppercase tracking-wider mb-2">
+                    <div className="bg-white border-2 border-[#D4AF67]/30 rounded-2xl p-6 shadow-xs">
+                      <h4 className="font-serif-royal text-sm font-bold text-[#845E1B] uppercase tracking-wider mb-2">
                         Walima Event Live Data (events/main_event)
                       </h4>
-                      <ul className="text-xs space-y-2 text-[#F8F5EF]/85 font-sans">
+                      <ul className="text-xs space-y-2 text-[#2C2621]/90 font-sans">
                         <li><strong>Event:</strong> {eventData?.title || 'Grand Walima Reception'}</li>
                         <li><strong>Date:</strong> {eventData?.date || 'Sunday, 8 November 2026'}</li>
                         <li><strong>Time:</strong> {eventData?.time || '1:00 PM PKT'}</li>
@@ -651,26 +651,26 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       </ul>
                     </div>
 
-                    <div className="bg-[#2D0F1D] border-2 border-[#D4AF67]/25 rounded-2xl p-6 flex flex-col justify-between">
+                    <div className="bg-white border-2 border-[#D4AF67]/30 rounded-2xl p-6 flex flex-col justify-between shadow-xs">
                       <div>
-                        <h4 className="font-serif-royal text-sm font-bold text-[#D4AF67] uppercase tracking-wider mb-2">
+                        <h4 className="font-serif-royal text-sm font-bold text-[#845E1B] uppercase tracking-wider mb-2">
                           Memories Gallery Status (websiteSettings/main_config)
                         </h4>
-                        <p className="text-xs text-[#F8F5EF]/80 font-sans">
+                        <p className="text-xs text-[#5C4D3C] font-sans">
                           {isMemoriesActive
                             ? 'Memories Gallery is LIVE. Guests can view the wedding video highlight and photo album.'
                             : 'Memories Gallery is LOCKED (Pre-Wedding Mode). Turn on after the Walima ceremony to reveal official wedding photographs.'}
                         </p>
                       </div>
 
-                      <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-                        <span className="text-xs font-semibold text-white font-serif-royal">Activation:</span>
+                      <div className="mt-4 pt-4 border-t border-[#D4AF67]/20 flex items-center justify-between">
+                        <span className="text-xs font-semibold text-[#2C2621] font-serif-royal">Activation:</span>
                         <button
                           onClick={() => onToggleMemories(!isMemoriesActive)}
                           className={`px-5 py-2 rounded-full text-xs font-serif-royal font-bold uppercase tracking-wider transition-all cursor-pointer ${
                             isMemoriesActive
-                              ? 'bg-emerald-600 text-white shadow-lg'
-                              : 'bg-stone-700 text-stone-300 hover:bg-stone-600'
+                              ? 'bg-emerald-600 text-white shadow-md'
+                              : 'bg-stone-300 text-stone-700 hover:bg-stone-400'
                           }`}
                         >
                           {isMemoriesActive ? 'Active (Live)' : 'Locked (Pre-Wedding)'}
@@ -692,13 +692,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search guests, family, phone..."
-                        className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white placeholder:text-stone-500 focus:border-[#D4AF67] outline-none"
+                        className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] placeholder:text-stone-400 focus:border-[#845E1B] outline-none shadow-xs"
                       />
                     </div>
 
                     <button
                       onClick={() => setIsAddingGuest(!isAddingGuest)}
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow cursor-pointer"
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-xs hover:brightness-105 cursor-pointer"
                     >
                       <Plus size={15} />
                       <span>Add New Guest</span>
@@ -706,15 +706,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   </div>
 
                   {isAddingGuest && (
-                    <form onSubmit={handleAddGuest} className="p-6 rounded-2xl border-2 border-[#D4AF67] bg-[#341421] space-y-4 animate-fade-in">
-                      <h4 className="font-serif-royal text-base font-bold text-white flex items-center gap-2">
-                        <Plus size={16} className="text-[#D4AF67]" />
+                    <form onSubmit={handleAddGuest} className="p-6 rounded-2xl border-2 border-[#D4AF67] bg-[#FAF7F2] space-y-4 animate-fade-in shadow-sm">
+                      <h4 className="font-serif-royal text-base font-bold text-[#2C2621] flex items-center gap-2">
+                        <Plus size={16} className="text-[#845E1B]" />
                         <span>Add Guest or Family Group (Auto-Generates Secure Token)</span>
                       </h4>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                         <div>
-                          <label className="block text-[11px] text-[#D4AF67] font-serif-royal font-bold uppercase mb-1">
+                          <label className="block text-[11px] text-[#845E1B] font-serif-royal font-bold uppercase mb-1">
                             Guest / Family Name *
                           </label>
                           <input
@@ -723,12 +723,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             value={newGuestName}
                             onChange={(e) => setNewGuestName(e.target.value)}
                             placeholder="e.g. Mr. &amp; Mrs. Tariq"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white outline-none focus:border-[#D4AF67]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] outline-none focus:border-[#845E1B]"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] text-[#D4AF67] font-serif-royal font-bold uppercase mb-1">
+                          <label className="block text-[11px] text-[#845E1B] font-serif-royal font-bold uppercase mb-1">
                             Family Group
                           </label>
                           <input
@@ -736,12 +736,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             value={newFamilyGroup}
                             onChange={(e) => setNewFamilyGroup(e.target.value)}
                             placeholder="e.g. Qayyum Relatives"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white outline-none focus:border-[#D4AF67]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] outline-none focus:border-[#845E1B]"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] text-[#D4AF67] font-serif-royal font-bold uppercase mb-1">
+                          <label className="block text-[11px] text-[#845E1B] font-serif-royal font-bold uppercase mb-1">
                             Max Seats Reserved
                           </label>
                           <input
@@ -750,12 +750,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             max="20"
                             value={newMaxGuests}
                             onChange={(e) => setNewMaxGuests(Number(e.target.value))}
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white outline-none focus:border-[#D4AF67]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] outline-none focus:border-[#845E1B]"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] text-[#D4AF67] font-serif-royal font-bold uppercase mb-1">
+                          <label className="block text-[11px] text-[#845E1B] font-serif-royal font-bold uppercase mb-1">
                             WhatsApp / Phone
                           </label>
                           <input
@@ -763,7 +763,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             value={newPhone}
                             onChange={(e) => setNewPhone(e.target.value)}
                             placeholder="+92 300 1234567"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white outline-none focus:border-[#D4AF67]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] outline-none focus:border-[#845E1B]"
                           />
                         </div>
                       </div>
@@ -772,13 +772,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         <button
                           type="button"
                           onClick={() => setIsAddingGuest(false)}
-                          className="px-4 py-2 rounded-lg text-xs text-stone-400 hover:text-white cursor-pointer"
+                          className="px-4 py-2 rounded-lg text-xs text-stone-500 hover:text-[#2C2621] cursor-pointer"
                         >
                           Cancel
                         </button>
                         <button
                           type="submit"
-                          className="px-6 py-2.5 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-110 cursor-pointer shadow"
+                          className="px-6 py-2.5 rounded-xl gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-105 cursor-pointer shadow-xs"
                         >
                           Save &amp; Generate Walima Invite Link
                         </button>
@@ -787,9 +787,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   )}
 
                   {/* Guests Table */}
-                  <div className="border border-white/10 rounded-2xl overflow-x-auto bg-[#1C0912]">
-                    <table className="w-full text-left text-xs text-stone-300">
-                      <thead className="bg-[#2D0F1D] text-[#D4AF67] uppercase font-serif-royal text-[10px] tracking-wider border-b border-white/10">
+                  <div className="border border-[#D4AF67]/30 rounded-2xl overflow-x-auto bg-white shadow-xs">
+                    <table className="w-full text-left text-xs text-[#2C2621]">
+                      <thead className="bg-[#FAF7F2] text-[#845E1B] uppercase font-serif-royal text-[10px] tracking-wider border-b border-[#D4AF67]/20">
                         <tr>
                           <th className="p-4">Guest / Family</th>
                           <th className="p-4">Group</th>
@@ -799,7 +799,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           <th className="p-4 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-white/5">
+                      <tbody className="divide-y divide-stone-100">
                         {filteredGuests.length === 0 ? (
                           <tr>
                             <td colSpan={6} className="p-8 text-center text-stone-500">
@@ -815,28 +815,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             const isDeclined = matchedRsvp?.status === 'declined';
 
                             return (
-                              <tr key={g.id} className="hover:bg-white/5 transition-colors">
-                                <td className="p-4 font-semibold text-white">
+                              <tr key={g.id} className="hover:bg-[#FAF7F2] transition-colors">
+                                <td className="p-4 font-semibold text-[#2C2621]">
                                   {g.name}
                                   {g.phone && (
-                                    <span className="block text-[10px] text-stone-400 font-mono mt-0.5">
+                                    <span className="block text-[10px] text-stone-500 font-mono mt-0.5">
                                       {g.phone}
                                     </span>
                                   )}
                                 </td>
-                                <td className="p-4 text-stone-300">{g.familyGroup || '—'}</td>
-                                <td className="p-4 font-serif-royal">{g.maxGuests} seats</td>
+                                <td className="p-4 text-[#5C4D3C]">{g.familyGroup || '—'}</td>
+                                <td className="p-4 font-serif-royal font-medium">{g.maxGuests} seats</td>
                                 <td className="p-4">
                                   {isAttending ? (
-                                    <span className="px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold uppercase font-serif-royal">
+                                    <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 text-[10px] font-bold uppercase font-serif-royal">
                                       Attending ({matchedRsvp.attendeesCount})
                                     </span>
                                   ) : isDeclined ? (
-                                    <span className="px-3 py-1 rounded-full bg-red-950 text-red-300 border border-red-500/40 text-[10px] font-bold uppercase font-serif-royal">
+                                    <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-300 text-[10px] font-bold uppercase font-serif-royal">
                                       Declined
                                     </span>
                                   ) : (
-                                    <span className="px-3 py-1 rounded-full bg-amber-950 text-amber-300 border border-amber-500/40 text-[10px] font-bold uppercase font-serif-royal">
+                                    <span className="px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-300 text-[10px] font-bold uppercase font-serif-royal">
                                       Pending
                                     </span>
                                   )}
@@ -845,7 +845,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                   <div className="flex items-center gap-2">
                                     <button
                                       onClick={() => handleCopyLink(g.invitationToken, g.id)}
-                                      className="px-3 py-1.5 rounded-lg border border-[#D4AF67]/50 text-[#D4AF67] hover:bg-[#D4AF67] hover:text-[#29101A] text-[11px] font-semibold flex items-center gap-1 transition-all cursor-pointer font-serif-royal"
+                                      className="px-3 py-1.5 rounded-lg border border-[#D4AF67]/60 text-[#845E1B] hover:bg-[#D4AF67] hover:text-[#2C2621] text-[11px] font-semibold flex items-center gap-1 transition-all cursor-pointer font-serif-royal"
                                       title="Copy unique personalized invitation URL"
                                     >
                                       {copiedId === g.id ? <Check size={12} /> : <Copy size={12} />}
@@ -865,7 +865,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                                 <td className="p-4 text-right">
                                   <button
                                     onClick={() => handleDeleteGuest(g)}
-                                    className="p-1.5 text-stone-400 hover:text-red-400 transition-colors cursor-pointer"
+                                    className="p-1.5 text-stone-400 hover:text-red-600 transition-colors cursor-pointer"
                                     title="Delete guest"
                                   >
                                     <Trash2 size={16} />
@@ -884,9 +884,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               {/* TAB 3: RSVPS MANAGEMENT */}
               {activeTab === 'rsvps' && (
                 <div className="space-y-4">
-                  <div className="border border-white/10 rounded-2xl overflow-x-auto bg-[#1C0912]">
-                    <table className="w-full text-left text-xs text-stone-300">
-                      <thead className="bg-[#2D0F1D] text-[#D4AF67] uppercase font-serif-royal text-[10px] tracking-wider border-b border-white/10">
+                  <div className="border border-[#D4AF67]/30 rounded-2xl overflow-x-auto bg-white shadow-xs">
+                    <table className="w-full text-left text-xs text-[#2C2621]">
+                      <thead className="bg-[#FAF7F2] text-[#845E1B] uppercase font-serif-royal text-[10px] tracking-wider border-b border-[#D4AF67]/20">
                         <tr>
                           <th className="p-4">Guest Name</th>
                           <th className="p-4">Status</th>
@@ -895,7 +895,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           <th className="p-4">Timestamp</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-white/5">
+                      <tbody className="divide-y divide-stone-100">
                         {rsvps.length === 0 ? (
                           <tr>
                             <td colSpan={5} className="p-8 text-center text-stone-500">
@@ -904,26 +904,26 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           </tr>
                         ) : (
                           rsvps.map((r) => (
-                            <tr key={r.id} className="hover:bg-white/5 transition-colors">
-                              <td className="p-4 font-semibold text-white">{r.guestName}</td>
+                            <tr key={r.id} className="hover:bg-[#FAF7F2] transition-colors">
+                              <td className="p-4 font-semibold text-[#2C2621]">{r.guestName}</td>
                               <td className="p-4">
                                 {r.status === 'attending' ? (
-                                  <span className="px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold uppercase font-serif-royal">
+                                  <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 text-[10px] font-bold uppercase font-serif-royal">
                                     Joyfully Attending
                                   </span>
                                 ) : (
-                                  <span className="px-3 py-1 rounded-full bg-red-950 text-red-300 border border-red-500/40 text-[10px] font-bold uppercase font-serif-royal">
+                                  <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-300 text-[10px] font-bold uppercase font-serif-royal">
                                     Declined
                                   </span>
                                 )}
                               </td>
-                              <td className="p-4 font-bold text-white font-serif-royal">
+                              <td className="p-4 font-bold text-[#2C2621] font-serif-royal">
                                 {r.status === 'attending' ? `${r.attendeesCount} Persons` : '0'}
                               </td>
-                              <td className="p-4 text-stone-300 italic max-w-xs truncate">
+                              <td className="p-4 text-[#5C4D3C] italic max-w-xs truncate">
                                 {r.dietaryOrNotes || '—'}
                               </td>
-                              <td className="p-4 text-[10px] text-stone-400 font-mono">
+                              <td className="p-4 text-[10px] text-stone-500 font-mono">
                                 {new Date(r.updatedAt || r.submittedAt).toLocaleString()}
                               </td>
                             </tr>
@@ -937,19 +937,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
               {/* TAB 4: EVENT MANAGEMENT (events collection) */}
               {activeTab === 'event' && (
-                <div className="max-w-2xl bg-[#2D0F1D] border-2 border-[#D4AF67]/35 rounded-3xl p-7 space-y-6">
+                <div className="max-w-2xl bg-white border-2 border-[#D4AF67]/35 rounded-3xl p-7 space-y-6 shadow-xs">
                   <div>
-                    <h3 className="font-serif-royal text-lg font-bold text-white flex items-center gap-2">
-                      <Calendar size={18} className="text-[#D4AF67]" />
+                    <h3 className="font-serif-royal text-lg font-bold text-[#2C2621] flex items-center gap-2">
+                      <Calendar size={18} className="text-[#845E1B]" />
                       <span>Manage Walima Event Information (Firestore: events)</span>
                     </h3>
-                    <p className="text-xs text-stone-300 mt-1">
+                    <p className="text-xs text-[#5C4D3C] mt-1">
                       Updates saved here are immediately reflected in the live invitation and ceremony schedule.
                     </p>
                   </div>
 
                   {eventSavedMsg && (
-                    <div className="p-3.5 rounded-xl bg-emerald-950 border border-emerald-500/50 text-emerald-300 text-xs font-serif-royal flex items-center gap-2">
+                    <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-serif-royal flex items-center gap-2">
                       <Check size={16} />
                       <span>Walima event details updated successfully in Firestore!</span>
                     </div>
@@ -957,7 +957,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
                   <form onSubmit={handleSaveEventDetails} className="space-y-4">
                     <div>
-                      <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                      <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                         Event Title
                       </label>
                       <input
@@ -965,13 +965,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         required
                         value={editEventTitle}
                         onChange={(e) => setEditEventTitle(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-xs text-white focus:border-[#D4AF67] outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] focus:border-[#845E1B] outline-none"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                        <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                           Date
                         </label>
                         <input
@@ -979,12 +979,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           required
                           value={editEventDate}
                           onChange={(e) => setEditEventDate(e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-xs text-white focus:border-[#D4AF67] outline-none"
+                          className="w-full px-4 py-3 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] focus:border-[#845E1B] outline-none"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                        <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                           Time (PKT)
                         </label>
                         <input
@@ -992,13 +992,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           required
                           value={editEventTime}
                           onChange={(e) => setEditEventTime(e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-xs text-white focus:border-[#D4AF67] outline-none"
+                          className="w-full px-4 py-3 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] focus:border-[#845E1B] outline-none"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                      <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                         Venue Name
                       </label>
                       <input
@@ -1006,12 +1006,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         required
                         value={editEventVenue}
                         onChange={(e) => setEditEventVenue(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-xs text-white focus:border-[#D4AF67] outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] focus:border-[#845E1B] outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                      <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                         Address / Directions
                       </label>
                       <input
@@ -1019,13 +1019,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         required
                         value={editEventAddress}
                         onChange={(e) => setEditEventAddress(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-xs text-white focus:border-[#D4AF67] outline-none"
+                        className="w-full px-4 py-3 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] focus:border-[#845E1B] outline-none"
                       />
                     </div>
 
                     <button
                       type="submit"
-                      className="px-6 py-3 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-110 cursor-pointer shadow"
+                      className="px-6 py-3 rounded-xl gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-105 cursor-pointer shadow-xs"
                     >
                       Save Walima Event
                     </button>
@@ -1038,18 +1038,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-serif-royal text-lg font-bold text-white flex items-center gap-2">
-                        <Film size={18} className="text-[#D4AF67]" />
+                      <h3 className="font-serif-royal text-lg font-bold text-[#2C2621] flex items-center gap-2">
+                        <Film size={18} className="text-[#845E1B]" />
                         <span>Manage Walima Media (Firestore: gallery)</span>
                       </h3>
-                      <p className="text-xs text-stone-300 mt-1">
+                      <p className="text-xs text-[#5C4D3C] mt-1">
                         Add photographs or highlight reels displayed in the wedding memories section.
                       </p>
                     </div>
 
                     <button
                       onClick={() => setIsAddingMedia(!isAddingMedia)}
-                      className="px-4 py-2 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow"
+                      className="px-4 py-2 rounded-xl gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-xs hover:brightness-105"
                     >
                       <Plus size={15} />
                       <span>Add Media Entry</span>
@@ -1057,10 +1057,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   </div>
 
                   {isAddingMedia && (
-                    <form onSubmit={handleAddGalleryItem} className="p-6 rounded-2xl border-2 border-[#D4AF67] bg-[#341421] space-y-4 animate-fade-in">
+                    <form onSubmit={handleAddGalleryItem} className="p-6 rounded-2xl border-2 border-[#D4AF67] bg-[#FAF7F2] space-y-4 animate-fade-in shadow-sm">
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
-                          <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                          <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                             Media Title *
                           </label>
                           <input
@@ -1069,18 +1069,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             value={newGalleryTitle}
                             onChange={(e) => setNewGalleryTitle(e.target.value)}
                             placeholder="e.g. Walima Stage Moments"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white outline-none focus:border-[#D4AF67]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] outline-none focus:border-[#845E1B]"
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                          <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                             Category
                           </label>
                           <select
                             value={newGalleryCategory}
                             onChange={(e) => setNewGalleryCategory(e.target.value)}
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white outline-none focus:border-[#D4AF67]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] outline-none focus:border-[#845E1B]"
                           >
                             <option value="Portraits">Portraits</option>
                             <option value="Stage Elegance">Stage Elegance</option>
@@ -1091,7 +1091,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         </div>
 
                         <div>
-                          <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
+                          <label className="block text-[11px] uppercase tracking-wider text-[#845E1B] font-serif-royal font-bold mb-1">
                             Media URL (Photo / Video Link)
                           </label>
                           <input
@@ -1099,7 +1099,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                             value={newGalleryUrl}
                             onChange={(e) => setNewGalleryUrl(e.target.value)}
                             placeholder="https://..."
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-white/20 bg-black/40 text-xs text-white outline-none focus:border-[#D4AF67]"
+                            className="w-full px-3.5 py-2.5 rounded-xl border border-[#D4AF67]/40 bg-white text-xs text-[#2C2621] outline-none focus:border-[#845E1B]"
                           />
                         </div>
                       </div>
@@ -1108,13 +1108,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                         <button
                           type="button"
                           onClick={() => setIsAddingMedia(false)}
-                          className="px-4 py-2 rounded-lg text-xs text-stone-400 hover:text-white cursor-pointer"
+                          className="px-4 py-2 rounded-lg text-xs text-stone-500 hover:text-[#2C2621] cursor-pointer"
                         >
                           Cancel
                         </button>
                         <button
                           type="submit"
-                          className="px-6 py-2.5 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-110 cursor-pointer shadow"
+                          className="px-6 py-2.5 rounded-xl gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-105 cursor-pointer shadow-xs"
                         >
                           Save Media Entry
                         </button>
@@ -1126,20 +1126,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     {galleryList.map((item) => (
                       <div
                         key={item.id}
-                        className="bg-[#2D0F1D] border border-[#D4AF67]/35 rounded-2xl p-5 flex flex-col justify-between"
+                        className="bg-white border border-[#D4AF67]/35 rounded-2xl p-5 flex flex-col justify-between shadow-xs"
                       >
                         <div>
-                          <span className="text-[10px] uppercase tracking-widest text-[#D4AF67] font-serif-royal font-bold">
+                          <span className="text-[10px] uppercase tracking-widest text-[#845E1B] font-serif-royal font-bold">
                             {item.category}
                           </span>
-                          <h4 className="font-serif-royal text-base font-bold text-white mt-1">
+                          <h4 className="font-serif-royal text-base font-bold text-[#2C2621] mt-1">
                             {item.title}
                           </h4>
                         </div>
-                        <div className="mt-4 pt-3 border-t border-white/10 flex justify-end">
+                        <div className="mt-4 pt-3 border-t border-stone-100 flex justify-end">
                           <button
                             onClick={() => handleDeleteGalleryItem(item.id)}
-                            className="text-stone-400 hover:text-red-400 transition-colors p-1 cursor-pointer"
+                            className="text-stone-400 hover:text-red-600 transition-colors p-1 cursor-pointer"
                             title="Delete entry"
                           >
                             <Trash2 size={15} />
@@ -1154,25 +1154,25 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               {/* TAB 6: SETTINGS (websiteSettings collection) */}
               {activeTab === 'settings' && (
                 <div className="space-y-6 max-w-2xl">
-                  <div className="bg-[#2D0F1D] border-2 border-[#D4AF67]/30 rounded-2xl p-6 space-y-4">
-                    <h4 className="font-serif-royal text-base font-bold text-white flex items-center gap-2">
-                      <Settings size={18} className="text-[#D4AF67]" />
+                  <div className="bg-white border-2 border-[#D4AF67]/30 rounded-2xl p-6 space-y-4 shadow-xs">
+                    <h4 className="font-serif-royal text-base font-bold text-[#2C2621] flex items-center gap-2">
+                      <Settings size={18} className="text-[#845E1B]" />
                       <span>Walima Memories &amp; Gallery Activation</span>
                     </h4>
-                    <p className="text-xs text-stone-300 leading-relaxed font-sans">
+                    <p className="text-xs text-[#5C4D3C] leading-relaxed font-sans">
                       Toggle this switch after the Walima ceremony on 8 November 2026. Enabling this immediately unlocks the official photo album and cinematic highlight reel for all visitors.
                     </p>
 
-                    <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-                      <span className="font-serif-royal text-sm font-semibold text-white">
+                    <div className="pt-3 border-t border-stone-200 flex items-center justify-between">
+                      <span className="font-serif-royal text-sm font-semibold text-[#2C2621]">
                         Gallery Live Status:
                       </span>
                       <button
                         onClick={() => onToggleMemories(!isMemoriesActive)}
                         className={`px-5 py-2 rounded-full text-xs font-serif-royal font-bold uppercase tracking-wider transition-all cursor-pointer ${
                           isMemoriesActive
-                            ? 'bg-emerald-600 text-white shadow-lg'
-                            : 'bg-stone-700 text-stone-300'
+                            ? 'bg-emerald-600 text-white shadow-md'
+                            : 'bg-stone-300 text-stone-700 hover:bg-stone-400'
                         }`}
                       >
                         {isMemoriesActive ? 'Currently Active (Live)' : 'Currently Locked (Pre-Wedding)'}
@@ -1180,12 +1180,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     </div>
                   </div>
 
-                  <div className="bg-[#2D0F1D] border border-white/10 rounded-2xl p-6">
-                    <h4 className="font-serif-royal text-base font-bold text-white mb-2">
+                  <div className="bg-white border border-[#D4AF67]/30 rounded-2xl p-6 shadow-xs">
+                    <h4 className="font-serif-royal text-base font-bold text-[#2C2621] mb-2">
                       Zero-Trust Guest Security &amp; Token Privacy
                     </h4>
-                    <p className="text-xs text-stone-300 leading-relaxed font-sans">
-                      All guest records in the <code className="text-[#D4AF67]">guests</code> collection are private to the administrator. Each guest accesses their invitation strictly via their dedicated token document in the <code className="text-[#D4AF67]">invitations</code> collection. Guests cannot list or view other attendees' data.
+                    <p className="text-xs text-[#5C4D3C] leading-relaxed font-sans">
+                      All guest records in the <code className="text-[#845E1B] font-bold">guests</code> collection are private to the administrator. Each guest accesses their invitation strictly via their dedicated token document in the <code className="text-[#845E1B] font-bold">invitations</code> collection. Guests cannot list or view other attendees' data.
                     </p>
                   </div>
                 </div>

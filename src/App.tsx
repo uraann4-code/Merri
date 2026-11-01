@@ -102,7 +102,7 @@ export default function App() {
   return (
     <div
       dir={lang === 'ur' ? 'rtl' : 'ltr'}
-      className={`min-h-screen bg-[#F8F5EF] text-[#29101A] selection:bg-[#D4AF67]/30 selection:text-[#641D32] relative overflow-x-hidden ${
+      className={`min-h-screen bg-[#F8F5EF] text-[#2C2621] selection:bg-[#D4AF67]/30 selection:text-[#2C2621] relative overflow-x-hidden ${
         lang === 'ur' ? 'font-urdu' : 'font-sans'
       }`}
     >

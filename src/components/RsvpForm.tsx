@@ -96,7 +96,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
             particleCount: 70,
             spread: 85,
             origin: { y: 0.65 },
-            colors: ['#D4AF67', '#F7E7C4', '#641D32', '#FFF3DB', '#ECC880'],
+            colors: ['#D4AF67', '#E8D5A5', '#FAF7F2', '#EDE4D5', '#B88B38'],
           });
         } catch {}
       }
@@ -118,22 +118,22 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
   const maxAllowedAttendees = currentGuest?.maxGuests || 8;
 
   return (
-    <section id="rsvp" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#29101A] relative overflow-hidden select-none">
+    <section id="rsvp" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#2C2621] relative overflow-hidden select-none">
       <div className="absolute inset-0 mughal-damask-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-14">
-          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#9E7422] font-bold">
+          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#845E1B] font-bold">
             {lang === 'ur' ? 'دعوت نامہ' : 'Répondez S\'il Vous Plaît'}
           </span>
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2 ${
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2621] tracking-wide mt-2 ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
           }`}>
             {t.rsvpTitle}
           </h2>
           <GoldDivider className="my-5" />
-          <p className={`text-base sm:text-lg text-[#29101A]/85 ${
+          <p className={`text-base sm:text-lg text-[#3D332A] ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
           }`}>
             {t.rsvpSubtitle}
@@ -142,9 +142,9 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
 
         {/* Existing RSVP Confirmed State — Thank You Screen */}
         {submittedSuccess && !isEditing ? (
-          <div className="burgundy-card-gradient rounded-3xl border-2 border-[#D4AF67] p-8 sm:p-14 shadow-2xl text-center relative overflow-hidden animate-fade-in text-[#F8F5EF]">
+          <div className="luxury-card-gradient rounded-3xl border-2 border-[#D4AF67] p-8 sm:p-14 shadow-xl text-center relative overflow-hidden animate-fade-in text-[#2C2621]">
             {/* Subtle animated floral gold pattern background */}
-            <div className="absolute inset-0 dark-damask-pattern opacity-30 pointer-events-none" />
+            <div className="absolute inset-0 mughal-damask-pattern opacity-30 pointer-events-none" />
             <MughalCorner position="top-left" className="absolute top-3 left-3" size={38} />
             <MughalCorner position="top-right" className="absolute top-3 right-3" size={38} />
             <MughalCorner position="bottom-left" className="absolute bottom-3 left-3" size={38} />
@@ -153,11 +153,11 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
             <div className="relative z-10">
               <RoyalCrest size={68} className="mx-auto mb-4" />
 
-              <div className="w-16 h-16 rounded-full bg-[#641D32]/80 border-2 border-[#D4AF67] flex items-center justify-center mx-auto mb-4 text-[#F7E7C4] shadow-xl">
+              <div className="w-16 h-16 rounded-full bg-white border-2 border-[#D4AF67] flex items-center justify-center mx-auto mb-4 text-[#845E1B] shadow-md">
                 {existingRsvp?.status === 'attending' ? (
-                  <Check size={32} className="text-emerald-400" />
+                  <Check size={32} className="text-emerald-600" />
                 ) : (
-                  <Heart size={30} className="text-[#D4AF67]" />
+                  <Heart size={30} className="text-[#845E1B]" />
                 )}
               </div>
 
@@ -170,7 +170,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                   : 'Thank You for Being Part of Our Celebration'}
               </h3>
 
-              <p className={`text-base sm:text-lg text-[#F7E7C4] mt-2 max-w-lg mx-auto ${
+              <p className={`text-base sm:text-lg text-[#3D332A] mt-2 max-w-lg mx-auto ${
                 lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
               }`}>
                 {lang === 'ur'
@@ -179,19 +179,19 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
               </p>
 
               {/* Response Details Box */}
-              <div className="my-6 p-5 rounded-2xl bg-black/40 border border-[#D4AF67]/40 max-w-md mx-auto text-left space-y-2.5">
+              <div className="my-6 p-5 rounded-2xl bg-white border border-[#D4AF67]/50 max-w-md mx-auto text-left space-y-2.5 shadow-sm text-[#2C2621]">
                 <div className="flex justify-between items-center text-sm">
-                  <span className={`text-[#D4AF67] font-semibold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                  <span className={`text-[#845E1B] font-bold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
                     {lang === 'ur' ? 'مہمان:' : 'Guest Name:'}
                   </span>
-                  <span className="font-bold text-white">{existingRsvp?.guestName}</span>
+                  <span className="font-bold text-[#2C2621]">{existingRsvp?.guestName}</span>
                 </div>
 
-                <div className="flex justify-between items-center text-sm pt-2 border-t border-white/10">
-                  <span className={`text-[#D4AF67] font-semibold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                <div className="flex justify-between items-center text-sm pt-2 border-t border-[#D4AF67]/20">
+                  <span className={`text-[#845E1B] font-bold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
                     {lang === 'ur' ? 'حیثیت:' : 'Attendance:'}
                   </span>
-                  <span className="font-bold text-emerald-400 font-serif-royal text-xs uppercase">
+                  <span className="font-bold text-emerald-700 font-serif-royal text-xs uppercase">
                     {existingRsvp?.status === 'attending'
                       ? (lang === 'ur' ? 'بخوشی شرکت فرمائیں گے' : 'Joyfully Attending')
                       : (lang === 'ur' ? 'معذرت، شرکت سے قاصر' : 'Declined')}
@@ -199,31 +199,31 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                 </div>
 
                 {existingRsvp?.status === 'attending' && (
-                  <div className="flex justify-between items-center text-sm pt-2 border-t border-white/10">
-                    <span className={`text-[#D4AF67] font-semibold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                  <div className="flex justify-between items-center text-sm pt-2 border-t border-[#D4AF67]/20">
+                    <span className={`text-[#845E1B] font-bold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
                       {lang === 'ur' ? 'تعداد:' : 'Attendees:'}
                     </span>
-                    <span className="font-bold text-white font-serif-royal">
+                    <span className="font-bold text-[#2C2621] font-serif-royal">
                       {existingRsvp.attendeesCount} {existingRsvp.attendeesCount > 1 ? (lang === 'ur' ? 'افراد' : 'Persons') : (lang === 'ur' ? 'فرد' : 'Person')}
                     </span>
                   </div>
                 )}
 
                 {existingRsvp?.dietaryOrNotes && (
-                  <div className="pt-2 border-t border-white/10 text-xs text-stone-300">
-                    <span className={`font-semibold text-[#D4AF67] block ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                  <div className="pt-2 border-t border-[#D4AF67]/20 text-xs text-[#3D332A]">
+                    <span className={`font-bold text-[#845E1B] block ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
                       {lang === 'ur' ? 'دعائیہ پیغام:' : 'Your Note / Du’a:'}
                     </span>
-                    <p className="italic mt-0.5 font-serif-elegant text-sm">"{existingRsvp.dietaryOrNotes}"</p>
+                    <p className="italic mt-0.5 font-serif-elegant text-sm text-[#2C2621]">"{existingRsvp.dietaryOrNotes}"</p>
                   </div>
                 )}
               </div>
 
               <button
                 onClick={() => setIsEditing(true)}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#D4AF67] text-[#F7E7C4] hover:bg-[#641D32] hover:text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-md cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#D4AF67] text-[#2C2621] bg-white hover:bg-[#EDE4D5] font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-md cursor-pointer"
               >
-                <Edit3 size={14} />
+                <Edit3 size={14} className="text-[#845E1B]" />
                 <span>{t.rsvpUpdate}</span>
               </button>
             </div>
@@ -232,29 +232,29 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
           /* RSVP Input Form */
           <form
             onSubmit={handleSubmit}
-            className="bg-white rounded-3xl border-2 border-[#D4AF67]/50 p-7 sm:p-12 shadow-2xl relative"
+            className="bg-white rounded-3xl border-2 border-[#D4AF67]/50 p-7 sm:p-12 shadow-xl relative text-[#2C2621]"
           >
             <MughalCorner position="top-left" className="absolute top-2 left-2" size={36} />
             <MughalCorner position="top-right" className="absolute top-2 right-2" size={36} />
 
             {errorMsg && (
-              <div className="mb-6 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2">
-                <AlertCircle size={16} className="shrink-0" />
+              <div className="mb-6 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2">
+                <AlertCircle size={16} className="shrink-0 text-amber-700" />
                 <span>{errorMsg}</span>
               </div>
             )}
 
             {currentGuest && (
-              <div className="mb-6 p-3.5 rounded-xl bg-[#F8F5EF] border border-[#D4AF67]/35 flex items-center justify-between">
-                <div className={`flex items-center gap-2 text-xs text-[#641D32] ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
-                  <UserCheck size={16} className="text-[#9E7422]" />
+              <div className="mb-6 p-3.5 rounded-xl bg-[#FAF7F2] border border-[#D4AF67]/40 flex items-center justify-between">
+                <div className={`flex items-center gap-2 text-xs text-[#2C2621] ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                  <UserCheck size={16} className="text-[#845E1B]" />
                   <span>
                     {lang === 'ur' ? 'دعوت نامہ برائے: ' : 'Invitation linked to: '}
                     <strong>{currentGuest.name}</strong>
                   </span>
                 </div>
                 {currentGuest.familyGroup && (
-                  <span className="text-[11px] font-semibold text-[#9E7422] uppercase">
+                  <span className="text-[11px] font-bold text-[#845E1B] uppercase">
                     {currentGuest.familyGroup}
                   </span>
                 )}
@@ -263,7 +263,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
 
             {/* Guest Name Field */}
             <div className="mb-6">
-              <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] mb-2 ${
+              <label className={`block text-xs uppercase tracking-widest font-bold text-[#2C2621] mb-2 ${
                 lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
               }`}>
                 {t.rsvpNameLabel}
@@ -274,13 +274,13 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 placeholder={lang === 'ur' ? 'مثلاً: ڈاکٹر ندیم اور اہل خانہ' : 'e.g. Mr. Tariq Khan & Family'}
-                className="w-full px-4 py-3.5 rounded-xl border border-stone-300 focus:border-[#D4AF67] focus:ring-2 focus:ring-[#D4AF67]/30 outline-none text-sm transition-all bg-[#FAF8F5]"
+                className="w-full px-4 py-3.5 rounded-xl border border-stone-300 focus:border-[#D4AF67] focus:ring-2 focus:ring-[#D4AF67]/30 outline-none text-sm transition-all bg-[#FAF8F5] text-[#2C2621]"
               />
             </div>
 
             {/* Attendance Toggle Buttons */}
             <div className="mb-6">
-              <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] mb-2 ${
+              <label className={`block text-xs uppercase tracking-widest font-bold text-[#2C2621] mb-2 ${
                 lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
               }`}>
                 {t.rsvpAttendanceLabel}
@@ -291,11 +291,11 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                   onClick={() => setStatus('attending')}
                   className={`py-3.5 px-4 rounded-xl border-2 flex items-center justify-center gap-2 text-xs uppercase tracking-wider font-bold transition-all cursor-pointer ${
                     status === 'attending'
-                      ? 'border-[#D4AF67] bg-[#641D32] text-[#F8F5EF] shadow-md'
+                      ? 'border-[#D4AF67] bg-[#D4AF67] text-[#2C2621] shadow-md'
                       : 'border-stone-200 bg-stone-50 text-stone-700 hover:border-[#D4AF67]/40'
                   } ${lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'}`}
                 >
-                  <Check size={16} className={status === 'attending' ? 'text-[#D4AF67]' : 'text-stone-400'} />
+                  <Check size={16} className={status === 'attending' ? 'text-[#2C2621]' : 'text-stone-400'} />
                   <span>{t.rsvpAttending}</span>
                 </button>
 
@@ -304,11 +304,11 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                   onClick={() => setStatus('declined')}
                   className={`py-3.5 px-4 rounded-xl border-2 flex items-center justify-center gap-2 text-xs uppercase tracking-wider font-bold transition-all cursor-pointer ${
                     status === 'declined'
-                      ? 'border-[#641D32] bg-[#29101A] text-[#F8F5EF] shadow-md'
+                      ? 'border-stone-400 bg-stone-200 text-stone-800 shadow-md'
                       : 'border-stone-200 bg-stone-50 text-stone-700 hover:border-stone-300'
                   } ${lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'}`}
                 >
-                  <X size={16} className={status === 'declined' ? 'text-red-400' : 'text-stone-400'} />
+                  <X size={16} className={status === 'declined' ? 'text-stone-700' : 'text-stone-400'} />
                   <span>{t.rsvpDeclining}</span>
                 </button>
               </div>
@@ -318,13 +318,13 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
             {status === 'attending' && (
               <div className="mb-6 animate-fade-in">
                 <div className="flex justify-between items-center mb-2">
-                  <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] ${
+                  <label className={`block text-xs uppercase tracking-widest font-bold text-[#2C2621] ${
                     lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
                   }`}>
                     {t.rsvpAttendeesCountLabel}
                   </label>
                   {currentGuest?.maxGuests && (
-                    <span className="text-[11px] text-[#9E7422] font-serif-elegant italic">
+                    <span className="text-[11px] text-[#845E1B] font-serif-elegant italic font-semibold">
                       {lang === 'ur' ? `زیادہ سے زیادہ نشستیں: ${currentGuest.maxGuests}` : `Max reserved: ${currentGuest.maxGuests}`}
                     </span>
                   )}
@@ -340,7 +340,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                         onClick={() => setAttendeesCount(num)}
                         className={`w-12 h-12 rounded-xl font-serif-royal text-sm font-bold border-2 transition-all cursor-pointer ${
                           attendeesCount === num
-                            ? 'bg-[#D4AF67] text-[#29101A] border-[#D4AF67] shadow-md scale-105'
+                            ? 'bg-[#D4AF67] text-[#2C2621] border-[#D4AF67] shadow-md scale-105'
                             : 'bg-[#F8F5EF] border-stone-200 text-stone-700 hover:border-[#D4AF67]'
                         }`}
                       >
@@ -354,7 +354,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
 
             {/* Optional Blessing message */}
             <div className="mb-8">
-              <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] mb-2 ${
+              <label className={`block text-xs uppercase tracking-widest font-bold text-[#2C2621] mb-2 ${
                 lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
               }`}>
                 {t.rsvpNotesLabel}
@@ -364,7 +364,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                 value={dietaryOrNotes}
                 onChange={(e) => setDietaryOrNotes(e.target.value)}
                 placeholder={lang === 'ur' ? 'جوڑے کے لیے خصوصی دعائیں یا پیغامات...' : 'Share your prayers or special wishes for Mubasshir and Tasmia...'}
-                className="w-full px-4 py-3.5 rounded-xl border border-stone-300 focus:border-[#D4AF67] focus:ring-2 focus:ring-[#D4AF67]/30 outline-none text-sm transition-all bg-[#FAF8F5]"
+                className="w-full px-4 py-3.5 rounded-xl border border-stone-300 focus:border-[#D4AF67] focus:ring-2 focus:ring-[#D4AF67]/30 outline-none text-sm transition-all bg-[#FAF8F5] text-[#2C2621]"
               />
             </div>
 
@@ -374,7 +374,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="text-xs uppercase tracking-wider text-stone-500 hover:text-stone-800 order-2 sm:order-1 font-serif-royal cursor-pointer"
+                  className="text-xs uppercase tracking-wider text-stone-600 hover:text-stone-900 order-2 sm:order-1 font-serif-royal cursor-pointer font-bold"
                 >
                   {lang === 'ur' ? 'منسوخ کریں' : 'Cancel Edit'}
                 </button>
@@ -383,7 +383,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, l
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto ml-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full gold-foil-bg text-[#29101A] font-serif-royal text-xs sm:text-sm font-bold tracking-[0.2em] uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#D4AF67]/25 disabled:opacity-50 order-1 sm:order-2 cursor-pointer"
+                className="w-full sm:w-auto ml-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full gold-foil-bg text-[#2C2621] font-serif-royal text-xs sm:text-sm font-bold tracking-[0.2em] uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#D4AF67]/35 disabled:opacity-50 order-1 sm:order-2 cursor-pointer border border-[#D4AF67]/50"
               >
                 {isSubmitting ? (
                   <span>{lang === 'ur' ? 'ارسال ہو رہا ہے...' : 'Recording Response...'}</span>

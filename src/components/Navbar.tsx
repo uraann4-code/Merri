@@ -57,23 +57,23 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#1C0912]/95 backdrop-blur-md py-3 shadow-xl border-b border-[#D4AF67]/30 text-[#F8F5EF]'
-          : 'bg-gradient-to-b from-[#1C0912]/85 via-[#1C0912]/40 to-transparent py-4 text-[#F8F5EF]'
+          ? 'bg-[#FAF7F2]/95 backdrop-blur-md py-3 shadow-md border-b border-[#D4AF67]/35 text-[#2C2621]'
+          : 'bg-gradient-to-b from-[#FAF7F2]/95 via-[#FAF7F2]/60 to-transparent py-4 text-[#2C2621]'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         {/* Monogram Brand */}
         <a href="#invitation" className="flex items-center gap-2.5 group cursor-pointer">
-          <div className="w-10 h-10 rounded-full border-2 border-[#D4AF67] flex items-center justify-center bg-[#641D32]/70 text-[#F7E7C4] shadow-md group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 rounded-full border-2 border-[#D4AF67] flex items-center justify-center bg-white text-[#845E1B] shadow-md group-hover:scale-105 transition-transform">
             <span className="font-serif-decorative text-xs font-bold tracking-wider">M&amp;T</span>
           </div>
           <div className="flex flex-col text-left">
-            <span className={`text-xs sm:text-sm font-bold tracking-wider text-white group-hover:text-[#D4AF67] transition-colors ${
+            <span className={`text-xs sm:text-sm font-bold tracking-wider text-[#2C2621] group-hover:text-[#845E1B] transition-colors ${
               lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
             }`}>
               {lang === 'ur' ? 'مبشر اور تسمیہ محفوظ' : 'Mubasshir & Tasmia'}
             </span>
-            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-[#D4AF67]/90 font-medium font-serif-royal">
+            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-[#845E1B] font-bold font-serif-royal">
               <span>{lang === 'ur' ? 'دعوتِ ولیمہ' : 'Walima'}</span>
               <span aria-hidden="true">·</span>
               <span>8 Nov 2026</span>
@@ -87,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               key={item.href}
               href={item.href}
-              className={`text-xs uppercase tracking-[0.18em] font-medium text-[#F8F5EF]/85 hover:text-[#D4AF67] transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#D4AF67] hover:after:w-full after:transition-all ${
+              className={`text-xs uppercase tracking-[0.18em] font-medium text-[#3D332A] hover:text-[#845E1B] transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1.5px] after:bg-[#D4AF67] hover:after:w-full after:transition-all ${
                 lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
               }`}
             >
@@ -101,10 +101,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Language Switcher Button */}
           <button
             onClick={onToggleLang}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#D4AF67]/50 bg-[#29101A]/80 hover:bg-[#641D32] text-[#F7E7C4] text-xs font-serif-royal transition-all duration-300 cursor-pointer shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#D4AF67]/50 bg-white/90 hover:bg-[#EDE4D5] text-[#2C2621] text-xs font-serif-royal transition-all duration-300 cursor-pointer shadow-sm"
             title={lang === 'en' ? 'اردو میں دیکھیں (Switch to Urdu)' : 'Switch to English'}
           >
-            <Globe size={13} className="text-[#D4AF67]" />
+            <Globe size={13} className="text-[#845E1B]" />
             <span className="font-bold">{lang === 'en' ? 'اردو' : 'English'}</span>
           </button>
 
@@ -113,18 +113,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={toggleMusic}
               aria-label={isPlayingMusic ? 'Mute Guzarish instrumental music' : 'Play Guzarish instrumental music'}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4AF67]/50 bg-[#641D32]/50 hover:bg-[#641D32] text-[#F7E7C4] text-xs font-serif-royal transition-all duration-300 shadow-sm cursor-pointer"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4AF67]/50 bg-white/90 hover:bg-[#EDE4D5] text-[#845E1B] text-xs font-serif-royal transition-all duration-300 shadow-sm cursor-pointer"
               title={isPlayingMusic ? 'Mute Guzarish background music' : 'Play Guzarish background music'}
             >
               {isPlayingMusic ? (
                 <>
-                  <Volume2 size={14} className="text-[#F7E7C4] animate-pulse" />
-                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase">Guzarish · Sartaaj</span>
+                  <Volume2 size={14} className="text-[#845E1B] animate-pulse" />
+                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase font-semibold">Guzarish · Sartaaj</span>
                 </>
               ) : (
                 <>
-                  <VolumeX size={14} className="text-[#D4AF67]" />
-                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase">Play Guzarish</span>
+                  <VolumeX size={14} className="text-[#845E1B]" />
+                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase font-semibold">Play Guzarish</span>
                 </>
               )}
             </button>
@@ -133,9 +133,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Quick RSVP CTA button */}
           <a
             href="#rsvp"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold tracking-widest uppercase hover:brightness-110 active:scale-95 transition-all shadow-md"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold tracking-widest uppercase hover:brightness-110 active:scale-95 transition-all shadow-md border border-[#D4AF67]/40"
           >
-            <Heart size={12} className="fill-[#29101A]" />
+            <Heart size={12} className="fill-[#2C2621]" />
             <span>{lang === 'ur' ? 'تصدیق' : 'RSVP'}</span>
           </a>
 
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={onOpenAdmin}
             aria-label="Open Admin Dashboard"
-            className="p-1.5 text-[#D4AF67]/70 hover:text-[#D4AF67] transition-colors rounded-full hover:bg-white/10 cursor-pointer"
+            className="p-1.5 text-[#845E1B] hover:text-[#2C2621] transition-colors rounded-full hover:bg-[#D4AF67]/20 cursor-pointer"
             title="Admin Login & Guest Portal"
           >
             <Shield size={16} />
@@ -153,7 +153,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
-            className="lg:hidden p-1.5 text-[#F8F5EF] hover:text-[#D4AF67] transition-colors cursor-pointer"
+            className="lg:hidden p-1.5 text-[#2C2621] hover:text-[#845E1B] transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -162,18 +162,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#1C0912] border-b border-[#D4AF67]/30 px-6 py-6 animate-fade-in shadow-2xl text-center">
+        <div className="lg:hidden bg-[#FAF7F2] border-b border-[#D4AF67]/40 px-6 py-6 animate-fade-in shadow-2xl text-center">
           {guestName && (
-            <p className="text-xs text-[#D4AF67] mb-4 pb-2 border-b border-white/10 font-serif-elegant">
+            <p className="text-xs text-[#845E1B] mb-4 pb-2 border-b border-[#D4AF67]/20 font-serif-elegant font-semibold">
               {lang === 'ur' ? 'محترم مہمانِ گرامی: ' : 'Honoured Guest: '}
-              <span className="text-white font-semibold">{guestName}</span>
+              <span className="text-[#2C2621] font-bold">{guestName}</span>
             </p>
           )}
 
           <div className="flex justify-center mb-4">
             <button
               onClick={onToggleLang}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-[#D4AF67] text-xs font-serif-royal text-[#D4AF67]"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-[#D4AF67] text-xs font-serif-royal text-[#845E1B] bg-white"
             >
               <Globe size={13} />
               <span>{lang === 'en' ? 'اردو زبان منتخب کریں' : 'Switch to English'}</span>
@@ -186,20 +186,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`text-xs uppercase tracking-[0.2em] font-medium text-[#F8F5EF]/90 hover:text-[#D4AF67] py-1 ${
+                className={`text-xs uppercase tracking-[0.2em] font-medium text-[#2C2621] hover:text-[#845E1B] py-1 ${
                   lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
                 }`}
               >
                 {item.label}
               </a>
             ))}
-            <div className="pt-3 border-t border-white/10 flex justify-center">
+            <div className="pt-3 border-t border-[#D4AF67]/20 flex justify-center">
               <a
                 href="#rsvp"
                 onClick={() => setMobileMenuOpen(false)}
-                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold tracking-widest uppercase shadow"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-full gold-foil-bg text-[#2C2621] font-serif-royal text-xs font-bold tracking-widest uppercase shadow border border-[#D4AF67]/40"
               >
-                <Heart size={12} className="fill-[#29101A]" />
+                <Heart size={12} className="fill-[#2C2621]" />
                 {lang === 'ur' ? 'شرکت کی تصدیق فرمائیں' : 'Confirm Attendance (RSVP)'}
               </a>
             </div>

@@ -58,21 +58,21 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ lang = 'en' }) => {
   ];
 
   return (
-    <section id="faq" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#29101A] relative overflow-hidden select-none">
+    <section id="faq" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#2C2621] relative overflow-hidden select-none">
       <div className="absolute inset-0 mughal-damask-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center max-w-xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#9E7422] font-bold">
+          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#845E1B] font-bold">
             {lang === 'ur' ? 'معلومات برائے معزز مہمانانِ گرامی' : 'Guest Information & Etiquette'}
           </span>
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2 ${
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2621] tracking-wide mt-2 ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
           }`}>
             {t.faqTitle}
           </h2>
           <GoldDivider className="my-5" />
-          <p className={`text-base sm:text-lg text-[#29101A]/85 ${
+          <p className={`text-base sm:text-lg text-[#3D332A] ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
           }`}>
             {t.faqSubtitle}
@@ -87,7 +87,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ lang = 'en' }) => {
             return (
               <div
                 key={faq.q}
-                className="bg-white rounded-2xl border-2 border-[#D4AF67]/35 shadow-md overflow-hidden transition-all duration-300 hover:border-[#D4AF67] relative"
+                className="bg-white rounded-2xl border-2 border-[#D4AF67]/40 shadow-sm overflow-hidden transition-all duration-300 hover:border-[#D4AF67] relative"
               >
                 <button
                   type="button"
@@ -96,10 +96,10 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ lang = 'en' }) => {
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-3.5">
-                    <div className="w-9 h-9 rounded-full bg-[#641D32]/10 border border-[#D4AF67]/40 flex items-center justify-center shrink-0 text-[#641D32]">
+                    <div className="w-9 h-9 rounded-full bg-[#FAF7F2] border border-[#D4AF67]/50 flex items-center justify-center shrink-0 text-[#845E1B] shadow-sm">
                       <Icon size={18} />
                     </div>
-                    <span className={`text-base sm:text-lg font-bold text-[#641D32] tracking-wide ${
+                    <span className={`text-base sm:text-lg font-bold text-[#2C2621] tracking-wide ${
                       lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
                     }`}>
                       {faq.q}
@@ -108,14 +108,14 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ lang = 'en' }) => {
 
                   <ChevronDown
                     size={20}
-                    className={`text-[#D4AF67] transition-transform duration-300 shrink-0 ${
+                    className={`text-[#845E1B] transition-transform duration-300 shrink-0 ${
                       isOpen ? 'rotate-180' : 'rotate-0'
                     }`}
                   />
                 </button>
 
                 {isOpen && (
-                  <div className={`px-7 pb-6 pt-1 text-sm text-[#29101A]/85 leading-relaxed border-t border-[#D4AF67]/20 bg-[#FAF7F2] animate-fade-in ${
+                  <div className={`px-7 pb-6 pt-2 text-sm text-[#3D332A] leading-relaxed border-t border-[#D4AF67]/20 bg-[#FAF7F2] animate-fade-in ${
                     lang === 'ur' ? 'font-urdu' : 'font-sans'
                   }`}>
                     {faq.a}

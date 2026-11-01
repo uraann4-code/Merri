@@ -126,22 +126,22 @@ export const PhotoGallery: React.FC<PhotoGalleryProps> = ({ lang }) => {
   };
 
   return (
-    <section id="gallery" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#29101A] relative overflow-hidden select-none">
+    <section id="gallery" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#2C2621] relative overflow-hidden select-none">
       <div className="absolute inset-0 mughal-damask-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#9E7422] font-bold">
+          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#845E1B] font-bold">
             {lang === 'ur' ? 'تصویری جھلکیاں' : 'Moments of Grandeur'}
           </span>
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2 ${
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2621] tracking-wide mt-2 ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
           }`}>
             {lang === 'ur' ? 'شاہی تصویری البم' : 'Curated Wedding Gallery'}
           </h2>
           <GoldDivider className="my-5" />
-          <p className={`text-base sm:text-lg text-[#29101A]/85 ${
+          <p className={`text-base sm:text-lg text-[#3D332A] ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
           }`}>
             {lang === 'ur'
@@ -156,7 +156,7 @@ export const PhotoGallery: React.FC<PhotoGalleryProps> = ({ lang }) => {
             <div
               key={image.id}
               onClick={() => setSelectedIndex(idx)}
-              className="group relative rounded-3xl overflow-hidden border-2 border-[#D4AF67]/40 shadow-lg hover:shadow-2xl hover:border-[#D4AF67] transition-all duration-500 cursor-pointer bg-stone-900"
+              className="group relative rounded-3xl overflow-hidden border-2 border-[#D4AF67]/50 shadow-md hover:shadow-2xl hover:border-[#D4AF67] transition-all duration-500 cursor-pointer bg-stone-900"
             >
               <div className="overflow-hidden aspect-4/3 relative">
                 <img
@@ -170,7 +170,7 @@ export const PhotoGallery: React.FC<PhotoGalleryProps> = ({ lang }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
                 {/* Maximize Icon */}
-                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#29101A]/80 border border-[#D4AF67] flex items-center justify-center text-[#F7E7C4] opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
+                <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#FAF7F2]/90 border border-[#D4AF67] flex items-center justify-center text-[#845E1B] opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100 shadow-sm">
                   <Maximize2 size={16} />
                 </div>
 
@@ -200,7 +200,7 @@ export const PhotoGallery: React.FC<PhotoGalleryProps> = ({ lang }) => {
         >
           {/* Top Bar with Counter & Close */}
           <div className="absolute top-4 left-4 right-4 sm:top-6 sm:right-8 sm:left-8 z-50 flex items-center justify-between text-[#F8F5EF]">
-            <div className="flex items-center gap-2 font-serif-royal text-xs text-[#D4AF67] uppercase tracking-widest">
+            <div className="flex items-center gap-2 font-serif-royal text-xs text-[#D4AF67] uppercase tracking-widest font-bold">
               <Sparkles size={14} />
               <span>
                 {selectedIndex + 1} / {galleryImages.length}
@@ -220,7 +220,7 @@ export const PhotoGallery: React.FC<PhotoGalleryProps> = ({ lang }) => {
           {/* Left Arrow Button */}
           <button
             onClick={handlePrev}
-            className="absolute left-3 sm:left-8 top-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-full border border-[#D4AF67]/50 bg-[#29101A]/80 hover:bg-[#641D32] text-[#F7E7C4] hover:text-white transition-all duration-300 cursor-pointer shadow-2xl z-50"
+            className="absolute left-3 sm:left-8 top-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-full border border-[#D4AF67]/60 bg-[#1F1A17]/85 hover:bg-[#2C2621] text-[#E8D5A5] hover:text-white transition-all duration-300 cursor-pointer shadow-2xl z-50"
             title="Previous (Left Arrow)"
             aria-label="Previous Image"
           >
@@ -230,7 +230,7 @@ export const PhotoGallery: React.FC<PhotoGalleryProps> = ({ lang }) => {
           {/* Right Arrow Button */}
           <button
             onClick={handleNext}
-            className="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-full border border-[#D4AF67]/50 bg-[#29101A]/80 hover:bg-[#641D32] text-[#F7E7C4] hover:text-white transition-all duration-300 cursor-pointer shadow-2xl z-50"
+            className="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-full border border-[#D4AF67]/60 bg-[#1F1A17]/85 hover:bg-[#2C2621] text-[#E8D5A5] hover:text-white transition-all duration-300 cursor-pointer shadow-2xl z-50"
             title="Next (Right Arrow)"
             aria-label="Next Image"
           >

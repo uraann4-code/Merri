@@ -95,7 +95,7 @@ export const MughalMehrabArch: React.FC<{ className?: string; children?: React.R
       >
         <path
           d="M0 60 L0 25 C60 25, 120 45, 160 25 C175 18, 185 10, 200 0 C215 10, 225 18, 240 25 C280 45, 340 25, 400 25 L400 60 Z"
-          fill="rgba(100, 29, 50, 0.25)"
+          fill="rgba(212, 175, 103, 0.08)"
           stroke="url(#archGold)"
           strokeWidth="1.5"
         />
@@ -168,7 +168,7 @@ export const GoldDivider: React.FC<{ className?: string }> = ({ className = '' }
             fill="currentColor"
             fillOpacity="0.9"
           />
-          <circle cx="12" cy="12" r="2.5" fill="#29101A" />
+          <circle cx="12" cy="12" r="2.5" fill="#F8F5EF" stroke="#D4AF67" strokeWidth="0.8" />
         </svg>
         <span className="w-1.5 h-1.5 rotate-45 border border-[#D4AF67] bg-[#D4AF67]/40" />
       </div>

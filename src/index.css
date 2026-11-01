@@ -3,18 +3,18 @@
 @layer base {
   :root {
     --color-ivory: #F8F5EF;
-    --color-ivory-light: #FDFAF5;
-    --color-gold: #D4AF67;
-    --color-gold-light: #F7E7C4;
-    --color-gold-dark: #9E7422;
-    --color-maroon: #641D32;
-    --color-burgundy: #29101A;
-    --color-burgundy-deep: #1A0A11;
+    --color-ivory-light: #FFFFFF;
+    --color-champagne-gold: #D4AF67;
+    --color-soft-gold: #E8D5A5;
+    --color-warm-beige: #EDE4D5;
+    --color-gold-dark: #845E1B;
+    --color-charcoal: #2C2621;
+    --color-espresso: #1F1A17;
   }
 
   body {
     background-color: #F8F5EF;
-    color: #29101A;
+    color: #2C2621;
     font-family: 'Plus Jakarta Sans', sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -55,47 +55,47 @@
 
 /* Award-Winning Metallic Gold Foil Gradients */
 .gold-foil-text {
-  background: linear-gradient(135deg, #FDF3CD 0%, #D4AF67 30%, #FFF3DB 50%, #A97A24 75%, #EAC875 100%);
+  background: linear-gradient(135deg, #ECC880 0%, #D4AF67 35%, #FBF6EB 50%, #9E7422 75%, #D4AF67 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 2px rgba(41, 16, 26, 0.4));
+  filter: drop-shadow(0 1px 1px rgba(132, 94, 27, 0.2));
 }
 
 .gold-foil-bg {
-  background: linear-gradient(135deg, #ECC880 0%, #D4AF67 40%, #FFF1D2 55%, #B88B38 85%, #E6C575 100%);
+  background: linear-gradient(135deg, #F5E5C0 0%, #D4AF67 40%, #FFF8EA 55%, #B88B38 85%, #E8D5A5 100%);
 }
 
 .gold-foil-border {
   border-image: linear-gradient(135deg, #D4AF67 0%, #FFF3DB 40%, #B88B38 70%, #ECC880 100%) 1;
 }
 
-/* Royal Mughal Burgundy Gradients */
-.burgundy-palace-gradient {
-  background: radial-gradient(ellipse at 50% 20%, #4D1828 0%, #29101A 60%, #15060D 100%);
+/* Royal Mughal Ivory & Champagne Gold Gradients */
+.ivory-palace-gradient {
+  background: radial-gradient(ellipse at 50% 15%, #FFFFFF 0%, #FAF7F2 45%, #F3ECE1 75%, #EDE4D5 100%);
 }
 
-.burgundy-card-gradient {
-  background: linear-gradient(160deg, #381423 0%, #29101A 50%, #1C0912 100%);
+.luxury-card-gradient {
+  background: linear-gradient(160deg, #FFFFFF 0%, #FAF7F2 50%, #F5EFE6 100%);
 }
 
 .ivory-parchment-gradient {
-  background: linear-gradient(180deg, #FAF7F2 0%, #F5F0E6 50%, #EDE6D8 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 50%, #EDE4D5 100%);
 }
 
-/* Subtle Mughal Damask Watermark */
+/* Subtle Mughal Damask Watermark in Champagne Gold */
 .mughal-damask-pattern {
   background-color: #F8F5EF;
   background-image: 
-    radial-gradient(rgba(212, 175, 103, 0.15) 1px, transparent 1px),
-    radial-gradient(rgba(100, 29, 50, 0.05) 1.5px, transparent 1.5px);
+    radial-gradient(rgba(212, 175, 103, 0.16) 1px, transparent 1px),
+    radial-gradient(rgba(232, 213, 165, 0.22) 1.5px, transparent 1.5px);
   background-size: 32px 32px, 64px 64px;
   background-position: 0 0, 16px 16px;
 }
 
 .dark-damask-pattern {
   background-image: 
-    radial-gradient(rgba(212, 175, 103, 0.12) 1px, transparent 1px),
-    radial-gradient(rgba(212, 175, 103, 0.06) 1.5px, transparent 1.5px);
+    radial-gradient(rgba(212, 175, 103, 0.15) 1px, transparent 1px),
+    radial-gradient(rgba(184, 139, 56, 0.08) 1.5px, transparent 1.5px);
   background-size: 28px 28px, 56px 56px;
   background-position: 0 0, 14px 14px;
 }
@@ -113,25 +113,25 @@
   backface-visibility: hidden;
 }
 
-/* Custom Scrollbars */
+/* Custom Scrollbars in Warm Beige & Champagne Gold */
 ::-webkit-scrollbar {
   width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #1C0912;
+  background: #EDE4D5;
 }
 ::-webkit-scrollbar-thumb {
   background: #D4AF67;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F3E5AB;
+  background: #B88B38;
 }
 
 /* Shimmer & Candle Glow Animations */
 @keyframes candle-flicker {
-  0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 15px rgba(212, 175, 103, 0.5)); }
-  50% { opacity: 1; filter: drop-shadow(0 0 25px rgba(236, 200, 128, 0.75)); }
+  0%, 100% { opacity: 0.9; filter: drop-shadow(0 0 15px rgba(212, 175, 103, 0.45)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 25px rgba(232, 213, 165, 0.7)); }
 }
 
 .animate-candle-glow {
@@ -140,7 +140,7 @@
 
 @keyframes gentle-pulse-gold {
   0%, 100% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.02); filter: brightness(1.1); }
+  50% { transform: scale(1.02); filter: brightness(1.08); }
 }
 
 .animate-pulse-gold {

@@ -49,25 +49,25 @@ export const PersonalizedBanner: React.FC<PersonalizedBannerProps> = ({ currentG
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 my-10 select-none">
-      <div className="burgundy-card-gradient rounded-3xl border-2 border-[#D4AF67] p-6 sm:p-10 shadow-2xl relative overflow-hidden text-center text-[#F8F5EF]">
+      <div className="luxury-card-gradient rounded-3xl border-2 border-[#D4AF67] p-6 sm:p-10 shadow-xl relative overflow-hidden text-center text-[#2C2621]">
         <MughalCorner position="top-left" className="absolute top-2 left-2" size={36} />
         <MughalCorner position="top-right" className="absolute top-2 right-2" size={36} />
         <MughalCorner position="bottom-left" className="absolute bottom-2 left-2" size={36} />
         <MughalCorner position="bottom-right" className="absolute bottom-2 right-2" size={36} />
 
-        <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] font-serif-royal text-[#D4AF67] font-bold mb-2">
-          <Sparkles size={13} className="text-[#F7E7C4]" />
+        <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.3em] font-serif-royal text-[#845E1B] font-bold mb-2">
+          <Sparkles size={13} className="text-[#D4AF67]" />
           <span>{lang === 'ur' ? 'خصوصی دعوت نامہ برائے معزز مہمان' : 'Personalized Royal Guest Invitation'}</span>
-          <Sparkles size={13} className="text-[#F7E7C4]" />
+          <Sparkles size={13} className="text-[#D4AF67]" />
         </div>
 
-        <h3 className={`text-2xl sm:text-4xl font-bold text-white tracking-wide ${
+        <h3 className={`text-2xl sm:text-4xl font-bold text-[#2C2621] tracking-wide ${
           lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
         }`}>
           {currentGuest ? currentGuest.name : (lang === 'ur' ? 'معزز مہمانِ گرامی' : 'Esteemed Guest')}
         </h3>
 
-        <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-[#F7E7C4] mt-2 font-medium">
+        <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-[#845E1B] mt-2 font-bold font-serif-royal">
           {currentGuest?.familyGroup && <span>{lang === 'ur' ? `خاندان: ${currentGuest.familyGroup}` : `Family: ${currentGuest.familyGroup}`}</span>}
           {currentGuest?.familyGroup && currentGuest?.maxGuests && <span aria-hidden="true">·</span>}
           {currentGuest?.maxGuests && (
@@ -77,7 +77,7 @@ export const PersonalizedBanner: React.FC<PersonalizedBannerProps> = ({ currentG
 
         <GoldDivider className="my-5" />
 
-        <p className={`text-xs sm:text-sm text-[#F8F5EF]/85 max-w-lg mx-auto mb-6 leading-relaxed ${
+        <p className={`text-xs sm:text-sm text-[#3D332A] max-w-lg mx-auto mb-6 leading-relaxed ${
           lang === 'ur' ? 'font-urdu' : 'font-sans'
         }`}>
           {lang === 'ur'
@@ -88,9 +88,9 @@ export const PersonalizedBanner: React.FC<PersonalizedBannerProps> = ({ currentG
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={handleCopyLink}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#D4AF67] bg-[#641D32]/70 hover:bg-[#641D32] text-[#F7E7C4] hover:text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#D4AF67] bg-white hover:bg-[#EDE4D5] text-[#2C2621] font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-sm cursor-pointer"
           >
-            {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+            {copied ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} className="text-[#845E1B]" />}
             <span>{copied ? (lang === 'ur' ? 'لنک کاپی ہو گیا!' : 'Link Copied!') : (lang === 'ur' ? 'لنک کاپی کریں' : 'Copy Unique Invitation Link')}</span>
           </button>
 

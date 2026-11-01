@@ -48,22 +48,22 @@ export const OurStory: React.FC<OurStoryProps> = ({ lang = 'en' }) => {
   ];
 
   return (
-    <section id="story" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#29101A] relative overflow-hidden select-none">
+    <section id="story" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#2C2621] relative overflow-hidden select-none">
       <div className="absolute inset-0 mughal-damask-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
-          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#9E7422] font-bold">
+          <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#845E1B] font-bold">
             {t.ourStorySubtitle}
           </span>
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2 ${
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#2C2621] tracking-wide mt-2 ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
           }`}>
             {t.ourStoryTitle}
           </h2>
           <GoldDivider className="my-5" />
-          <p className={`text-lg sm:text-xl text-[#29101A]/85 leading-relaxed ${
+          <p className={`text-lg sm:text-xl text-[#3D332A] leading-relaxed ${
             lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
           }`}>
             {t.ourStoryQuote}
@@ -87,7 +87,7 @@ export const OurStory: React.FC<OurStoryProps> = ({ lang = 'en' }) => {
                   }`}
                 >
                   <div className="w-full md:w-1/2">
-                    <div className="bg-white p-7 sm:p-9 rounded-2xl border-2 border-[#D4AF67]/35 shadow-lg hover:shadow-2xl transition-all duration-300 relative group">
+                    <div className="bg-white p-7 sm:p-9 rounded-2xl border-2 border-[#D4AF67]/40 shadow-lg hover:shadow-2xl transition-all duration-300 relative group">
                       <MughalCorner position="top-left" className="absolute top-2 left-2" size={32} />
                       <MughalCorner position="top-right" className="absolute top-2 right-2" size={32} />
 
@@ -95,41 +95,41 @@ export const OurStory: React.FC<OurStoryProps> = ({ lang = 'en' }) => {
                         <span className="font-serif-royal text-2xl font-bold text-[#D4AF67] group-hover:scale-105 transition-transform">
                           {chapter.step}
                         </span>
-                        <div className="text-xs uppercase tracking-widest font-serif-royal font-semibold text-[#641D32]">
+                        <div className="text-xs uppercase tracking-widest font-serif-royal font-bold text-[#845E1B]">
                           {chapter.date}
                         </div>
                       </div>
 
-                      <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-[#641D32]">
+                      <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-[#2C2621]">
                         {chapter.title}
                       </h3>
-                      <p className="text-xs uppercase tracking-wider text-[#9E7422] font-semibold mt-0.5 mb-3">
+                      <p className="text-xs uppercase tracking-wider text-[#845E1B] font-semibold mt-0.5 mb-3">
                         {chapter.subtitle}
                       </p>
 
-                      <p className="text-sm text-[#29101A]/85 leading-relaxed font-sans">
+                      <p className="text-sm text-[#3D332A] leading-relaxed font-sans">
                         {chapter.desc}
                       </p>
 
-                      <div className="mt-5 pt-4 border-t border-[#D4AF67]/30 text-xs font-serif-elegant italic text-[#641D32] bg-[#F8F5EF] p-3.5 rounded-xl border border-[#D4AF67]/20">
+                      <div className="mt-5 pt-4 border-t border-[#D4AF67]/30 text-xs font-serif-elegant italic text-[#845E1B] bg-[#FAF7F2] p-3.5 rounded-xl border border-[#D4AF67]/20 font-semibold">
                         {chapter.quote}
                       </div>
                     </div>
                   </div>
 
-                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-13 h-13 rounded-full bg-[#641D32] border-2 border-[#D4AF67] text-[#D4AF67] shadow-xl z-10 group-hover:scale-110 transition-transform">
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-13 h-13 rounded-full bg-white border-2 border-[#D4AF67] text-[#845E1B] shadow-xl z-10 group-hover:scale-110 transition-transform">
                     <Icon size={20} />
                   </div>
 
                   <div className="w-full md:w-1/2 flex justify-center">
-                    <div className="w-full max-w-sm h-52 sm:h-60 rounded-2xl overflow-hidden border-2 border-[#D4AF67] shadow-xl relative flex items-center justify-center p-6 bg-gradient-to-br from-[#4D1828] via-[#29101A] to-[#17060F] text-[#F8F5EF]">
-                      <div className="absolute inset-0 dark-damask-pattern opacity-30 pointer-events-none" />
+                    <div className="w-full max-w-sm h-52 sm:h-60 rounded-2xl overflow-hidden border-2 border-[#D4AF67] shadow-xl relative flex items-center justify-center p-6 luxury-card-gradient text-[#2C2621]">
+                      <div className="absolute inset-0 mughal-damask-pattern opacity-30 pointer-events-none" />
                       <div className="relative text-center">
                         <RoyalCrest size={72} className="mx-auto mb-2 opacity-95 animate-float" />
-                        <h4 className="font-serif-royal text-sm font-bold tracking-wider text-[#F7E7C4]">
+                        <h4 className="font-serif-royal text-base font-bold tracking-wider text-[#2C2621]">
                           Mubasshir &amp; Tasmia
                         </h4>
-                        <p className="font-serif-elegant italic text-xs text-[#D4AF67] mt-1">
+                        <p className="font-serif-elegant italic text-xs text-[#845E1B] font-bold mt-1">
                           "Bound by Grace, Blessed by Love"
                         </p>
                       </div>
