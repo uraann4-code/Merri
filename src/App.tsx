@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { doc, onSnapshot, setDoc, getDoc } from 'firebase/firestore';
 import { db } from './lib/firebase';
 import { Guest, WebsiteSetting } from './types/wedding';
+import { Language } from './lib/translations';
 import { CinematicIntro } from './components/CinematicIntro';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -9,6 +10,7 @@ import { PersonalizedBanner } from './components/PersonalizedBanner';
 import { OurStory } from './components/OurStory';
 import { EventDetails } from './components/EventDetails';
 import { Countdown } from './components/Countdown';
+import { PhotoGallery } from './components/PhotoGallery';
 import { RsvpForm } from './components/RsvpForm';
 import { VenueSection } from './components/VenueSection';
 import { FaqSection } from './components/FaqSection';
@@ -18,6 +20,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
+  const [lang, setLang] = useState<Language>('en');
   const [inviteToken, setInviteToken] = useState<string | null>(null);
   const [currentGuest, setCurrentGuest] = useState<Guest | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -92,8 +95,17 @@ export default function App() {
     }
   };
 
+  const handleToggleLang = () => {
+    setLang((prev) => (prev === 'en' ? 'ur' : 'en'));
+  };
+
   return (
-    <div className="min-h-screen bg-[#F8F5EF] text-[#29101A] font-sans selection:bg-[#D4AF67]/30 selection:text-[#641D32] relative overflow-x-hidden">
+    <div
+      dir={lang === 'ur' ? 'rtl' : 'ltr'}
+      className={`min-h-screen bg-[#F8F5EF] text-[#29101A] selection:bg-[#D4AF67]/30 selection:text-[#641D32] relative overflow-x-hidden ${
+        lang === 'ur' ? 'font-urdu' : 'font-sans'
+      }`}
+    >
       {/* Cinematic Animated Royal Introduction Overlay */}
       {showIntro && (
         <CinematicIntro
@@ -107,6 +119,8 @@ export default function App() {
         onOpenAdmin={() => setIsAdminOpen(true)}
         guestName={currentGuest?.name}
         isMemoriesActive={isMemoriesActive}
+        lang={lang}
+        onToggleLang={handleToggleLang}
       />
 
       {/* Main Content */}
@@ -115,44 +129,51 @@ export default function App() {
         <Hero
           guestName={currentGuest?.name}
           familyGroup={currentGuest?.familyGroup}
+          lang={lang}
         />
 
         {/* Section 2: Personalized Guest Greeting & WhatsApp Sharing Banner */}
         <PersonalizedBanner
           currentGuest={currentGuest}
           inviteToken={inviteToken}
+          lang={lang}
         />
 
         {/* Section 3: Our Story & Journey */}
-        <OurStory />
+        <OurStory lang={lang} />
 
         {/* Section 4: Walima Event Details, Calendar Sync & Schedule */}
-        <EventDetails />
+        <EventDetails lang={lang} />
 
         {/* Section 5: Real-Time Asia/Karachi Countdown */}
-        <Countdown />
+        <Countdown lang={lang} />
 
-        {/* Section 6: RSVP Attendance Confirmation */}
+        {/* Section 6: Curated Wedding Photo Gallery & Lightbox */}
+        <PhotoGallery lang={lang} />
+
+        {/* Section 7: RSVP Attendance Confirmation */}
         <RsvpForm
           currentGuest={currentGuest}
           inviteToken={inviteToken}
+          lang={lang}
         />
 
-        {/* Section 7: Venue & Travel Guide (Bukhara Royale Marquee) */}
-        <VenueSection />
+        {/* Section 8: Venue & Travel Guide (Bukhara Royale Marquee) */}
+        <VenueSection lang={lang} />
 
-        {/* Section 8: FAQ & Guest Etiquette */}
-        <FaqSection />
+        {/* Section 9: FAQ & Guest Etiquette */}
+        <FaqSection lang={lang} />
 
-        {/* Section 9: Walima Memories & Guest Prayers Wall */}
+        {/* Section 10: Walima Memories & Guest Prayers Wall */}
         <MemoriesGallery
           isMemoriesActive={isMemoriesActive}
           guestName={currentGuest?.name}
+          lang={lang}
         />
       </main>
 
       {/* Royal Footer */}
-      <Footer onOpenAdmin={() => setIsAdminOpen(true)} />
+      <Footer onOpenAdmin={() => setIsAdminOpen(true)} lang={lang} />
 
       {/* Private Admin Dashboard Modal */}
       <AdminDashboard

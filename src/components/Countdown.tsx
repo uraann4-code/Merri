@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Sparkles } from 'lucide-react';
 import { GoldDivider, RoyalCrest, MughalCorner } from './MughalMotif';
 
-export const Countdown: React.FC = () => {
+import { Language, translations } from '../lib/translations';
+
+interface CountdownProps {
+  lang?: Language;
+}
+
+export const Countdown: React.FC<CountdownProps> = ({ lang = 'en' }) => {
+  const t = translations[lang];
+
   // Target: 8 November 2026, 1:00 PM Pakistan Standard Time (UTC+5)
   const targetDate = new Date('2026-11-08T13:00:00+05:00').getTime();
 
@@ -50,10 +58,10 @@ export const Countdown: React.FC = () => {
   }, [targetDate]);
 
   const timeUnits = [
-    { label: 'Days', value: timeLeft.days },
-    { label: 'Hours', value: timeLeft.hours },
-    { label: 'Minutes', value: timeLeft.minutes },
-    { label: 'Seconds', value: timeLeft.seconds },
+    { label: t.countdownDays, value: timeLeft.days },
+    { label: t.countdownHours, value: timeLeft.hours },
+    { label: t.countdownMinutes, value: timeLeft.minutes },
+    { label: t.countdownSeconds, value: timeLeft.seconds },
   ];
 
   return (
@@ -62,10 +70,12 @@ export const Countdown: React.FC = () => {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
         <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#9E7422] font-bold">
-          Count Every Blessed Second
+          {lang === 'ur' ? 'شمارِ لمحۂ مسرت' : 'Count Every Blessed Second'}
         </span>
-        <h2 className="font-serif-royal text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2">
-          Until The Grand Walima
+        <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2 ${
+          lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+        }`}>
+          {t.countdownTitle}
         </h2>
         <GoldDivider className="my-5" />
 
@@ -75,23 +85,25 @@ export const Countdown: React.FC = () => {
             <MughalCorner position="top-left" className="absolute top-3 left-3" size={36} />
             <MughalCorner position="top-right" className="absolute top-3 right-3" size={36} />
             <RoyalCrest size={72} className="mx-auto mb-4" />
-            <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-[#F7E7C4] tracking-wider uppercase">
-              Mubarak! The Walima Celebration Has Commenced!
+            <h3 className={`text-2xl sm:text-3xl font-bold text-[#F7E7C4] tracking-wider uppercase ${
+              lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+            }`}>
+              {t.mubarakCelebration}
             </h3>
             <p className="font-serif-elegant italic text-xl text-white mt-3 leading-relaxed">
-              "Baarak Allahu laka wa baaraka 'alayka wa jama'a baynakuma fee khayr."
+              "بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ"
             </p>
-            <p className="text-sm text-[#F7E7C4]/90 mt-2 font-sans">
-              May Allah bless Mubasshir &amp; Tasmia with eternal companionship, abundant barakah, peace, and boundless joy.
+            <p className={`text-sm text-[#F7E7C4]/90 mt-2 ${lang === 'ur' ? 'font-urdu' : 'font-sans'}`}>
+              {t.mubarakDua}
             </p>
           </div>
         ) : (
           /* Live Countdown Clock Cards */
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.25em] text-[#641D32] mb-10 font-serif-royal font-semibold">
-              <span>8 November 2026</span>
+              <span>{t.eventDate}</span>
               <span aria-hidden="true">·</span>
-              <span>1:00 PM Asia/Karachi (PKT)</span>
+              <span>{t.eventTime} {t.eventTimezone}</span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-6">
@@ -106,16 +118,24 @@ export const Countdown: React.FC = () => {
                     {String(unit.value).padStart(2, '0')}
                   </div>
 
-                  <div className="mt-2 text-xs uppercase tracking-[0.25em] font-serif-royal font-bold text-[#9E7422]">
+                  <div className={`mt-2 text-xs uppercase tracking-[0.25em] font-bold text-[#9E7422] ${
+                    lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+                  }`}>
                     {unit.label}
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-10 flex items-center justify-center gap-2 text-sm font-serif-elegant italic text-[#641D32]">
+            <div className={`mt-10 flex items-center justify-center gap-2 text-sm text-[#641D32] ${
+              lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
+            }`}>
               <Sparkles size={16} className="text-[#D4AF67]" />
-              <span>We eagerly await sharing this historic celebration with you.</span>
+              <span>
+                {lang === 'ur'
+                  ? 'ہم آپ کے ہمراہ اس تاریخی اور بابرکت دن کے شاہد بننے کے لیے بے تاب ہیں۔'
+                  : 'We eagerly await sharing this historic celebration with you.'}
+              </span>
             </div>
           </div>
         )}

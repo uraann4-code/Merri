@@ -152,7 +152,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
           {isPlayingMusic ? (
             <>
               <Volume2 size={14} className="text-[#F7E7C4] animate-pulse" />
-              <span className="hidden sm:inline text-[11px] text-[#F7E7C4]">Guzarish Romance</span>
+              <span className="hidden sm:inline text-[11px] text-[#F7E7C4]">Guzarish · Satinder Sartaaj</span>
             </>
           ) : (
             <>

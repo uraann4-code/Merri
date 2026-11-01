@@ -5,9 +5,12 @@ import { db } from '../lib/firebase';
 import { GalleryItem } from '../types/wedding';
 import { GoldDivider, MughalCorner } from './MughalMotif';
 
+import { Language, translations } from '../lib/translations';
+
 interface MemoriesGalleryProps {
   isMemoriesActive: boolean;
   guestName?: string;
+  lang?: Language;
 }
 
 interface GuestDuas {
@@ -17,13 +20,14 @@ interface GuestDuas {
   createdAt: string;
 }
 
-export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActive, guestName }) => {
+export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActive, guestName, lang = 'en' }) => {
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [wishes, setWishes] = useState<GuestDuas[]>([]);
   const [newAuthor, setNewAuthor] = useState(guestName || '');
   const [newMessage, setNewMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedWish, setSubmittedWish] = useState(false);
+  const t = translations[lang];
 
   // Sync Gallery Items from Firestore collection 'gallery'
   useEffect(() => {
@@ -120,14 +124,18 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#D4AF67] font-bold">
-            Cherished Moments &amp; Blessings
+            {lang === 'ur' ? 'یادگار لمحات اور دعائیں' : 'Cherished Moments & Blessings'}
           </span>
-          <h2 className="font-serif-royal text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide mt-2">
-            Walima Memories &amp; Du'as
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide mt-2 ${
+            lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+          }`}>
+            {t.memoriesTitle}
           </h2>
           <GoldDivider className="my-5" />
-          <p className="font-serif-elegant italic text-base sm:text-lg text-[#F7E7C4]/90">
-            "Words of affection and glimpses of celebration that will last a lifetime."
+          <p className={`text-base sm:text-lg text-[#F7E7C4]/90 ${
+            lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
+          }`}>
+            {t.memoriesSubtitle}
           </p>
         </div>
 
@@ -138,12 +146,14 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
               <div className="flex items-center justify-between pb-4 border-b border-[#D4AF67]/30">
                 <div className="flex items-center gap-2 text-[#D4AF67]">
                   <Film size={22} />
-                  <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-white uppercase tracking-wider">
-                    Official Walima Gallery &amp; Film
+                  <h3 className={`text-xl sm:text-2xl font-bold text-white uppercase tracking-wider ${
+                    lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+                  }`}>
+                    {lang === 'ur' ? 'سرکاری تصویری البم اور فلم' : 'Official Walima Gallery & Film'}
                   </h3>
                 </div>
                 <div className="text-xs uppercase tracking-widest text-[#F7E7C4] font-serif-royal font-bold">
-                  Memories Unlocked
+                  {lang === 'ur' ? 'کھول دیا گیا' : 'Memories Unlocked'}
                 </div>
               </div>
 
@@ -152,11 +162,13 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
                 <div className="w-18 h-18 rounded-full gold-foil-bg text-[#29101A] flex items-center justify-center shadow-xl mb-4">
                   <Film size={32} />
                 </div>
-                <h4 className="font-serif-royal text-2xl font-bold text-white">
-                  The Walima Cinematic Wedding Highlight
+                <h4 className={`text-2xl font-bold text-white ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                  {lang === 'ur' ? 'سینماٹک ویڈیو ہائی لائٹس' : 'The Walima Cinematic Wedding Highlight'}
                 </h4>
-                <p className="text-xs text-[#F7E7C4]/85 mt-2 max-w-md font-sans">
-                  A high-definition cinematic short film capturing the grand reception, the royal decor of Bukhara Royale Marquee, and joyful family moments.
+                <p className={`text-xs text-[#F7E7C4]/85 mt-2 max-w-md ${lang === 'ur' ? 'font-urdu' : 'font-sans'}`}>
+                  {lang === 'ur'
+                    ? 'بخارا روئیل مارکی میں منعقدہ دعوتِ ولیمہ کی خوبصورت اور پُروقار ویڈیو جھلکیاں۔'
+                    : 'A high-definition cinematic short film capturing the grand reception, the royal decor of Bukhara Royale Marquee, and joyful family moments.'}
                 </p>
               </div>
 
@@ -173,7 +185,7 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
                     <span className="text-[10px] uppercase tracking-widest text-[#D4AF67] font-serif-royal font-bold">
                       {item.category}
                     </span>
-                    <h5 className="font-serif-royal text-lg font-bold text-white mt-1">
+                    <h5 className={`text-lg font-bold text-white mt-1 ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
                       {item.title}
                     </h5>
                   </div>
@@ -188,16 +200,16 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
                 <Lock size={26} />
               </div>
               <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#D4AF67] font-bold">
-                Event Film &amp; Photo Album
+                {lang === 'ur' ? 'تصویری البم اور ویڈیو' : 'Event Film & Photo Album'}
               </span>
-              <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-white mt-2">
-                Unveiling After The Grand Walima
+              <h3 className={`text-2xl sm:text-3xl font-bold text-white mt-2 ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                {t.memoriesTeaserTitle}
               </h3>
-              <p className="text-sm text-[#F8F5EF]/85 max-w-lg mx-auto mt-3 font-sans leading-relaxed">
-                The official wedding photography collection, highlights, and high-definition cinematic film will be curated and published here following the ceremony on 8 November 2026.
+              <p className={`text-sm text-[#F8F5EF]/85 max-w-lg mx-auto mt-3 leading-relaxed ${lang === 'ur' ? 'font-urdu' : 'font-sans'}`}>
+                {t.memoriesTeaserDesc}
               </p>
               <div className="mt-6 text-xs text-[#F7E7C4] font-serif-royal font-medium">
-                Admin Activated Post-Ceremony
+                {lang === 'ur' ? 'تقریب کے اختتام پر جاری کیا جائے گا' : 'Admin Activated Post-Ceremony'}
               </div>
             </div>
           )}
@@ -208,58 +220,64 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 pb-4 border-b border-[#D4AF67]/25">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] font-serif-royal text-[#D4AF67] font-bold">
-                Guestbook of Prayers
+                {lang === 'ur' ? 'دعائیہ پیغامات کا گوشہ' : 'Guestbook of Prayers'}
               </span>
-              <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-white mt-1">
-                Leave a Blessing for Mubasshir &amp; Tasmia
+              <h3 className={`text-2xl sm:text-3xl font-bold text-white mt-1 ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                {lang === 'ur' ? 'مبشر اور تسمیہ کے لیے نیک تمنائیں اور دعائیں' : 'Leave a Blessing for Mubasshir & Tasmia'}
               </h3>
             </div>
-            <span className="text-xs text-[#F7E7C4]/80 font-serif-elegant italic">
-              Share your du'as and congratulatory messages
+            <span className={`text-xs text-[#F7E7C4]/80 ${lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'}`}>
+              {lang === 'ur' ? 'اپنے دعائیہ کلمات اور مبارکباد شیئر کیجیے' : "Share your du'as and congratulatory messages"}
             </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-5 bg-[#2D0F1D] border-2 border-[#D4AF67]/40 rounded-3xl p-7 shadow-2xl h-fit relative">
               <MughalCorner position="top-left" className="absolute top-2 left-2" size={28} />
-              <h4 className="font-serif-royal text-base font-bold text-white mb-4 flex items-center gap-2">
+              <h4 className={`text-base font-bold text-white mb-4 flex items-center gap-2 ${
+                lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+              }`}>
                 <MessageSquare size={16} className="text-[#D4AF67]" />
-                <span>Send Your Royal Blessing</span>
+                <span>{t.leaveWishTitle}</span>
               </h4>
 
               {submittedWish && (
                 <div className="mb-4 p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-xs flex items-center gap-2 animate-fade-in font-serif-royal">
                   <CheckCircle2 size={16} />
-                  <span>JazakAllah Khair! Your du'a has been added to the blessing wall.</span>
+                  <span>{lang === 'ur' ? 'جزاکم اللہ خیراً! آپ کی دعا شامل کر لی گئی ہے۔' : "JazakAllah Khair! Your du'a has been added to the blessing wall."}</span>
                 </div>
               )}
 
               <form onSubmit={handleSendWish} className="space-y-4">
                 <div>
                   <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
-                    Your Name / Family
+                    {lang === 'ur' ? 'آپ کا اسم گرامی / فیملی' : 'Your Name / Family'}
                   </label>
                   <input
                     type="text"
                     required
                     value={newAuthor}
                     onChange={(e) => setNewAuthor(e.target.value)}
-                    placeholder="e.g. Uncle Nadeem &amp; Family"
-                    className="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-white placeholder:text-stone-500 text-xs focus:border-[#D4AF67] outline-none"
+                    placeholder={lang === 'ur' ? 'مثلاً: انکل ندیم و فیملی' : 'e.g. Uncle Nadeem & Family'}
+                    className={`w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-white placeholder:text-stone-500 text-xs focus:border-[#D4AF67] outline-none ${
+                      lang === 'ur' ? 'font-urdu' : ''
+                    }`}
                   />
                 </div>
 
                 <div>
                   <label className="block text-[11px] uppercase tracking-wider text-[#D4AF67] font-serif-royal font-bold mb-1">
-                    Your Blessing or Du'a
+                    {lang === 'ur' ? 'آپ کا دعائیہ پیغام' : "Your Blessing or Du'a"}
                   </label>
                   <textarea
                     rows={4}
                     required
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="May Allah bless this beautiful union with happiness, longevity, and peace..."
-                    className="w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-white placeholder:text-stone-500 text-xs focus:border-[#D4AF67] outline-none"
+                    placeholder={lang === 'ur' ? 'اللہ تعالیٰ اس مبارک بندھن کو دائمی خوشیوں، برکت اور امن سے نوازے...' : 'May Allah bless this beautiful union with happiness, longevity, and peace...'}
+                    className={`w-full px-4 py-3 rounded-xl border border-white/20 bg-black/40 text-white placeholder:text-stone-500 text-xs focus:border-[#D4AF67] outline-none ${
+                      lang === 'ur' ? 'font-urdu' : ''
+                    }`}
                   />
                 </div>
 
@@ -269,7 +287,7 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
                   className="w-full py-3.5 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                 >
                   <Send size={14} />
-                  <span>{isSubmitting ? 'Posting Du’a...' : 'Post Blessing'}</span>
+                  <span>{isSubmitting ? (lang === 'ur' ? 'ارسال کیا جا رہا ہے...' : 'Posting Du’a...') : t.postBlessing}</span>
                 </button>
               </form>
             </div>

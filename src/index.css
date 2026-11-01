@@ -22,7 +22,7 @@
   }
 }
 
-/* Luxury Royal Typography */
+/* Luxury Royal Typography System */
 .font-serif-royal {
   font-family: 'Cinzel', Georgia, serif;
 }
@@ -35,8 +35,22 @@
   font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
 }
 
+.font-serif-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
 .font-calligraphy {
   font-family: 'Great Vibes', cursive;
+}
+
+.font-sans-clean {
+  font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Readable Urdu Typography */
+.font-urdu {
+  font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
+  line-height: 2.1;
 }
 
 /* Award-Winning Metallic Gold Foil Gradients */

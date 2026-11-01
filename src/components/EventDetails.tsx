@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Navigation, Download, Check, Sparkles, Utensils, Camera, HeartHandshake } from 'lucide-react';
 import { GoldDivider, MughalCorner } from './MughalMotif';
 
-export const EventDetails: React.FC = () => {
+import { Language, translations } from '../lib/translations';
+
+interface EventDetailsProps {
+  lang?: Language;
+}
+
+export const EventDetails: React.FC<EventDetailsProps> = ({ lang = 'en' }) => {
   const [downloadedIcs, setDownloadedIcs] = useState(false);
+  const t = translations[lang];
 
   // Event metadata
-  const eventTitle = 'Mubasshir & Tasmia Mehfooz — Grand Walima';
-  const eventLocation = 'Bukhara Royale Marquee, Main Expressway, near Gulberg, Islamabad, Pakistan';
-  const eventDescription = 'Royal wedding reception (Walima) celebrating the union of Mubasshir and Tasmia Mehfooz at Bukhara Royale Marquee, Islamabad.';
+  const eventTitle = lang === 'ur' ? 'دعوتِ ولیمہ: مبشر و تسمیہ محفوظ' : 'Mubasshir & Tasmia Mehfooz — Grand Walima';
+  const eventLocation = lang === 'ur' ? 'بخارا روئیل مارکی، مین ایکسپریس وے، نزد گلبرگ، اسلام آباد' : 'Bukhara Royale Marquee, Main Expressway, near Gulberg, Islamabad, Pakistan';
+  const eventDescription = lang === 'ur' ? 'مبشر اور تسمیہ محفوظ کی پرمسرت تقریبِ دعوتِ ولیمہ بمقام بخارا روئیل مارکی، اسلام آباد' : 'Royal wedding reception (Walima) celebrating the union of Mubasshir and Tasmia Mehfooz at Bukhara Royale Marquee, Islamabad.';
 
   // Date: 8 November 2026, 1:00 PM PKT (UTC+5) = 20261108T080000Z to 20261108T120000Z
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
@@ -58,27 +65,27 @@ export const EventDetails: React.FC = () => {
 
   const scheduleFlow = [
     {
-      time: '1:00 PM',
-      title: 'Guest Arrival & Royal Istiqbal',
-      desc: 'Warm reception and welcoming Milni of guests with rose petal showers and traditional hospitality.',
+      time: lang === 'ur' ? '1:00 بجے' : '1:00 PM',
+      title: t.scheduleArrival,
+      desc: t.scheduleArrivalDesc,
       icon: HeartHandshake,
     },
     {
-      time: '1:45 PM',
-      title: 'Stage Ceremonies & Portraiture',
-      desc: 'The couple arrives on the royal stage for family blessings, auspicious congratulations, and photography.',
+      time: lang === 'ur' ? '1:45 بجے' : '1:45 PM',
+      title: t.scheduleStage,
+      desc: t.scheduleStageDesc,
       icon: Camera,
     },
     {
-      time: '2:15 PM',
-      title: 'Dawat-e-Walima (Grand Feast)',
-      desc: 'A lavish royal banquet featuring traditional mutton specialties, biryani, live tawa barbecue, Kashmiri chai, and royal desserts.',
+      time: lang === 'ur' ? '2:15 بجے' : '2:15 PM',
+      title: t.scheduleFeast,
+      desc: t.scheduleFeastDesc,
       icon: Utensils,
     },
     {
-      time: '4:00 PM',
-      title: 'Heartfelt Du’as & Farewell',
-      desc: 'Concluding with solemn prayers for barakah, health, and lifelong companionship as guests bid their warm wishes.',
+      time: lang === 'ur' ? '4:00 بجے' : '4:00 PM',
+      title: t.scheduleDua,
+      desc: t.scheduleDuaDesc,
       icon: Sparkles,
     },
   ];
@@ -93,14 +100,20 @@ export const EventDetails: React.FC = () => {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#D4AF67] font-bold">
-            The Wedding Ceremony
+            {lang === 'ur' ? 'تقریبِ ولیمہ کی تفصیلات' : 'The Wedding Ceremony'}
           </span>
-          <h2 className="font-serif-royal text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide mt-2">
-            The Grand Walima Reception
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide mt-2 ${
+            lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+          }`}>
+            {t.walimaReception}
           </h2>
           <GoldDivider className="my-5" />
-          <p className="font-serif-elegant italic text-base sm:text-lg text-[#F7E7C4]/90">
-            "A momentous afternoon of cultural majesty, royal hospitality, and everlasting celebration."
+          <p className={`text-base sm:text-lg text-[#F7E7C4]/90 ${
+            lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
+          }`}>
+            {lang === 'ur'
+              ? 'مبارک روایات، شاہی ضیافت اور مسرتوں سے سجی ایک یادگار سہ پہر۔'
+              : '"A momentous afternoon of cultural majesty, royal hospitality, and everlasting celebration."'}
           </p>
         </div>
 
@@ -115,16 +128,18 @@ export const EventDetails: React.FC = () => {
             {/* Left Column: Key Stats */}
             <div className="space-y-6">
               <div className="text-xs uppercase tracking-[0.25em] font-serif-royal text-[#D4AF67] font-bold">
-                Walima Day · Sunday Reception
+                {lang === 'ur' ? 'یومِ ولیمہ · اتوار کی باوقار تقریب' : 'Walima Day · Sunday Reception'}
               </div>
 
               <div>
-                <h3 className="font-serif-royal text-2xl sm:text-4xl font-bold text-white tracking-wide">
-                  Sunday, 8 November 2026
+                <h3 className={`text-2xl sm:text-4xl font-bold text-white tracking-wide ${
+                  lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+                }`}>
+                  {t.eventDate}
                 </h3>
                 <div className="flex items-center gap-2 mt-2 text-[#F7E7C4] text-base font-serif-royal font-semibold">
                   <Clock size={18} className="text-[#D4AF67]" />
-                  <span>1:00 PM Pakistan Standard Time (PKT)</span>
+                  <span>{t.eventTime} ({t.eventTimezone})</span>
                 </div>
               </div>
 
@@ -132,14 +147,14 @@ export const EventDetails: React.FC = () => {
                 <div className="flex items-start gap-3">
                   <MapPin size={22} className="text-[#D4AF67] shrink-0 mt-1" />
                   <div>
-                    <h4 className="font-serif-royal text-xl font-bold text-white">
-                      Bukhara Royale Marquee
+                    <h4 className={`text-xl font-bold text-white ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                      {t.venueName}
                     </h4>
-                    <p className="text-sm text-[#F8F5EF]/80 mt-0.5">
-                      Main Expressway, Islamabad, near Gulberg, Pakistan.
+                    <p className={`text-sm text-[#F8F5EF]/80 mt-0.5 ${lang === 'ur' ? 'font-urdu' : ''}`}>
+                      {t.venueAddress}
                     </p>
-                    <p className="text-xs text-[#D4AF67] mt-1 font-medium">
-                      Complimentary valet parking &amp; grand banquet reception.
+                    <p className={`text-xs text-[#D4AF67] mt-1 font-medium ${lang === 'ur' ? 'font-urdu' : ''}`}>
+                      {lang === 'ur' ? 'وسیع پارکنگ، ویلٹ سروس اور پروقار شاہی انتظام۔' : 'Complimentary valet parking & grand banquet reception.'}
                     </p>
                   </div>
                 </div>
@@ -154,7 +169,7 @@ export const EventDetails: React.FC = () => {
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold tracking-wider uppercase hover:scale-105 active:scale-95 transition-all shadow-md"
                 >
                   <Calendar size={14} className="text-[#29101A]" />
-                  <span>Google Calendar</span>
+                  <span>{lang === 'ur' ? 'گوگل کیلنڈر' : 'Google Calendar'}</span>
                 </a>
 
                 <button
@@ -163,7 +178,7 @@ export const EventDetails: React.FC = () => {
                   title="Download .ics for Apple / Outlook Calendar"
                 >
                   {downloadedIcs ? <Check size={14} className="text-emerald-400" /> : <Download size={14} />}
-                  <span>{downloadedIcs ? 'Added to iCal!' : 'Apple / iCal (.ics)'}</span>
+                  <span>{downloadedIcs ? (lang === 'ur' ? 'کیلنڈر میں شامل!' : 'Added to iCal!') : (lang === 'ur' ? 'ایپل / آئی کیلنڈر' : 'Apple / iCal (.ics)')}</span>
                 </button>
 
                 <a
@@ -173,7 +188,7 @@ export const EventDetails: React.FC = () => {
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white/15 text-[#F8F5EF] font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all"
                 >
                   <Navigation size={14} className="text-[#D4AF67]" />
-                  <span>Get Directions</span>
+                  <span>{t.directionsButton}</span>
                 </a>
               </div>
             </div>
@@ -184,20 +199,22 @@ export const EventDetails: React.FC = () => {
                 <Sparkles size={28} />
               </div>
               <span className="text-[10px] uppercase tracking-[0.25em] text-[#D4AF67] font-serif-royal font-bold">
-                Venue Landmark
+                {lang === 'ur' ? 'شاہی تقریب کا مقام' : 'Venue Landmark'}
               </span>
-              <h4 className="font-serif-royal text-xl sm:text-2xl font-bold text-white mt-1">
-                Bukhara Royale Marquee
+              <h4 className={`text-xl sm:text-2xl font-bold text-white mt-1 ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                {t.venueName}
               </h4>
-              <p className="text-xs text-[#F7E7C4]/85 mt-2.5 leading-relaxed font-sans">
-                Nestled along Islamabad's prime Expressway near Gulberg Greens, Bukhara Royale Marquee offers majestic Mughal-inspired chandeliers, grand banquet halls, and royal hospitality fit for a prince &amp; princess.
+              <p className={`text-xs text-[#F7E7C4]/85 mt-2.5 leading-relaxed ${lang === 'ur' ? 'font-urdu' : 'font-sans'}`}>
+                {lang === 'ur'
+                  ? 'اسلام آباد کے مین ایکسپریس وے پر واقع بخارا روئیل مارکی اپنی مغلائی طرزِ تعمیر، دلکش جھومروں اور شاہی مہمان نوازی کے باعث ایک منفرد شناخت رکھتی ہے۔'
+                  : 'Nestled along Islamabad\'s prime Expressway near Gulberg Greens, Bukhara Royale Marquee offers majestic Mughal-inspired chandeliers, grand banquet halls, and royal hospitality fit for a prince & princess.'}
               </p>
               <div className="mt-5 pt-4 border-t border-[#D4AF67]/30 flex justify-center items-center gap-4 text-xs text-[#D4AF67] font-serif-royal font-medium">
-                <span>Valet Parking</span>
+                <span>{lang === 'ur' ? 'ویلٹ پارکنگ' : 'Valet Parking'}</span>
                 <span>·</span>
-                <span>Climate Controlled</span>
+                <span>{lang === 'ur' ? 'مکمل ایئرکنڈیشنڈ' : 'Climate Controlled'}</span>
                 <span>·</span>
-                <span>Dedicated Prayer Area</span>
+                <span>{lang === 'ur' ? 'نماز کی جگہ' : 'Dedicated Prayer Area'}</span>
               </div>
             </div>
           </div>
@@ -206,11 +223,15 @@ export const EventDetails: React.FC = () => {
         {/* Program Itinerary Flow */}
         <div className="mt-8">
           <div className="text-center mb-10">
-            <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-white tracking-wide">
-              Walima Day Schedule
+            <h3 className={`text-2xl sm:text-3xl font-bold text-white tracking-wide ${
+              lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+            }`}>
+              {t.scheduleTitle}
             </h3>
-            <p className="text-xs uppercase tracking-widest text-[#D4AF67] mt-1.5 font-medium">
-              Kindly arrive promptly by 1:00 PM for the reception and welcoming ceremonies
+            <p className={`text-xs uppercase tracking-widest text-[#D4AF67] mt-1.5 font-medium ${
+              lang === 'ur' ? 'font-urdu' : ''
+            }`}>
+              {t.scheduleSubtitle}
             </p>
           </div>
 

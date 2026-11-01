@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { Check, Heart, X, Send, AlertCircle, Edit3, UserCheck } from 'lucide-react';
+import { Check, Heart, X, Send, AlertCircle, Edit3, UserCheck, Sparkles } from 'lucide-react';
 import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { Guest, Rsvp } from '../types/wedding';
-import { GoldDivider, MughalCorner } from './MughalMotif';
+import { GoldDivider, MughalCorner, RoyalCrest } from './MughalMotif';
+import { Language, translations } from '../lib/translations';
 
 interface RsvpFormProps {
   currentGuest: Guest | null;
   inviteToken: string | null;
+  lang: Language;
 }
 
-export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken }) => {
+export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken, lang }) => {
+  const t = translations[lang];
   const [guestName, setGuestName] = useState(currentGuest?.name || '');
   const [status, setStatus] = useState<'attending' | 'declined'>('attending');
   const [attendeesCount, setAttendeesCount] = useState(currentGuest?.maxGuests || 1);
@@ -22,10 +25,8 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
   const [submittedSuccess, setSubmittedSuccess] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Derive stable RSVP document ID
   const rsvpDocId = currentGuest?.id || (inviteToken ? `token_${inviteToken}` : '');
 
-  // Fetch existing RSVP if token / guestId exists
   useEffect(() => {
     if (currentGuest?.name) {
       setGuestName(currentGuest.name);
@@ -60,7 +61,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
     setErrorMsg('');
 
     if (!guestName.trim()) {
-      setErrorMsg('Please enter your full name or family name.');
+      setErrorMsg(lang === 'ur' ? 'براہِ کرم اپنا مکمل نام درج فرمائیں۔' : 'Please enter your full name or family name.');
       return;
     }
 
@@ -82,6 +83,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
     };
 
     try {
+      // Confirmed database persistence
       await setDoc(doc(db, 'rsvps', docId), payload);
 
       setExistingRsvp(payload);
@@ -91,7 +93,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
       if (status === 'attending') {
         try {
           confetti({
-            particleCount: 65,
+            particleCount: 70,
             spread: 85,
             origin: { y: 0.65 },
             colors: ['#D4AF67', '#F7E7C4', '#641D32', '#FFF3DB', '#ECC880'],
@@ -123,77 +125,108 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
         {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-14">
           <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#9E7422] font-bold">
-            Répondez S'il Vous Plaît
+            {lang === 'ur' ? 'دعوت نامہ' : 'Répondez S\'il Vous Plaît'}
           </span>
-          <h2 className="font-serif-royal text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2">
-            Confirm Your Attendance
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2 ${
+            lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+          }`}>
+            {t.rsvpTitle}
           </h2>
           <GoldDivider className="my-5" />
-          <p className="font-serif-elegant italic text-base sm:text-lg text-[#29101A]/85">
-            "Your presence will add warmth and grace to our wedding celebration. Kindly inform us of your attendance."
+          <p className={`text-base sm:text-lg text-[#29101A]/85 ${
+            lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
+          }`}>
+            {t.rsvpSubtitle}
           </p>
         </div>
 
-        {/* Existing RSVP Confirmed State */}
+        {/* Existing RSVP Confirmed State — Thank You Screen */}
         {submittedSuccess && !isEditing ? (
-          <div className="bg-white rounded-3xl border-2 border-[#D4AF67] p-8 sm:p-14 shadow-2xl text-center relative overflow-hidden animate-fade-in">
-            <MughalCorner position="top-left" className="absolute top-2 left-2" size={36} />
-            <MughalCorner position="top-right" className="absolute top-2 right-2" size={36} />
+          <div className="burgundy-card-gradient rounded-3xl border-2 border-[#D4AF67] p-8 sm:p-14 shadow-2xl text-center relative overflow-hidden animate-fade-in text-[#F8F5EF]">
+            {/* Subtle animated floral gold pattern background */}
+            <div className="absolute inset-0 dark-damask-pattern opacity-30 pointer-events-none" />
+            <MughalCorner position="top-left" className="absolute top-3 left-3" size={38} />
+            <MughalCorner position="top-right" className="absolute top-3 right-3" size={38} />
+            <MughalCorner position="bottom-left" className="absolute bottom-3 left-3" size={38} />
+            <MughalCorner position="bottom-right" className="absolute bottom-3 right-3" size={38} />
 
-            <div className="w-16 h-16 rounded-full bg-[#641D32]/10 border-2 border-[#D4AF67] flex items-center justify-center mx-auto mb-4 text-[#641D32]">
-              {existingRsvp?.status === 'attending' ? (
-                <Check size={32} className="text-emerald-700" />
-              ) : (
-                <Heart size={30} className="text-[#641D32]" />
-              )}
-            </div>
+            <div className="relative z-10">
+              <RoyalCrest size={68} className="mx-auto mb-4" />
 
-            <span className="text-xs uppercase tracking-widest text-[#9E7422] font-serif-royal font-bold">
-              RSVP Confirmation Received
-            </span>
-
-            <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-[#641D32] mt-2">
-              Thank You, {existingRsvp?.guestName}!
-            </h3>
-
-            <div className="my-6 p-5 rounded-2xl bg-[#F8F5EF] border border-[#D4AF67]/35 max-w-md mx-auto text-left space-y-2.5">
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-[#641D32] font-semibold font-serif-royal">Attendance:</span>
-                <span className="font-serif-royal text-xs font-bold uppercase tracking-wider text-emerald-800">
-                  {existingRsvp?.status === 'attending' ? 'Joyfully Attending' : 'Regretfully Declining'}
-                </span>
+              <div className="w-16 h-16 rounded-full bg-[#641D32]/80 border-2 border-[#D4AF67] flex items-center justify-center mx-auto mb-4 text-[#F7E7C4] shadow-xl">
+                {existingRsvp?.status === 'attending' ? (
+                  <Check size={32} className="text-emerald-400" />
+                ) : (
+                  <Heart size={30} className="text-[#D4AF67]" />
+                )}
               </div>
 
-              {existingRsvp?.status === 'attending' && (
-                <div className="flex justify-between items-center text-sm pt-2 border-t border-[#D4AF67]/20">
-                  <span className="text-[#641D32] font-semibold font-serif-royal">Attendees:</span>
-                  <span className="font-bold text-[#29101A]">
-                    {existingRsvp.attendeesCount} {existingRsvp.attendeesCount > 1 ? 'Persons' : 'Person'}
+              {/* Exact Suggested Text with Gold Typography */}
+              <h3 className={`text-2xl sm:text-4xl font-bold gold-foil-text tracking-wide ${
+                lang === 'ur' ? 'font-urdu' : 'font-serif-royal'
+              }`}>
+                {lang === 'ur'
+                  ? 'ہماری خوشیوں میں شمولیت کا تہہ دل سے شکریہ'
+                  : 'Thank You for Being Part of Our Celebration'}
+              </h3>
+
+              <p className={`text-base sm:text-lg text-[#F7E7C4] mt-2 max-w-lg mx-auto ${
+                lang === 'ur' ? 'font-urdu' : 'font-serif-elegant italic'
+              }`}>
+                {lang === 'ur'
+                  ? 'آپ کی پروقار شرکت ہمارے اس خاص دن کو ہمیشہ کے لیے یادگار بنا دے گی۔'
+                  : 'Your presence will make our special day even more memorable.'}
+              </p>
+
+              {/* Response Details Box */}
+              <div className="my-6 p-5 rounded-2xl bg-black/40 border border-[#D4AF67]/40 max-w-md mx-auto text-left space-y-2.5">
+                <div className="flex justify-between items-center text-sm">
+                  <span className={`text-[#D4AF67] font-semibold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                    {lang === 'ur' ? 'مہمان:' : 'Guest Name:'}
+                  </span>
+                  <span className="font-bold text-white">{existingRsvp?.guestName}</span>
+                </div>
+
+                <div className="flex justify-between items-center text-sm pt-2 border-t border-white/10">
+                  <span className={`text-[#D4AF67] font-semibold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                    {lang === 'ur' ? 'حیثیت:' : 'Attendance:'}
+                  </span>
+                  <span className="font-bold text-emerald-400 font-serif-royal text-xs uppercase">
+                    {existingRsvp?.status === 'attending'
+                      ? (lang === 'ur' ? 'بخوشی شرکت فرمائیں گے' : 'Joyfully Attending')
+                      : (lang === 'ur' ? 'معذرت، شرکت سے قاصر' : 'Declined')}
                   </span>
                 </div>
-              )}
 
-              {existingRsvp?.dietaryOrNotes && (
-                <div className="pt-2 border-t border-[#D4AF67]/20 text-xs text-[#29101A]/85">
-                  <span className="font-semibold text-[#641D32] block font-serif-royal">Your Note / Du'a:</span>
-                  <p className="italic mt-0.5 font-serif-elegant text-sm">"{existingRsvp.dietaryOrNotes}"</p>
-                </div>
-              )}
+                {existingRsvp?.status === 'attending' && (
+                  <div className="flex justify-between items-center text-sm pt-2 border-t border-white/10">
+                    <span className={`text-[#D4AF67] font-semibold ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                      {lang === 'ur' ? 'تعداد:' : 'Attendees:'}
+                    </span>
+                    <span className="font-bold text-white font-serif-royal">
+                      {existingRsvp.attendeesCount} {existingRsvp.attendeesCount > 1 ? (lang === 'ur' ? 'افراد' : 'Persons') : (lang === 'ur' ? 'فرد' : 'Person')}
+                    </span>
+                  </div>
+                )}
+
+                {existingRsvp?.dietaryOrNotes && (
+                  <div className="pt-2 border-t border-white/10 text-xs text-stone-300">
+                    <span className={`font-semibold text-[#D4AF67] block ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
+                      {lang === 'ur' ? 'دعائیہ پیغام:' : 'Your Note / Du’a:'}
+                    </span>
+                    <p className="italic mt-0.5 font-serif-elegant text-sm">"{existingRsvp.dietaryOrNotes}"</p>
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={() => setIsEditing(true)}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#D4AF67] text-[#F7E7C4] hover:bg-[#641D32] hover:text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-md cursor-pointer"
+              >
+                <Edit3 size={14} />
+                <span>{t.rsvpUpdate}</span>
+              </button>
             </div>
-
-            <p className="text-sm font-serif-elegant italic text-[#641D32]/85 max-w-md mx-auto mb-6">
-              {existingRsvp?.status === 'attending'
-                ? 'We cannot wait to welcome you at Bukhara Royale Marquee on Sunday, 8 November 2026 at 1:00 PM!'
-                : 'Thank you for your heartfelt prayers and wishes for Mubasshir & Tasmia.'}
-            </p>
-
-            <button
-              onClick={() => setIsEditing(true)}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-[#D4AF67] text-[#641D32] hover:bg-[#641D32] hover:text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
-            >
-              <Edit3 size={14} />
-              <span>Update My RSVP</span>
-            </button>
           </div>
         ) : (
           /* RSVP Input Form */
@@ -213,9 +246,12 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
 
             {currentGuest && (
               <div className="mb-6 p-3.5 rounded-xl bg-[#F8F5EF] border border-[#D4AF67]/35 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs text-[#641D32] font-serif-royal">
+                <div className={`flex items-center gap-2 text-xs text-[#641D32] ${lang === 'ur' ? 'font-urdu' : 'font-serif-royal'}`}>
                   <UserCheck size={16} className="text-[#9E7422]" />
-                  <span>Invitation linked to: <strong>{currentGuest.name}</strong></span>
+                  <span>
+                    {lang === 'ur' ? 'دعوت نامہ برائے: ' : 'Invitation linked to: '}
+                    <strong>{currentGuest.name}</strong>
+                  </span>
                 </div>
                 {currentGuest.familyGroup && (
                   <span className="text-[11px] font-semibold text-[#9E7422] uppercase">
@@ -227,49 +263,53 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
 
             {/* Guest Name Field */}
             <div className="mb-6">
-              <label className="block text-xs uppercase tracking-widest font-serif-royal font-bold text-[#641D32] mb-2">
-                Full Name / Family Name *
+              <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] mb-2 ${
+                lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
+              }`}>
+                {t.rsvpNameLabel}
               </label>
               <input
                 type="text"
                 required
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
-                placeholder="e.g. Mr. Tariq Khan &amp; Family"
+                placeholder={lang === 'ur' ? 'مثلاً: ڈاکٹر ندیم اور اہل خانہ' : 'e.g. Mr. Tariq Khan & Family'}
                 className="w-full px-4 py-3.5 rounded-xl border border-stone-300 focus:border-[#D4AF67] focus:ring-2 focus:ring-[#D4AF67]/30 outline-none text-sm transition-all bg-[#FAF8F5]"
               />
             </div>
 
             {/* Attendance Toggle Buttons */}
             <div className="mb-6">
-              <label className="block text-xs uppercase tracking-widest font-serif-royal font-bold text-[#641D32] mb-2">
-                Will You Attend? *
+              <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] mb-2 ${
+                lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
+              }`}>
+                {t.rsvpAttendanceLabel}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <button
                   type="button"
                   onClick={() => setStatus('attending')}
-                  className={`py-3.5 px-4 rounded-xl border-2 flex items-center justify-center gap-2 text-xs font-serif-royal uppercase tracking-wider font-bold transition-all ${
+                  className={`py-3.5 px-4 rounded-xl border-2 flex items-center justify-center gap-2 text-xs uppercase tracking-wider font-bold transition-all cursor-pointer ${
                     status === 'attending'
                       ? 'border-[#D4AF67] bg-[#641D32] text-[#F8F5EF] shadow-md'
                       : 'border-stone-200 bg-stone-50 text-stone-700 hover:border-[#D4AF67]/40'
-                  }`}
+                  } ${lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'}`}
                 >
                   <Check size={16} className={status === 'attending' ? 'text-[#D4AF67]' : 'text-stone-400'} />
-                  <span>Joyfully Attending</span>
+                  <span>{t.rsvpAttending}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setStatus('declined')}
-                  className={`py-3.5 px-4 rounded-xl border-2 flex items-center justify-center gap-2 text-xs font-serif-royal uppercase tracking-wider font-bold transition-all ${
+                  className={`py-3.5 px-4 rounded-xl border-2 flex items-center justify-center gap-2 text-xs uppercase tracking-wider font-bold transition-all cursor-pointer ${
                     status === 'declined'
                       ? 'border-[#641D32] bg-[#29101A] text-[#F8F5EF] shadow-md'
                       : 'border-stone-200 bg-stone-50 text-stone-700 hover:border-stone-300'
-                  }`}
+                  } ${lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'}`}
                 >
                   <X size={16} className={status === 'declined' ? 'text-red-400' : 'text-stone-400'} />
-                  <span>Regretfully Declining</span>
+                  <span>{t.rsvpDeclining}</span>
                 </button>
               </div>
             </div>
@@ -278,12 +318,14 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
             {status === 'attending' && (
               <div className="mb-6 animate-fade-in">
                 <div className="flex justify-between items-center mb-2">
-                  <label className="block text-xs uppercase tracking-widest font-serif-royal font-bold text-[#641D32]">
-                    Total Number of Attendees *
+                  <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] ${
+                    lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
+                  }`}>
+                    {t.rsvpAttendeesCountLabel}
                   </label>
                   {currentGuest?.maxGuests && (
                     <span className="text-[11px] text-[#9E7422] font-serif-elegant italic">
-                      Max reserved: {currentGuest.maxGuests}
+                      {lang === 'ur' ? `زیادہ سے زیادہ نشستیں: ${currentGuest.maxGuests}` : `Max reserved: ${currentGuest.maxGuests}`}
                     </span>
                   )}
                 </div>
@@ -296,7 +338,7 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
                         key={num}
                         type="button"
                         onClick={() => setAttendeesCount(num)}
-                        className={`w-12 h-12 rounded-xl font-serif-royal text-sm font-bold border-2 transition-all ${
+                        className={`w-12 h-12 rounded-xl font-serif-royal text-sm font-bold border-2 transition-all cursor-pointer ${
                           attendeesCount === num
                             ? 'bg-[#D4AF67] text-[#29101A] border-[#D4AF67] shadow-md scale-105'
                             : 'bg-[#F8F5EF] border-stone-200 text-stone-700 hover:border-[#D4AF67]'
@@ -312,14 +354,16 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
 
             {/* Optional Blessing message */}
             <div className="mb-8">
-              <label className="block text-xs uppercase tracking-widest font-serif-royal font-bold text-[#641D32] mb-2">
-                Blessings, Du'as, or Dietary Notes (Optional)
+              <label className={`block text-xs uppercase tracking-widest font-bold text-[#641D32] mb-2 ${
+                lang === 'ur' ? 'font-urdu text-sm' : 'font-serif-royal'
+              }`}>
+                {t.rsvpNotesLabel}
               </label>
               <textarea
                 rows={3}
                 value={dietaryOrNotes}
                 onChange={(e) => setDietaryOrNotes(e.target.value)}
-                placeholder="Share your prayers or special wishes for Mubasshir and Tasmia..."
+                placeholder={lang === 'ur' ? 'جوڑے کے لیے خصوصی دعائیں یا پیغامات...' : 'Share your prayers or special wishes for Mubasshir and Tasmia...'}
                 className="w-full px-4 py-3.5 rounded-xl border border-stone-300 focus:border-[#D4AF67] focus:ring-2 focus:ring-[#D4AF67]/30 outline-none text-sm transition-all bg-[#FAF8F5]"
               />
             </div>
@@ -330,23 +374,23 @@ export const RsvpForm: React.FC<RsvpFormProps> = ({ currentGuest, inviteToken })
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="text-xs uppercase tracking-wider text-stone-500 hover:text-stone-800 order-2 sm:order-1 font-serif-royal"
+                  className="text-xs uppercase tracking-wider text-stone-500 hover:text-stone-800 order-2 sm:order-1 font-serif-royal cursor-pointer"
                 >
-                  Cancel Edit
+                  {lang === 'ur' ? 'منسوخ کریں' : 'Cancel Edit'}
                 </button>
               )}
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full sm:w-auto ml-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full gold-foil-bg text-[#29101A] font-serif-royal text-xs sm:text-sm font-bold tracking-[0.2em] uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#D4AF67]/25 disabled:opacity-50 order-1 sm:order-2"
+                className="w-full sm:w-auto ml-auto inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full gold-foil-bg text-[#29101A] font-serif-royal text-xs sm:text-sm font-bold tracking-[0.2em] uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#D4AF67]/25 disabled:opacity-50 order-1 sm:order-2 cursor-pointer"
               >
                 {isSubmitting ? (
-                  <span>Recording Response...</span>
+                  <span>{lang === 'ur' ? 'ارسال ہو رہا ہے...' : 'Recording Response...'}</span>
                 ) : (
                   <>
                     <Send size={15} />
-                    <span>{existingRsvp ? 'Update My RSVP' : 'Submit Royal RSVP'}</span>
+                    <span>{existingRsvp ? t.rsvpUpdate : t.rsvpSubmit}</span>
                   </>
                 )}
               </button>
