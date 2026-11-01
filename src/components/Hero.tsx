@@ -80,31 +80,34 @@ export const Hero: React.FC<HeroProps> = ({ guestName, familyGroup, lang }) => {
             </p>
           </div>
 
-          {/* Couple Names - Perfectly Centered & Balanced */}
-          <div className="py-3 relative w-full flex items-center justify-center">
-            {lang === 'ur' ? (
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 font-urdu text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide">
-                <span className="gold-foil-text drop-shadow-sm">مبشر</span>
-                <span className="font-calligraphy text-4xl sm:text-5xl text-[#845E1B] px-2">و</span>
-                <span className="gold-foil-text drop-shadow-sm">تسمیہ محفوظ</span>
-              </div>
-            ) : (
-              <div className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-6">
-                <h1 className="font-serif-royal text-4xl sm:text-5xl md:text-6xl font-bold tracking-[0.08em] gold-foil-text drop-shadow-sm">
-                  MUBASSHIR
-                </h1>
-
-                <div className="flex items-center justify-center my-0.5 md:my-0">
-                  <span className="font-calligraphy text-4xl sm:text-5xl md:text-6xl text-[#845E1B] px-2 select-none">
-                    &amp;
-                  </span>
-                </div>
-
-                <h1 className="font-serif-royal text-4xl sm:text-5xl md:text-6xl font-bold tracking-[0.08em] gold-foil-text drop-shadow-sm">
-                  TASMIA <span className="text-[#2C2621]">MEHFOOZ</span>
+          {/* Couple Names - Featuring Staggered Layout: Mubasshir Qayyum (Up) & Tasmia Mehfooz (Down) */}
+          <div className="py-6 relative w-full flex flex-col items-center justify-center">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 w-full">
+              {/* Groom: Mubasshir Qayyum (Uper) */}
+              <div className="transform -translate-y-2 md:-translate-y-3 flex flex-col items-center">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-[#845E1B] font-bold font-serif-royal mb-1.5">
+                  {lang === 'ur' ? 'دولہا' : 'Groom'}
+                </span>
+                <h1 className="font-serif-royal text-2xl sm:text-4xl lg:text-5xl font-bold gold-foil-text tracking-wider drop-shadow-sm">
+                  {lang === 'ur' ? 'مبشر قیوم' : 'Mubasshir Qayyum'}
                 </h1>
               </div>
-            )}
+
+              {/* Ampersand Motif */}
+              <span className="font-serif-decorative text-2xl sm:text-3xl text-[#845E1B] px-2">
+                {lang === 'ur' ? 'و' : '&'}
+              </span>
+
+              {/* Bride: Tasmia Mehfooz (Neche) */}
+              <div className="transform translate-y-2 md:translate-y-3 flex flex-col items-center">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-[#845E1B] font-bold font-serif-royal mb-1.5">
+                  {lang === 'ur' ? 'دہن' : 'Bride'}
+                </span>
+                <h1 className="font-serif-royal text-2xl sm:text-4xl lg:text-5xl font-bold gold-foil-text tracking-wider drop-shadow-sm">
+                  {lang === 'ur' ? 'تسمیہ محفوظ' : 'Tasmia Mehfooz'}
+                </h1>
+              </div>
+            </div>
           </div>
 
           <GoldDivider className="my-6" />

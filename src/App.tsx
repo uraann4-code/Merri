@@ -14,7 +14,6 @@ import { PhotoGallery } from './components/PhotoGallery';
 import { RsvpForm } from './components/RsvpForm';
 import { VenueSection } from './components/VenueSection';
 import { FaqSection } from './components/FaqSection';
-import { MemoriesGallery } from './components/MemoriesGallery';
 import { Footer } from './components/Footer';
 import { AdminDashboard } from './components/AdminDashboard';
 
@@ -163,13 +162,6 @@ export default function App() {
 
         {/* Section 9: FAQ & Guest Etiquette */}
         <FaqSection lang={lang} />
-
-        {/* Section 10: Walima Memories & Guest Prayers Wall */}
-        <MemoriesGallery
-          isMemoriesActive={isMemoriesActive}
-          guestName={currentGuest?.name}
-          lang={lang}
-        />
       </main>
 
       {/* Royal Footer */}

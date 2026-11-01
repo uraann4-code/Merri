@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Menu, X, Shield, Heart, Globe, Sliders } from 'lucide-react';
-import { guzarishAmbiance } from '../lib/audioAmbiance';
+import { Volume2, VolumeX, Menu, X, Shield, Heart, Globe, ListMusic } from 'lucide-react';
+import { royalAmbiance, WeddingTrack } from '../lib/audioAmbiance';
 import { Language, translations } from '../lib/translations';
 
 interface NavbarProps {
@@ -9,6 +9,7 @@ interface NavbarProps {
   isMemoriesActive?: boolean;
   lang: Language;
   onToggleLang: () => void;
+  onOpenMusicSelector?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,12 +17,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   guestName,
   lang,
   onToggleLang,
+  onOpenMusicSelector,
 }) => {
   const [scrolled, setScrolled] = useState(false);
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const [isPlayingMusic, setIsPlayingMusic] = useState(royalAmbiance.getIsPlaying());
+  const [currentTrack, setCurrentTrack] = useState<WeddingTrack>(royalAmbiance.getCurrentTrack());
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [volume, setVolume] = useState(75);
-  const [showVolumePopup, setShowVolumePopup] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,13 +33,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   useEffect(() => {
-    return guzarishAmbiance.subscribe((playing) => {
-      setIsPlayingMusic(playing);
-    });
+    const unsubState = royalAmbiance.subscribe(setIsPlayingMusic);
+    const unsubTrack = royalAmbiance.subscribeTrack(setCurrentTrack);
+    return () => {
+      unsubState();
+      unsubTrack();
+    };
   }, []);
 
   const toggleMusic = () => {
-    guzarishAmbiance.toggle();
+    royalAmbiance.toggle();
   };
 
   const navLinks = [
@@ -50,7 +54,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: lang === 'ur' ? 'شرکت کی تصدیق' : 'RSVP', href: '#rsvp' },
     { label: lang === 'ur' ? 'مقام و نقشہ' : 'Venue & Map', href: '#venue' },
     { label: lang === 'ur' ? 'معلومات' : 'FAQ', href: '#faq' },
-    { label: lang === 'ur' ? 'دعائیہ پیغامات' : 'Memories & Duas', href: '#memories' },
   ];
 
   return (
@@ -109,25 +112,40 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           {/* Audio Ambiance Controller */}
-          <div className="relative">
+          <div className="relative flex items-center gap-1">
             <button
               onClick={toggleMusic}
-              aria-label={isPlayingMusic ? 'Mute Guzarish instrumental music' : 'Play Guzarish instrumental music'}
+              aria-label={isPlayingMusic ? 'Mute background music' : 'Play background music'}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4AF67]/50 bg-white/90 hover:bg-[#EDE4D5] text-[#845E1B] text-xs font-serif-royal transition-all duration-300 shadow-sm cursor-pointer"
-              title={isPlayingMusic ? 'Mute Guzarish background music' : 'Play Guzarish background music'}
+              title={isPlayingMusic ? 'Mute background music' : 'Play background music'}
             >
               {isPlayingMusic ? (
                 <>
                   <Volume2 size={14} className="text-[#845E1B] animate-pulse" />
-                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase font-semibold">Guzarish · Sartaaj</span>
+                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase font-semibold">
+                    {currentTrack.title}
+                  </span>
                 </>
               ) : (
                 <>
                   <VolumeX size={14} className="text-[#845E1B]" />
-                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase font-semibold">Play Guzarish</span>
+                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase font-semibold">
+                    Play Music
+                  </span>
                 </>
               )}
             </button>
+
+            {onOpenMusicSelector && (
+              <button
+                onClick={onOpenMusicSelector}
+                aria-label="Change wedding song"
+                className="p-1.5 rounded-full border border-[#D4AF67]/50 bg-white/90 hover:bg-[#EDE4D5] text-[#845E1B] transition-colors cursor-pointer shadow-xs"
+                title="Change wedding song"
+              >
+                <ListMusic size={13} />
+              </button>
+            )}
           </div>
 
           {/* Quick RSVP CTA button */}

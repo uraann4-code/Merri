@@ -1,20 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Volume2, VolumeX, Sparkles, ArrowRight, Music2 } from 'lucide-react';
+import { Volume2, VolumeX, Sparkles, ArrowRight, Music2, ListMusic } from 'lucide-react';
 import { RoyalCrest } from './MughalMotif';
-import { guzarishAmbiance } from '../lib/audioAmbiance';
+import { royalAmbiance, WeddingTrack } from '../lib/audioAmbiance';
 
 interface CinematicIntroProps {
   onComplete: () => void;
   guestName?: string;
+  onOpenMusicSelector?: () => void;
 }
 
-export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, guestName }) => {
+export const CinematicIntro: React.FC<CinematicIntroProps> = ({
+  onComplete,
+  guestName,
+  onOpenMusicSelector,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCardSlidOut, setIsCardSlidOut] = useState(false);
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const [isPlayingMusic, setIsPlayingMusic] = useState(royalAmbiance.getIsPlaying());
+  const [currentTrack, setCurrentTrack] = useState<WeddingTrack>(royalAmbiance.getCurrentTrack());
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const unsubState = royalAmbiance.subscribe(setIsPlayingMusic);
+    const unsubTrack = royalAmbiance.subscribeTrack(setCurrentTrack);
+    return () => {
+      unsubState();
+      unsubTrack();
+    };
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -100,8 +115,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
   }, []);
 
   const handleOpenEnvelope = () => {
-    // Play Guzarish romance melody
-    guzarishAmbiance.play();
+    // Play selected wedding background music
+    royalAmbiance.play();
     setIsPlayingMusic(true);
 
     // Celebratory royal gold & ivory confetti
@@ -127,8 +142,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
   };
 
   const toggleMusic = () => {
-    guzarishAmbiance.toggle();
-    setIsPlayingMusic(guzarishAmbiance.getIsPlaying());
+    royalAmbiance.toggle();
+    setIsPlayingMusic(royalAmbiance.getIsPlaying());
   };
 
   return (
@@ -143,24 +158,39 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
       <div className="absolute inset-0 mughal-damask-pattern opacity-45 pointer-events-none" />
 
       {/* Top Header Bar: Track Indicator, Sound & Skip */}
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-40 flex items-center gap-3">
-        <button
-          onClick={toggleMusic}
-          className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-serif-royal uppercase tracking-wider rounded-full border border-[#D4AF67]/60 bg-white/90 text-[#845E1B] backdrop-blur-md hover:bg-[#FAF7F2] transition-all duration-300 shadow-md cursor-pointer"
-          title={isPlayingMusic ? 'Mute Guzarish Melodic Romance' : 'Play Guzarish Melodic Romance'}
-        >
-          {isPlayingMusic ? (
-            <>
-              <Volume2 size={14} className="text-[#845E1B] animate-pulse" />
-              <span className="hidden sm:inline text-[11px] text-[#845E1B] font-semibold">Guzarish · Satinder Sartaaj</span>
-            </>
-          ) : (
-            <>
-              <Music2 size={14} className="text-[#845E1B]" />
-              <span className="hidden sm:inline text-[11px] font-semibold">Play Guzarish</span>
-            </>
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-40 flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 p-1 rounded-full border border-[#D4AF67]/60 bg-white/90 shadow-md backdrop-blur-md">
+          <button
+            onClick={toggleMusic}
+            className="flex items-center gap-2 px-3 py-1.5 text-xs font-serif-royal uppercase tracking-wider text-[#845E1B] hover:text-[#2C2621] transition-all cursor-pointer"
+            title={isPlayingMusic ? 'Mute Background Music' : 'Play Background Music'}
+          >
+            {isPlayingMusic ? (
+              <>
+                <Volume2 size={14} className="text-[#845E1B] animate-pulse" />
+                <span className="hidden sm:inline text-[11px] text-[#845E1B] font-semibold">
+                  {currentTrack.title}
+                </span>
+              </>
+            ) : (
+              <>
+                <Music2 size={14} className="text-[#845E1B]" />
+                <span className="hidden sm:inline text-[11px] font-semibold">Play Music</span>
+              </>
+            )}
+          </button>
+
+          {onOpenMusicSelector && (
+            <button
+              onClick={onOpenMusicSelector}
+              className="px-2.5 py-1 rounded-full gold-foil-bg text-[#2C2621] text-[10px] font-serif-royal font-bold uppercase tracking-wider hover:brightness-105 transition-all cursor-pointer shadow-xs"
+              title="Change wedding song"
+            >
+              <ListMusic size={12} className="inline mr-1" />
+              <span className="hidden md:inline">Change</span>
+            </button>
           )}
-        </button>
+        </div>
 
         <button
           onClick={onComplete}
@@ -254,7 +284,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
 
             {/* Parchment Invitation Card Inside */}
             <div
-              className={`absolute inset-x-2 sm:inset-x-3 inset-y-2 rounded-lg bg-[#FFFFFF] text-[#2C2621] p-5 sm:p-6 flex flex-col items-center justify-center shadow-2xl transition-all duration-1000 ${
+              className={`absolute inset-x-2 sm:inset-x-3 inset-y-2 rounded-lg bg-[#FFFFFF] text-[#2C2621] p-4 sm:p-5 flex flex-col items-center justify-center shadow-2xl transition-all duration-1000 ${
                 isCardSlidOut
                   ? 'translate-y-[-52%] opacity-100 z-20 shadow-[0_20px_50px_rgba(184,139,56,0.3)]'
                   : 'translate-y-0 opacity-0 z-10'
@@ -265,18 +295,27 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
                 backgroundSize: '20px 20px',
               }}
             >
-              <RoyalCrest size={44} className="mb-1" />
-              <p className="text-[10px] uppercase tracking-[0.3em] text-[#845E1B] font-serif-royal font-bold">
+              <RoyalCrest size={32} className="mb-0.5" />
+              <p className="text-[9px] uppercase tracking-[0.25em] text-[#845E1B] font-serif-royal font-bold">
                 Royal Walima Invitation
               </p>
-              <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-[#2C2621] tracking-wide mt-1">
-                Mubasshir &amp; Tasmia
-              </h3>
-              <div className="w-16 h-[1px] bg-[#D4AF67] my-1" />
-              <p className="font-serif-elegant italic text-xs text-[#845E1B] font-bold">
+              
+              {/* Staggered Names inside envelope card */}
+              <div className="flex flex-col items-center my-1 text-center">
+                <div className="transform -translate-y-1 font-serif-royal text-sm sm:text-base font-bold gold-foil-text">
+                  Mubasshir Qayyum
+                </div>
+                <div className="text-[10px] text-[#845E1B] font-serif-decorative my-0.5">&amp;</div>
+                <div className="transform translate-y-1 font-serif-royal text-sm sm:text-base font-bold gold-foil-text">
+                  Tasmia Mehfooz
+                </div>
+              </div>
+
+              <div className="w-12 h-[1px] bg-[#D4AF67] my-0.5" />
+              <p className="font-serif-elegant italic text-[10px] text-[#845E1B] font-bold">
                 Sunday, 8 November 2026 • 1:00 PM PKT
               </p>
-              <p className="text-[10px] uppercase tracking-wider text-[#3D332A] font-sans mt-0.5">
+              <p className="text-[8px] uppercase tracking-wider text-[#3D332A] font-sans mt-0.5">
                 Bukhara Royale Marquee • Islamabad
               </p>
             </div>
