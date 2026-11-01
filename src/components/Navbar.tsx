@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, guestName }) => {
   const navLinks = [
     { label: 'Invitation', href: '#invitation' },
     { label: 'Our Story', href: '#story' },
-    { label: 'Baraat Event', href: '#event' },
+    { label: 'Walima Event', href: '#event' },
     { label: 'Countdown', href: '#countdown' },
     { label: 'RSVP', href: '#rsvp' },
     { label: 'Venue & Map', href: '#venue' },
@@ -61,14 +61,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, guestName }) => {
               Mubasshir &amp; Tasmia
             </span>
             <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-[#D4AF67]/90 font-medium">
-              <span>Baraat</span>
+              <span>Walima</span>
               <span aria-hidden="true">·</span>
               <span>8 Nov 2026</span>
             </div>
           </div>
         </a>
 
-        {/* Desktop Clean Typography Navigation */}
+        {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6">
           {navLinks.map((item) => (
             <a
@@ -81,13 +81,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, guestName }) => {
           ))}
         </nav>
 
-        {/* Action Controls: Guzarish Audio & RSVP */}
+        {/* Action Controls */}
         <div className="flex items-center gap-3">
-          {/* Audio Ambiance Controller with Guzarish romance label */}
           <button
             onClick={toggleMusic}
             aria-label={isPlayingMusic ? 'Mute Guzarish instrumental music' : 'Play Guzarish instrumental music'}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4AF67]/50 bg-[#641D32]/50 hover:bg-[#641D32] text-[#F7E7C4] text-xs font-serif-royal transition-all duration-300 shadow-sm"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4AF67]/50 bg-[#641D32]/50 hover:bg-[#641D32] text-[#F7E7C4] text-xs font-serif-royal transition-all duration-300 shadow-sm cursor-pointer"
             title={isPlayingMusic ? 'Mute Guzarish background music' : 'Play Guzarish background music'}
           >
             {isPlayingMusic ? (
@@ -103,7 +102,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, guestName }) => {
             )}
           </button>
 
-          {/* Quick RSVP CTA button */}
           <a
             href="#rsvp"
             className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold tracking-widest uppercase hover:brightness-110 active:scale-95 transition-all shadow-md"
@@ -112,21 +110,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAdmin, guestName }) => {
             <span>RSVP</span>
           </a>
 
-          {/* Admin shortcut button */}
           <button
             onClick={onOpenAdmin}
             aria-label="Open Admin Dashboard"
-            className="p-1.5 text-[#D4AF67]/70 hover:text-[#D4AF67] transition-colors rounded-full hover:bg-white/10"
+            className="p-1.5 text-[#D4AF67]/70 hover:text-[#D4AF67] transition-colors rounded-full hover:bg-white/10 cursor-pointer"
             title="Admin Login & Guest Portal"
           >
             <Shield size={16} />
           </button>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
-            className="lg:hidden p-1.5 text-[#F8F5EF] hover:text-[#D4AF67] transition-colors"
+            className="lg:hidden p-1.5 text-[#F8F5EF] hover:text-[#D4AF67] transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>

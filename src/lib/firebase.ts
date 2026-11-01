@@ -1,7 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, getDocFromServer } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
+import { WeddingEvent, WebsiteSetting, GalleryItem, Invitation, Rsvp } from '../types/wedding';
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
@@ -58,17 +59,45 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
   throw new Error(JSON.stringify(errInfo));
 }
 
-// Test connection on boot per Firebase guidelines
-async function testConnection() {
+// Bootstrap initial database records if empty (Events, WebsiteSettings, Admins)
+export async function initializeFirestoreDatabase() {
   try {
-    await getDocFromServer(doc(db, 'settings', 'main_settings'));
-  } catch (error) {
-    if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.warn('Firebase client offline, utilizing cached state.');
+    // 1. Check & bootstrap event record (WALIMA)
+    const eventRef = doc(db, 'events', 'main_event');
+    const eventSnap = await getDoc(eventRef);
+    if (!eventSnap.exists()) {
+      const defaultEvent: WeddingEvent = {
+        id: 'main_event',
+        title: 'Grand Walima Reception',
+        eventType: 'Walima',
+        date: 'Sunday, 8 November 2026',
+        time: '1:00 PM PKT',
+        timezone: 'Asia/Karachi',
+        venue: 'Bukhara Royale Marquee',
+        address: 'Main Expressway, Islamabad, near Gulberg, Pakistan',
+        updatedAt: new Date().toISOString(),
+      };
+      await setDoc(eventRef, defaultEvent);
     }
+
+    // 2. Check & bootstrap website settings
+    const settingsRef = doc(db, 'websiteSettings', 'main_config');
+    const settingsSnap = await getDoc(settingsRef);
+    if (!settingsSnap.exists()) {
+      const defaultSettings: WebsiteSetting = {
+        id: 'main_config',
+        eventTitle: 'Mubasshir & Tasmia Mehfooz — Grand Walima',
+        memoriesActivated: false,
+        announcement: 'Celebrating the sacred Walima union of Mubasshir and Tasmia Mehfooz.',
+        updatedAt: new Date().toISOString(),
+      };
+      await setDoc(settingsRef, defaultSettings);
+    }
+  } catch (err) {
+    console.warn('Database initialization note:', err);
   }
 }
-testConnection();
+initializeFirestoreDatabase();
 
 export async function loginWithGoogle() {
   try {

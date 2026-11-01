@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc, getDoc } from 'firebase/firestore';
 import { db } from './lib/firebase';
-import { Guest, WeddingSetting } from './types/wedding';
+import { Guest, WebsiteSetting } from './types/wedding';
 import { CinematicIntro } from './components/CinematicIntro';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -23,59 +23,65 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isMemoriesActive, setIsMemoriesActive] = useState(false);
 
-  // Parse invitation token from URL on mount
+  // Parse invitation token from URL on mount & query tokenized document
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('invite') || params.get('token');
     if (token) {
       setInviteToken(token);
 
-      // Fetch guest record matching this token
-      const fetchGuest = async () => {
+      // Secure single-document fetch on 'invitations/{token}' to protect guest privacy
+      const fetchInvitation = async () => {
         try {
-          const q = query(collection(db, 'guests'), where('invitationToken', '==', token));
-          const snap = await getDocs(q);
-          if (!snap.empty) {
-            const docData = snap.docs[0];
-            setCurrentGuest({ id: docData.id, ...(docData.data() as Omit<Guest, 'id'>) });
+          const invRef = doc(db, 'invitations', token);
+          const snap = await getDoc(invRef);
+          if (snap.exists()) {
+            const data = snap.data();
+            setCurrentGuest({
+              id: data.guestId || token,
+              name: data.guestName,
+              familyGroup: data.familyGroup,
+              invitationToken: token,
+              maxGuests: data.maxGuests || 2,
+              createdAt: data.createdAt || new Date().toISOString(),
+            });
           }
         } catch (err) {
-          console.warn('Could not fetch guest with token', err);
+          console.warn('Could not fetch tokenized invitation document', err);
         }
       };
 
-      fetchGuest();
+      fetchInvitation();
     }
   }, []);
 
-  // Listen to wedding settings (memories gallery activation)
+  // Listen to website settings from 'websiteSettings/main_config'
   useEffect(() => {
     try {
       const unsub = onSnapshot(
-        doc(db, 'settings', 'main_settings'),
+        doc(db, 'websiteSettings', 'main_config'),
         (docSnap) => {
           if (docSnap.exists()) {
-            const data = docSnap.data() as WeddingSetting;
+            const data = docSnap.data() as WebsiteSetting;
             setIsMemoriesActive(!!data.memoriesActivated);
           }
         },
         (err) => {
-          console.warn('Settings listener error', err);
+          console.warn('Settings listener note:', err);
         }
       );
       return () => unsub();
-    } catch {
-      // Fallback
-    }
+    } catch {}
   }, []);
 
   const handleToggleMemories = async (active: boolean) => {
     setIsMemoriesActive(active);
     try {
       await setDoc(
-        doc(db, 'settings', 'main_settings'),
+        doc(db, 'websiteSettings', 'main_config'),
         {
-          id: 'main_settings',
+          id: 'main_config',
+          eventTitle: 'Mubasshir & Tasmia Mehfooz — Grand Walima',
           memoriesActivated: active,
           updatedAt: new Date().toISOString(),
         },
@@ -120,7 +126,7 @@ export default function App() {
         {/* Section 3: Our Story & Journey */}
         <OurStory />
 
-        {/* Section 4: Baraat Event Details, Calendar Sync & Schedule */}
+        {/* Section 4: Walima Event Details, Calendar Sync & Schedule */}
         <EventDetails />
 
         {/* Section 5: Real-Time Asia/Karachi Countdown */}
@@ -138,7 +144,7 @@ export default function App() {
         {/* Section 8: FAQ & Guest Etiquette */}
         <FaqSection />
 
-        {/* Section 9: Wedding Memories & Guest Prayers Wall */}
+        {/* Section 9: Walima Memories & Guest Prayers Wall */}
         <MemoriesGallery
           isMemoriesActive={isMemoriesActive}
           guestName={currentGuest?.name}

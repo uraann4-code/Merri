@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle, Clock, MapPin, Sparkles, Car, CheckCircle } from 'lucide-react';
-import { GoldDivider, MughalCorner } from './MughalMotif';
+import { GoldDivider } from './MughalMotif';
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
     {
-      q: 'What are the exact event timings for the Baraat?',
-      a: 'The Baraat will take place on Sunday, 8 November 2026. The Groom’s procession and royal arrival will commence at 1:00 PM Pakistan Standard Time (PKT). Guests are kindly requested to arrive by 1:00 PM to partake in the warm Istiqbal and Milni welcoming ceremonies.',
+      q: 'What are the exact event timings for the Walima?',
+      a: 'The Walima will take place on Sunday, 8 November 2026. The reception will commence at 1:00 PM Pakistan Standard Time (PKT). Guests are kindly requested to arrive by 1:00 PM to partake in the warm Istiqbal and welcoming ceremonies.',
       icon: Clock,
     },
     {
@@ -43,7 +43,6 @@ export const FaqSection: React.FC = () => {
       <div className="absolute inset-0 mughal-damask-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Section Header */}
         <div className="text-center max-w-xl mx-auto mb-16">
           <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#9E7422] font-bold">
             Guest Information &amp; Etiquette
@@ -57,7 +56,6 @@ export const FaqSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Accordion FAQ list */}
         <div className="space-y-4">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;

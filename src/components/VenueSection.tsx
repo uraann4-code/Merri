@@ -28,7 +28,7 @@ export const VenueSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Interactive Map Embed (7 cols) */}
+          {/* Interactive Map Embed */}
           <div className="lg:col-span-7 rounded-3xl border-2 border-[#D4AF67]/60 overflow-hidden shadow-2xl relative min-h-[380px] flex flex-col bg-stone-900">
             <iframe
               title="Bukhara Royale Marquee Location"
@@ -38,7 +38,6 @@ export const VenueSection: React.FC = () => {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-            {/* Overlay Bar */}
             <div className="p-4 bg-[#190910] border-t border-[#D4AF67]/30 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2 text-xs text-[#F8F5EF]/85 font-serif-royal">
                 <MapPin size={16} className="text-[#D4AF67]" />
@@ -56,9 +55,8 @@ export const VenueSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Logistics Information Cards (5 cols) */}
+          {/* Logistics Cards */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
-            {/* Route Guidance */}
             <div className="bg-[#2D0F1D] border-2 border-[#D4AF67]/35 rounded-2xl p-6 relative">
               <MughalCorner position="top-right" className="absolute top-2 right-2" size={28} />
               <div className="flex items-center gap-2.5 text-[#D4AF67] mb-2 font-serif-royal text-sm font-bold uppercase tracking-wider">
@@ -77,7 +75,6 @@ export const VenueSection: React.FC = () => {
               </ul>
             </div>
 
-            {/* Parking & Valet Information */}
             <div className="bg-[#2D0F1D] border-2 border-[#D4AF67]/35 rounded-2xl p-6 relative">
               <MughalCorner position="top-right" className="absolute top-2 right-2" size={28} />
               <div className="flex items-center gap-2.5 text-[#D4AF67] mb-2 font-serif-royal text-sm font-bold uppercase tracking-wider">
@@ -85,18 +82,17 @@ export const VenueSection: React.FC = () => {
                 <span>Complimentary Valet &amp; Parking</span>
               </div>
               <p className="text-xs text-[#F8F5EF]/85 font-sans leading-relaxed">
-                A grand on-site parking plaza is reserved exclusively for wedding attendees. Uniformed valet chauffeurs will receive you at the grand marquee porch upon arrival.
+                A grand on-site parking plaza is reserved exclusively for Walima attendees. Uniformed valet chauffeurs will receive you at the grand marquee porch upon arrival.
               </p>
             </div>
 
-            {/* Helpline Information */}
             <div className="bg-[#2D0F1D] border-2 border-[#D4AF67]/35 rounded-2xl p-6 relative">
               <div className="flex items-center gap-2.5 text-[#D4AF67] mb-2 font-serif-royal text-sm font-bold uppercase tracking-wider">
                 <PhoneCall size={18} />
                 <span>Hospitality &amp; Guest Helpline</span>
               </div>
               <p className="text-xs text-[#F8F5EF]/85 font-sans leading-relaxed">
-                Should you require any route navigation, parking guidance, or venue assistance on the day of the Baraat, the family hospitality concierge will be available to assist.
+                Should you require any route navigation, parking guidance, or venue assistance on the day of the Walima, the family hospitality concierge will be available to assist.
               </p>
               <div className="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-[#D4AF67] font-serif-royal">
                 <span className="font-bold">Venue Helpline:</span>

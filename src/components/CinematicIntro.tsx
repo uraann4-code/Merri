@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { Volume2, VolumeX, Sparkles, ArrowRight, Music2 } from 'lucide-react';
-import { RoyalCrest, GoldDivider } from './MughalMotif';
+import { RoyalCrest } from './MughalMotif';
 import { guzarishAmbiance } from '../lib/audioAmbiance';
 
 interface CinematicIntroProps {
@@ -100,11 +100,11 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
   }, []);
 
   const handleOpenEnvelope = () => {
-    // 1. Play Guzarish romance melody on user interaction
+    // Play Guzarish romance melody
     guzarishAmbiance.play();
     setIsPlayingMusic(true);
 
-    // 2. Celebratory royal gold & rose confetti
+    // Celebratory royal gold & ruby confetti
     try {
       confetti({
         particleCount: 55,
@@ -115,15 +115,12 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
       });
     } catch {}
 
-    // 3. 3D flap unfolds
     setIsOpen(true);
 
-    // 4. Letter pulls out
     setTimeout(() => {
       setIsCardSlidOut(true);
     }, prefersReducedMotion ? 200 : 700);
 
-    // 5. Seamless transition to palace invitation
     setTimeout(() => {
       onComplete();
     }, prefersReducedMotion ? 600 : 3200);
@@ -147,7 +144,6 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
 
       {/* Top Header Bar: Track Indicator, Sound & Skip */}
       <div className="absolute top-4 right-4 sm:top-6 sm:right-8 z-40 flex items-center gap-3">
-        {/* Guzarish Track Indicator */}
         <button
           onClick={toggleMusic}
           className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-serif-royal uppercase tracking-wider rounded-full border border-[#D4AF67]/50 bg-[#29101A]/80 text-[#D4AF67] backdrop-blur-md hover:bg-[#641D32]/60 transition-all duration-300 shadow-lg"
@@ -166,7 +162,6 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
           )}
         </button>
 
-        {/* Skip Intro Button */}
         <button
           onClick={onComplete}
           className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-serif-royal uppercase tracking-wider rounded-full border border-white/20 bg-[#29101A]/80 text-[#F8F5EF]/80 backdrop-blur-md hover:text-[#D4AF67] hover:border-[#D4AF67] transition-all duration-300"
@@ -182,7 +177,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
         <div className={`transition-all duration-700 ${isOpen ? 'opacity-0 -translate-y-4' : 'opacity-100'}`}>
           <div className="flex items-center justify-center gap-2 text-xs font-serif-royal tracking-[0.3em] uppercase text-[#D4AF67] mb-2 font-medium">
             <Sparkles size={12} className="text-[#F7E7C4]" />
-            <span>The Grand Baraat</span>
+            <span>The Grand Walima</span>
             <Sparkles size={12} className="text-[#F7E7C4]" />
           </div>
 
@@ -213,7 +208,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
             <div className="absolute inset-2 border border-[#D4AF67]/40 rounded-lg pointer-events-none" />
             <div className="absolute inset-3 border border-[#D4AF67]/20 rounded pointer-events-none" />
 
-            {/* Luxurious Gold Paisley Damask Interior Liner (Revealed when flap flips up) */}
+            {/* Gold Paisley Damask Interior Liner */}
             <div
               className={`absolute inset-0 rounded-xl transition-opacity duration-700 pointer-events-none ${
                 isOpen ? 'opacity-100' : 'opacity-0'
@@ -224,7 +219,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
               }}
             />
 
-            {/* 3D Envelope Flap (Triangle with gold border) */}
+            {/* 3D Envelope Flap */}
             <div
               className={`absolute top-0 left-0 right-0 h-32 sm:h-36 origin-top transition-transform duration-1000 z-30 ${
                 isOpen ? 'rotate-x-180 opacity-60' : 'rotate-x-0'
@@ -238,7 +233,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
               }}
             />
 
-            {/* Royal Crimson & Gold Wax Seal Medallion */}
+            {/* Wax Seal Medallion */}
             {!isOpen && (
               <div className="absolute top-28 sm:top-32 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 animate-candle-glow cursor-pointer" onClick={handleOpenEnvelope}>
                 {/* Golden Silk Ribbons */}
@@ -247,7 +242,6 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
                   <div className="w-2 h-14 bg-gradient-to-b from-[#ECC880] to-[#8F6317] shadow-sm transform rotate-6 rounded-b" />
                 </div>
 
-                {/* Wax Seal Outer Ring */}
                 <div className="relative flex items-center justify-center w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-[#7A1F38] via-[#641D32] to-[#3B0E1B] shadow-2xl border-2 border-[#D4AF67]">
                   <div className="w-14 h-14 rounded-full border border-[#D4AF67]/60 flex items-center justify-center bg-gradient-to-b from-[#641D32] to-[#451221] shadow-inner">
                     <span className="font-serif-decorative font-bold text-sm sm:text-base text-[#F7E7C4] tracking-wider drop-shadow">
@@ -258,7 +252,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
               </div>
             )}
 
-            {/* The Slid-Out Heavyweight Ivory Parchment Invitation Card */}
+            {/* Parchment Invitation Card */}
             <div
               className={`absolute inset-x-2 sm:inset-x-3 inset-y-2 rounded-lg bg-[#FAF7F2] text-[#29101A] p-5 sm:p-6 flex flex-col items-center justify-center shadow-2xl transition-all duration-1000 ${
                 isCardSlidOut
@@ -273,7 +267,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
             >
               <RoyalCrest size={44} className="mb-1" />
               <p className="text-[10px] uppercase tracking-[0.3em] text-[#641D32] font-serif-royal font-bold">
-                Royal Wedding Invitation
+                Royal Walima Invitation
               </p>
               <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-[#641D32] tracking-wide mt-1">
                 Mubasshir &amp; Tasmia
@@ -294,7 +288,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
           <div className="mt-1 flex flex-col items-center">
             <button
               onClick={handleOpenEnvelope}
-              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-serif-royal text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-[#29101A] gold-foil-bg shadow-xl shadow-[#D4AF67]/25 hover:shadow-[#D4AF67]/50 hover:scale-105 active:scale-95 transition-all duration-300"
+              className="group relative inline-flex items-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-serif-royal text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-[#29101A] gold-foil-bg shadow-xl shadow-[#D4AF67]/25 hover:shadow-[#D4AF67]/50 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
             >
               <Sparkles size={16} className="text-[#641D32] animate-spin-slow" />
               <span>Open Your Royal Invitation</span>
@@ -308,11 +302,10 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, gues
           </div>
         )}
 
-        {/* Loading Entrance Transition Indicator */}
         {isCardSlidOut && (
           <div className="mt-4 animate-fade-in text-center">
             <p className="font-serif-royal text-xs sm:text-sm tracking-[0.3em] text-[#F7E7C4] uppercase animate-pulse">
-              Entering Royal Palace Celebration...
+              Entering Royal Walima Celebration...
             </p>
           </div>
         )}

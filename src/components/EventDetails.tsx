@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Navigation, Download, Check, Sparkles, Utensils, Camera, HeartHandshake } from 'lucide-react';
-import { GoldDivider, MughalCorner, MughalMehrabArch } from './MughalMotif';
+import { GoldDivider, MughalCorner } from './MughalMotif';
 
 export const EventDetails: React.FC = () => {
   const [downloadedIcs, setDownloadedIcs] = useState(false);
 
   // Event metadata
-  const eventTitle = 'Mubasshir & Tasmia Mehfooz — Grand Baraat';
+  const eventTitle = 'Mubasshir & Tasmia Mehfooz — Grand Walima';
   const eventLocation = 'Bukhara Royale Marquee, Main Expressway, near Gulberg, Islamabad, Pakistan';
-  const eventDescription = 'Royal wedding reception (Baraat) celebrating the union of Mubasshir and Tasmia Mehfooz at Bukhara Royale Marquee, Islamabad.';
+  const eventDescription = 'Royal wedding reception (Walima) celebrating the union of Mubasshir and Tasmia Mehfooz at Bukhara Royale Marquee, Islamabad.';
 
   // Date: 8 November 2026, 1:00 PM PKT (UTC+5) = 20261108T080000Z to 20261108T120000Z
   const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
@@ -25,7 +25,7 @@ export const EventDetails: React.FC = () => {
     const icsContent = [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
-      'PRODID:-//Mubasshir & Tasmia Wedding//Baraat Invitation//EN',
+      'PRODID:-//Mubasshir & Tasmia Wedding//Walima Invitation//EN',
       'CALSCALE:GREGORIAN',
       'METHOD:PUBLISH',
       'BEGIN:VEVENT',
@@ -38,7 +38,7 @@ export const EventDetails: React.FC = () => {
       'BEGIN:VALARM',
       'TRIGGER:-PT24H',
       'ACTION:DISPLAY',
-      'DESCRIPTION:Reminder: Mubasshir & Tasmia Baraat Tomorrow at 1:00 PM',
+      'DESCRIPTION:Reminder: Mubasshir & Tasmia Walima Tomorrow at 1:00 PM',
       'END:VALARM',
       'END:VEVENT',
       'END:VCALENDAR',
@@ -47,7 +47,7 @@ export const EventDetails: React.FC = () => {
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    link.setAttribute('download', 'Mubasshir-Tasmia-Baraat.ics');
+    link.setAttribute('download', 'Mubasshir-Tasmia-Walima.ics');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -59,26 +59,26 @@ export const EventDetails: React.FC = () => {
   const scheduleFlow = [
     {
       time: '1:00 PM',
-      title: 'Baraat Arrival & Royal Istiqbal',
-      desc: 'Arrival of the Groom’s procession with traditional dhol beats, rose petal shower, and warm welcoming Milni by the Bride’s family.',
+      title: 'Guest Arrival & Royal Istiqbal',
+      desc: 'Warm reception and welcoming Milni of guests with rose petal showers and traditional hospitality.',
       icon: HeartHandshake,
     },
     {
       time: '1:45 PM',
       title: 'Stage Ceremonies & Portraiture',
-      desc: 'The couple ascends the royal stage with close family blessings, auspicious congratulations, and photography.',
+      desc: 'The couple arrives on the royal stage for family blessings, auspicious congratulations, and photography.',
       icon: Camera,
     },
     {
       time: '2:15 PM',
-      title: 'Dawat-e-Khaas (Royal Wedding Feast)',
-      desc: 'A lavish Mughlai banquet featuring traditional mutton specialties, biryani, live tawa items, Kashmiri chai, and royal desserts.',
+      title: 'Dawat-e-Walima (Grand Feast)',
+      desc: 'A lavish royal banquet featuring traditional mutton specialties, biryani, live tawa barbecue, Kashmiri chai, and royal desserts.',
       icon: Utensils,
     },
     {
       time: '4:00 PM',
-      title: 'Dua & Emotional Rukhsati',
-      desc: 'Surrounded by the collective prayers and tears of joy, Tasmia bids farewell to begin her new chapter with Mubasshir.',
+      title: 'Heartfelt Du’as & Farewell',
+      desc: 'Concluding with solemn prayers for barakah, health, and lifelong companionship as guests bid their warm wishes.',
       icon: Sparkles,
     },
   ];
@@ -96,7 +96,7 @@ export const EventDetails: React.FC = () => {
             The Wedding Ceremony
           </span>
           <h2 className="font-serif-royal text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide mt-2">
-            The Grand Baraat Reception
+            The Grand Walima Reception
           </h2>
           <GoldDivider className="my-5" />
           <p className="font-serif-elegant italic text-base sm:text-lg text-[#F7E7C4]/90">
@@ -104,7 +104,7 @@ export const EventDetails: React.FC = () => {
           </p>
         </div>
 
-        {/* Grand Event Highlight Card with Mehrab Arch Accent */}
+        {/* Grand Event Highlight Card */}
         <div className="burgundy-card-gradient border-2 border-[#D4AF67]/60 rounded-3xl p-7 sm:p-12 shadow-2xl relative mb-20">
           <MughalCorner position="top-left" className="absolute top-3 left-3" size={44} />
           <MughalCorner position="top-right" className="absolute top-3 right-3" size={44} />
@@ -115,7 +115,7 @@ export const EventDetails: React.FC = () => {
             {/* Left Column: Key Stats */}
             <div className="space-y-6">
               <div className="text-xs uppercase tracking-[0.25em] font-serif-royal text-[#D4AF67] font-bold">
-                Baraat Day · Sunday Ceremony
+                Walima Day · Sunday Reception
               </div>
 
               <div>
@@ -139,7 +139,7 @@ export const EventDetails: React.FC = () => {
                       Main Expressway, Islamabad, near Gulberg, Pakistan.
                     </p>
                     <p className="text-xs text-[#D4AF67] mt-1 font-medium">
-                      Complimentary valet parking &amp; grand reception hall.
+                      Complimentary valet parking &amp; grand banquet reception.
                     </p>
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export const EventDetails: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: Marquee Architecture Highlight */}
+            {/* Right Column: Marquee Highlight */}
             <div className="rounded-2xl border-2 border-[#D4AF67]/50 p-7 bg-gradient-to-br from-[#1C0912] to-[#2E0F1D] shadow-2xl text-center flex flex-col justify-center">
               <div className="w-16 h-16 mx-auto rounded-full border border-[#D4AF67] flex items-center justify-center bg-[#641D32]/50 text-[#D4AF67] mb-4">
                 <Sparkles size={28} />
@@ -207,10 +207,10 @@ export const EventDetails: React.FC = () => {
         <div className="mt-8">
           <div className="text-center mb-10">
             <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-white tracking-wide">
-              Baraat Day Schedule
+              Walima Day Schedule
             </h3>
             <p className="text-xs uppercase tracking-widest text-[#D4AF67] mt-1.5 font-medium">
-              Kindly arrive promptly by 1:00 PM for the grand Baraat entry
+              Kindly arrive promptly by 1:00 PM for the reception and welcoming ceremonies
             </p>
           </div>
 

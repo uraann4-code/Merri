@@ -1,8 +1,19 @@
 {
   "entities": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator account with verified role-based access",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 120 },
+        "role": { "type": "string", "enum": ["admin"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email", "role"]
+    },
     "Guest": {
       "title": "Guest",
-      "description": "An invited guest or family group with a unique personalized invitation token",
+      "description": "Private guest profile with contact details and seat allocation",
       "type": "object",
       "properties": {
         "id": { "type": "string", "maxLength": 128 },
@@ -14,11 +25,26 @@
         "notes": { "type": "string", "maxLength": 500 },
         "createdAt": { "type": "string" }
       },
-      "required": ["name", "invitationToken"]
+      "required": ["name", "invitationToken", "maxGuests"]
+    },
+    "Invitation": {
+      "title": "Invitation",
+      "description": "Tokenized invitation card accessed securely by the invited guest",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "guestId": { "type": "string", "maxLength": 128 },
+        "guestName": { "type": "string", "maxLength": 100 },
+        "familyGroup": { "type": "string", "maxLength": 100 },
+        "token": { "type": "string", "maxLength": 64 },
+        "maxGuests": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["guestId", "guestName", "token", "maxGuests"]
     },
     "Rsvp": {
       "title": "Rsvp",
-      "description": "RSVP response for a guest or family",
+      "description": "RSVP submission recorded by the guest",
       "type": "object",
       "properties": {
         "id": { "type": "string", "maxLength": 128 },
@@ -33,62 +59,79 @@
       },
       "required": ["guestId", "invitationToken", "status", "attendeesCount"]
     },
-    "WeddingSetting": {
-      "title": "WeddingSetting",
-      "description": "Admin configurable wedding information, gallery activation, and media",
+    "Event": {
+      "title": "Event",
+      "description": "Wedding ceremony details for the Walima",
       "type": "object",
       "properties": {
         "id": { "type": "string", "maxLength": 64 },
-        "memoriesActivated": { "type": "boolean" },
-        "welcomeMessage": { "type": "string", "maxLength": 500 },
-        "musicEnabled": { "type": "boolean" },
+        "title": { "type": "string", "maxLength": 100 },
+        "eventType": { "type": "string", "maxLength": 50 },
+        "date": { "type": "string", "maxLength": 50 },
+        "time": { "type": "string", "maxLength": 50 },
+        "timezone": { "type": "string", "maxLength": 50 },
+        "venue": { "type": "string", "maxLength": 120 },
+        "address": { "type": "string", "maxLength": 200 },
         "updatedAt": { "type": "string" }
       },
-      "required": ["memoriesActivated"]
+      "required": ["title", "eventType", "date", "venue"]
     },
-    "GuestWish": {
-      "title": "GuestWish",
-      "description": "Blessings and wishes left by wedding guests",
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "Curated photograph or highlight film entry",
       "type": "object",
       "properties": {
         "id": { "type": "string", "maxLength": 128 },
-        "guestName": { "type": "string", "maxLength": 100 },
-        "message": { "type": "string", "maxLength": 500 },
+        "title": { "type": "string", "maxLength": 120 },
+        "category": { "type": "string", "maxLength": 50 },
+        "mediaUrl": { "type": "string", "maxLength": 500 },
+        "caption": { "type": "string", "maxLength": 300 },
         "createdAt": { "type": "string" }
       },
-      "required": ["guestName", "message"]
+      "required": ["title", "category"]
     },
-    "Admin": {
-      "title": "Admin",
-      "description": "Administrator account record with RBAC privileges",
+    "WebsiteSetting": {
+      "title": "WebsiteSetting",
+      "description": "Global website configuration, memories status, and announcements",
       "type": "object",
       "properties": {
-        "email": { "type": "string", "maxLength": 120 },
-        "role": { "type": "string", "enum": ["admin"] }
+        "id": { "type": "string", "maxLength": 64 },
+        "eventTitle": { "type": "string", "maxLength": 120 },
+        "memoriesActivated": { "type": "boolean" },
+        "announcement": { "type": "string", "maxLength": 500 },
+        "updatedAt": { "type": "string" }
       },
-      "required": ["email", "role"]
+      "required": ["memoriesActivated"]
     }
   },
   "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "Admin" },
+      "description": "Administrator roles and verified credentials"
+    },
     "/guests/{guestId}": {
       "schema": { "$ref": "Guest" },
-      "description": "Guest records created and managed by the administrator"
+      "description": "Private guest database records managed exclusively by the administrator"
+    },
+    "/invitations/{invitationId}": {
+      "schema": { "$ref": "Invitation" },
+      "description": "Tokenized invitation documents looked up securely by individual invitation link"
     },
     "/rsvps/{rsvpId}": {
       "schema": { "$ref": "Rsvp" },
-      "description": "RSVP submissions submitted securely using guest invitation tokens"
+      "description": "RSVP submissions submitted and updated by invited guests"
     },
-    "/settings/{settingId}": {
-      "schema": { "$ref": "WeddingSetting" },
-      "description": "Global settings for gallery memories, announcements, and wedding state"
+    "/events/{eventId}": {
+      "schema": { "$ref": "Event" },
+      "description": "Walima event details, venue address, and ceremony schedule"
     },
-    "/wishes/{wishId}": {
-      "schema": { "$ref": "GuestWish" },
-      "description": "Celebratory messages and dua wishes left by guests"
+    "/gallery/{galleryId}": {
+      "schema": { "$ref": "GalleryItem" },
+      "description": "Curated photography and cinematic video entries"
     },
-    "/admins/{adminId}": {
-      "schema": { "$ref": "Admin" },
-      "description": "Admin privileges mapped to user authentication UID"
+    "/websiteSettings/{settingId}": {
+      "schema": { "$ref": "WebsiteSetting" },
+      "description": "Global website settings and memories activation state"
     }
   }
 }

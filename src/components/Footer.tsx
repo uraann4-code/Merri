@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
         </h3>
 
         <p className="text-xs uppercase tracking-[0.35em] text-[#D4AF67] mt-2 font-serif-royal font-bold">
-          The Grand Baraat · 8 November 2026
+          The Grand Walima · 8 November 2026
         </p>
 
         <p className="text-xs text-[#F7E7C4]/80 mt-1 font-sans">
@@ -37,7 +37,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
 
           <button
             onClick={onOpenAdmin}
-            className="flex items-center gap-2 text-xs text-[#D4AF67] hover:text-[#F7E7C4] transition-colors py-1.5 px-4 rounded-full border border-[#D4AF67]/40 hover:border-[#D4AF67] bg-white/5 font-serif-royal"
+            className="flex items-center gap-2 text-xs text-[#D4AF67] hover:text-[#F7E7C4] transition-colors py-1.5 px-4 rounded-full border border-[#D4AF67]/40 hover:border-[#D4AF67] bg-white/5 font-serif-royal cursor-pointer"
           >
             <Shield size={13} />
             <span>Admin Portal</span>

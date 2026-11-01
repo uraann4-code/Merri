@@ -28,7 +28,7 @@ export const PersonalizedBanner: React.FC<PersonalizedBannerProps> = ({ currentG
   const handleWhatsAppShare = () => {
     const url = getFullShareUrl();
     const guestGreeting = currentGuest ? `Dear ${currentGuest.name}, ` : 'Respected Family & Friends, ';
-    const message = `✨ *Grand Baraat Invitation: Mubasshir & Tasmia Mehfooz* ✨\n\nبِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ\n\n${guestGreeting}Together with our families, we request the honour of your presence and blessings at the Grand Baraat ceremony.\n\n📅 *Date:* Sunday, 8 November 2026\n🕐 *Time:* 1:00 PM PKT\n📍 *Venue:* Bukhara Royale Marquee, Main Expressway, Islamabad (near Gulberg)\n\nPlease view your personalized royal card and confirm your RSVP at:\n${url}`;
+    const message = `✨ *Grand Walima Invitation: Mubasshir & Tasmia Mehfooz* ✨\n\nبِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ\n\n${guestGreeting}Together with our families, we request the honour of your presence and blessings at the Grand Walima ceremony.\n\n📅 *Date:* Sunday, 8 November 2026\n🕐 *Time:* 1:00 PM PKT\n📍 *Venue:* Bukhara Royale Marquee, Main Expressway, Islamabad (near Gulberg)\n\nPlease view your personalized royal card and confirm your RSVP at:\n${url}`;
 
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -56,7 +56,6 @@ export const PersonalizedBanner: React.FC<PersonalizedBannerProps> = ({ currentG
           {currentGuest ? currentGuest.name : 'Esteemed Guest'}
         </h3>
 
-        {/* Clean unboxed metadata with typographic separators */}
         <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-widest text-[#F7E7C4] mt-2 font-medium">
           {currentGuest?.familyGroup && <span>Family: {currentGuest.familyGroup}</span>}
           {currentGuest?.familyGroup && currentGuest?.maxGuests && <span aria-hidden="true">·</span>}
@@ -71,11 +70,10 @@ export const PersonalizedBanner: React.FC<PersonalizedBannerProps> = ({ currentG
           This unique link has been reserved exclusively for you. You can share this link directly via WhatsApp or keep it saved to review event updates and manage your RSVP.
         </p>
 
-        {/* Share buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             onClick={handleCopyLink}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#D4AF67] bg-[#641D32]/70 hover:bg-[#641D32] text-[#F7E7C4] hover:text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#D4AF67] bg-[#641D32]/70 hover:bg-[#641D32] text-[#F7E7C4] hover:text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-sm cursor-pointer"
           >
             {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
             <span>{copied ? 'Link Copied!' : 'Copy Unique Invitation Link'}</span>
@@ -83,7 +81,7 @@ export const PersonalizedBanner: React.FC<PersonalizedBannerProps> = ({ currentG
 
           <button
             onClick={handleWhatsAppShare}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-700 hover:bg-emerald-600 text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-md"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-700 hover:bg-emerald-600 text-white font-serif-royal text-xs font-semibold tracking-wider uppercase transition-all shadow-md cursor-pointer"
           >
             <MessageCircle size={15} />
             <span>Share via WhatsApp</span>

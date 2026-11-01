@@ -24,10 +24,10 @@ export const OurStory: React.FC = () => {
     },
     {
       step: '03',
-      title: 'The Grand Baraat',
+      title: 'The Grand Walima',
       subtitle: '8 November 2026 · Bukhara Royale Marquee',
       date: 'The Celebration',
-      desc: 'Now, under the royal chandeliers and arches of Islamabad, Mubasshir arrives to bring his bride home. We eagerly await your presence to celebrate this unforgettable milestone of joy, feast, and celebration.',
+      desc: 'Now, under the royal chandeliers and arches of Islamabad, Mubasshir & Tasmia invite you to celebrate their sacred Sunnah union. We eagerly await your presence to celebrate this unforgettable milestone of joy, feast, and celebration.',
       icon: Star,
       quote: 'Your presence and prayers will make this joyous day complete.',
     },
@@ -35,7 +35,6 @@ export const OurStory: React.FC = () => {
 
   return (
     <section id="story" className="py-24 sm:py-32 bg-[#F8F5EF] text-[#29101A] relative overflow-hidden select-none">
-      {/* Subtle Mughal Damask Pattern */}
       <div className="absolute inset-0 mughal-damask-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
@@ -55,7 +54,6 @@ export const OurStory: React.FC = () => {
 
         {/* Timeline Chapters */}
         <div className="relative">
-          {/* Vertical Golden Connecting Spine */}
           <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-10 bottom-10 w-[2px] bg-gradient-to-b from-[#D4AF67]/20 via-[#D4AF67] to-[#D4AF67]/20" />
 
           <div className="space-y-16 md:space-y-20">
@@ -70,13 +68,11 @@ export const OurStory: React.FC = () => {
                     isEven ? 'md:flex-row-reverse' : ''
                   }`}
                 >
-                  {/* Content Card with Heavyweight Ivory Texture */}
                   <div className="w-full md:w-1/2">
                     <div className="bg-white p-7 sm:p-9 rounded-2xl border-2 border-[#D4AF67]/35 shadow-lg hover:shadow-2xl transition-all duration-300 relative group">
                       <MughalCorner position="top-left" className="absolute top-2 left-2" size={32} />
                       <MughalCorner position="top-right" className="absolute top-2 right-2" size={32} />
 
-                      {/* Header with clean unboxed metadata */}
                       <div className="flex items-center justify-between mb-3 pt-2">
                         <span className="font-serif-royal text-2xl font-bold text-[#D4AF67] group-hover:scale-105 transition-transform">
                           {chapter.step}
@@ -103,12 +99,10 @@ export const OurStory: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Center Node Marker */}
                   <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-13 h-13 rounded-full bg-[#641D32] border-2 border-[#D4AF67] text-[#D4AF67] shadow-xl z-10 group-hover:scale-110 transition-transform">
                     <Icon size={20} />
                   </div>
 
-                  {/* Visual Silhouette Balance Card */}
                   <div className="w-full md:w-1/2 flex justify-center">
                     <div className="w-full max-w-sm h-52 sm:h-60 rounded-2xl overflow-hidden border-2 border-[#D4AF67] shadow-xl relative flex items-center justify-center p-6 bg-gradient-to-br from-[#4D1828] via-[#29101A] to-[#17060F] text-[#F8F5EF]">
                       <div className="absolute inset-0 dark-damask-pattern opacity-30 pointer-events-none" />

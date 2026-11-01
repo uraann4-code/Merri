@@ -1,7 +1,7 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Default-deny catch-all
+    // Catch-all default deny
     match /{document=**} {
       allow read, write: if false;
     }
@@ -19,37 +19,48 @@ service cloud.firestore {
       );
     }
 
-    // Admins collection
+    // 1. Admins Collection
     match /admins/{adminId} {
       allow read: if isSignedIn();
       allow write: if isAdmin();
     }
 
-    // Guests: Public can look up their own guest record by ID/token; Admin can list/create/edit/delete
+    // 2. Guests Collection (Private - strictly protected from public scraping)
     match /guests/{guestId} {
-      allow read: if isValidId(guestId);
-      allow create, update, delete: if isAdmin();
+      allow read, write: if isAdmin();
     }
 
-    // RSVPs: Guests submit and update; Admin has full overview
+    // 3. Invitations Collection (Tokenized lookup: individual get by token ID allowed, no public list)
+    match /invitations/{invitationId} {
+      allow get: if isValidId(invitationId);
+      allow list, write: if isAdmin();
+    }
+
+    // 4. RSVPs Collection (Guests create and update their own RSVP; Admin has full overview)
     match /rsvps/{rsvpId} {
-      allow read: if isValidId(rsvpId) && (isAdmin() || resource.data.guestId == rsvpId);
+      allow get: if isValidId(rsvpId);
+      allow list: if isAdmin();
       allow create: if isValidId(rsvpId) && incoming().guestId is string && incoming().status in ['attending', 'declined', 'pending'];
       allow update: if isValidId(rsvpId) && incoming().guestId is string && (isAdmin() || incoming().guestId == existing().guestId);
       allow delete: if isAdmin();
     }
 
-    // Wedding Settings (memories activation, hero announcement)
-    match /settings/{settingId} {
-      allow read: if isValidId(settingId);
+    // 5. Events Collection (Public read for wedding details; write by Admin)
+    match /events/{eventId} {
+      allow read: if isValidId(eventId);
       allow write: if isAdmin();
     }
 
-    // Wishes & Duas
-    match /wishes/{wishId} {
-      allow read: if isValidId(wishId);
-      allow create: if isValidId(wishId) && incoming().guestName is string && incoming().message is string;
-      allow update, delete: if isAdmin();
+    // 6. Gallery Collection (Public read for wedding memories; write by Admin)
+    match /gallery/{galleryId} {
+      allow read: if isValidId(galleryId);
+      allow write: if isAdmin();
+    }
+
+    // 7. Website Settings (Public read for announcement & memories state; write by Admin)
+    match /websiteSettings/{settingId} {
+      allow read: if isValidId(settingId);
+      allow write: if isAdmin();
     }
   }
 }

@@ -10,7 +10,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ guestName, familyGroup }) => {
   return (
     <section id="invitation" className="relative min-h-screen pt-28 pb-20 flex flex-col items-center justify-center overflow-hidden burgundy-palace-gradient text-[#F8F5EF] select-none">
-      {/* Ambient Cinematic Lighting */}
+      {/* Ambient Lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-radial from-[#641D32]/50 via-[#D4AF67]/10 to-transparent blur-3xl pointer-events-none -z-10" />
       <div className="absolute -top-32 left-10 w-96 h-96 bg-[#D4AF67]/8 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#641D32]/30 rounded-full blur-3xl pointer-events-none -z-10" />
@@ -21,7 +21,6 @@ export const Hero: React.FC<HeroProps> = ({ guestName, familyGroup }) => {
       <div className="w-full max-w-4xl px-4 sm:px-6 relative z-10 flex flex-col items-center text-center">
         {/* Royal Card Container with Mughal Mehrab Arch */}
         <div className="w-full burgundy-card-gradient p-7 sm:p-12 md:p-16 rounded-3xl border-2 border-[#D4AF67]/60 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] relative">
-          {/* Mughal Corner Ornaments */}
           <MughalCorner position="top-left" className="absolute top-3.5 left-3.5" size={48} />
           <MughalCorner position="top-right" className="absolute top-3.5 right-3.5" size={48} />
           <MughalCorner position="bottom-left" className="absolute bottom-3.5 left-3.5" size={48} />
@@ -37,7 +36,7 @@ export const Hero: React.FC<HeroProps> = ({ guestName, familyGroup }) => {
           {/* Sacred Bismillah Calligraphy */}
           <BismillahCalligraphy className="mb-6" />
 
-          {/* Personalized Guest Greeting without static pill enclosure */}
+          {/* Personalized Guest Greeting */}
           {guestName && (
             <div className="mb-6 animate-fade-in">
               <p className="text-[11px] uppercase tracking-[0.25em] text-[#D4AF67] font-serif-royal font-semibold">
@@ -58,11 +57,11 @@ export const Hero: React.FC<HeroProps> = ({ guestName, familyGroup }) => {
               Request the honour of your esteemed presence &amp; du'as
             </p>
             <p className="font-serif-elegant italic text-sm sm:text-base text-[#F8F5EF]/80">
-              at the auspicious wedding reception (Baraat) celebrating the union of
+              at the auspicious wedding reception (Walima) celebrating the union of
             </p>
           </div>
 
-          {/* Couple Names - Award-Winning Metallic Gold Foil Typography */}
+          {/* Couple Names */}
           <div className="py-2 relative">
             <div className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-6">
               <h1 className="font-serif-royal text-4xl sm:text-5xl md:text-6xl font-bold tracking-[0.08em] gold-foil-text drop-shadow-md">
@@ -83,16 +82,15 @@ export const Hero: React.FC<HeroProps> = ({ guestName, familyGroup }) => {
 
           <GoldDivider className="my-6" />
 
-          {/* Event Metadata (Clean unboxed typography) */}
+          {/* Event Metadata */}
           <div className="mb-6">
             <span className="font-serif-royal text-xs sm:text-sm uppercase tracking-[0.35em] text-[#D4AF67] font-bold">
-              The Grand Baraat Ceremony
+              The Grand Walima Reception
             </span>
           </div>
 
-          {/* Event Details Grid with Hairline Gold Borders */}
+          {/* Event Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto pt-3 pb-6 border-y border-[#D4AF67]/30 text-[#F8F5EF]">
-            {/* Date */}
             <div className="flex flex-col items-center p-3.5 bg-black/25 rounded-xl border border-white/5">
               <Calendar className="text-[#D4AF67] mb-1.5" size={20} />
               <span className="text-[10px] uppercase tracking-widest text-[#D4AF67]">Date</span>
@@ -101,17 +99,15 @@ export const Hero: React.FC<HeroProps> = ({ guestName, familyGroup }) => {
               </span>
             </div>
 
-            {/* Time */}
             <div className="flex flex-col items-center p-3.5 bg-black/25 rounded-xl border border-white/5">
               <Clock className="text-[#D4AF67] mb-1.5" size={20} />
-              <span className="text-[10px] uppercase tracking-widest text-[#D4AF67]">Arrival Time</span>
+              <span className="text-[10px] uppercase tracking-widest text-[#D4AF67]">Reception Time</span>
               <span className="font-serif-royal text-sm sm:text-base font-bold mt-0.5 text-white">
                 1:00 PM PKT
               </span>
               <span className="text-[10px] text-[#F7E7C4]/70">Pakistan Standard Time</span>
             </div>
 
-            {/* Venue */}
             <div className="flex flex-col items-center p-3.5 bg-black/25 rounded-xl border border-white/5">
               <MapPin className="text-[#D4AF67] mb-1.5" size={20} />
               <span className="text-[10px] uppercase tracking-widest text-[#D4AF67]">Venue</span>

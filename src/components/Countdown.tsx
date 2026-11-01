@@ -65,7 +65,7 @@ export const Countdown: React.FC = () => {
           Count Every Blessed Second
         </span>
         <h2 className="font-serif-royal text-3xl sm:text-4xl md:text-5xl font-bold text-[#641D32] tracking-wide mt-2">
-          Until The Grand Baraat
+          Until The Grand Walima
         </h2>
         <GoldDivider className="my-5" />
 
@@ -76,7 +76,7 @@ export const Countdown: React.FC = () => {
             <MughalCorner position="top-right" className="absolute top-3 right-3" size={36} />
             <RoyalCrest size={72} className="mx-auto mb-4" />
             <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-[#F7E7C4] tracking-wider uppercase">
-              Mubarak! The Celebration Has Commenced!
+              Mubarak! The Walima Celebration Has Commenced!
             </h3>
             <p className="font-serif-elegant italic text-xl text-white mt-3 leading-relaxed">
               "Baarak Allahu laka wa baaraka 'alayka wa jama'a baynakuma fee khayr."
@@ -100,15 +100,12 @@ export const Countdown: React.FC = () => {
                   key={unit.label}
                   className="bg-white rounded-3xl border-2 border-[#D4AF67]/50 p-6 sm:p-7 shadow-xl relative overflow-hidden group hover:border-[#D4AF67] transition-all hover:scale-105"
                 >
-                  {/* Top gold foil accent */}
                   <div className="absolute top-0 left-0 right-0 h-1.5 gold-foil-bg" />
 
-                  {/* Number Display */}
                   <div className="font-serif-royal text-4xl sm:text-5xl md:text-6xl font-bold text-[#641D32] tracking-tight">
                     {String(unit.value).padStart(2, '0')}
                   </div>
 
-                  {/* Unit Label */}
                   <div className="mt-2 text-xs uppercase tracking-[0.25em] font-serif-royal font-bold text-[#9E7422]">
                     {unit.label}
                   </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, addDoc, query, limit } from 'firebase/firestore';
 import { MessageSquare, Send, Film, Image as ImageIcon, Lock, CheckCircle2 } from 'lucide-react';
 import { db } from '../lib/firebase';
-import { GuestWish } from '../types/wedding';
+import { GalleryItem } from '../types/wedding';
 import { GoldDivider, MughalCorner } from './MughalMotif';
 
 interface MemoriesGalleryProps {
@@ -10,59 +10,80 @@ interface MemoriesGalleryProps {
   guestName?: string;
 }
 
+interface GuestDuas {
+  id: string;
+  guestName: string;
+  message: string;
+  createdAt: string;
+}
+
 export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActive, guestName }) => {
-  const [wishes, setWishes] = useState<GuestWish[]>([]);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const [wishes, setWishes] = useState<GuestDuas[]>([]);
   const [newAuthor, setNewAuthor] = useState(guestName || '');
   const [newMessage, setNewMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedWish, setSubmittedWish] = useState(false);
 
-  const defaultWishes: GuestWish[] = [
-    {
-      id: 'wish_1',
-      guestName: 'Uncle Tariq & Family',
-      message: 'Mubarak to both Mubasshir and Tasmia! May Allah SWT shower your union with endless happiness, barakah, and peace.',
-      createdAt: '2026-10-28T10:00:00Z',
-    },
-    {
-      id: 'wish_2',
-      guestName: 'Farhan & Ayesha',
-      message: 'So thrilled to celebrate your special day at Bukhara Royale! You two make the most wonderful couple. Heartiest congratulations!',
-      createdAt: '2026-10-29T14:30:00Z',
-    },
-    {
-      id: 'wish_3',
-      guestName: 'The Mehfooz Relatives',
-      message: 'May your home be filled with harmony, laughter, and lifelong devotion. Looking forward to the grand Baraat!',
-      createdAt: '2026-10-30T16:00:00Z',
-    },
-  ];
+  // Sync Gallery Items from Firestore collection 'gallery'
+  useEffect(() => {
+    try {
+      const unsub = onSnapshot(collection(db, 'gallery'), (snap) => {
+        const list: GalleryItem[] = [];
+        snap.forEach((d) => list.push({ id: d.id, ...(d.data() as Omit<GalleryItem, 'id'>) }));
+        if (list.length > 0) {
+          setGalleryItems(list);
+        } else {
+          setGalleryItems([
+            { id: '1', title: 'The Royal Walima Stage', category: 'Stage Elegance' },
+            { id: '2', title: 'Dawat-e-Walima Feast', category: 'Banquet & Milni' },
+            { id: '3', title: 'Family Blessings & Duas', category: 'Moments of Grace' },
+            { id: '4', title: 'Couple Formal Portraiture', category: 'Portraits' },
+            { id: '5', title: 'Istiqbal & Reception', category: 'Guest Welcome' },
+            { id: '6', title: 'Celebratory Farewell', category: 'Sweet Farewells' },
+          ]);
+        }
+      });
+      return () => unsub();
+    } catch {
+      // Fallback
+    }
+  }, []);
 
+  // Sync Wishes from Firestore 'rsvps' notes or dedicated wishes
   useEffect(() => {
     try {
       const q = query(collection(db, 'wishes'), limit(20));
       const unsubscribe = onSnapshot(
         q,
         (snap) => {
-          const list: GuestWish[] = [];
+          const list: GuestDuas[] = [];
           snap.forEach((doc) => {
-            list.push({ id: doc.id, ...(doc.data() as Omit<GuestWish, 'id'>) });
+            list.push({ id: doc.id, ...(doc.data() as Omit<GuestDuas, 'id'>) });
           });
           if (list.length > 0) {
             setWishes(list);
           } else {
-            setWishes(defaultWishes);
+            setWishes([
+              {
+                id: 'wish_1',
+                guestName: 'Uncle Tariq & Family',
+                message: 'Mubarak to Mubasshir and Tasmia! May Allah SWT shower your Walima and union with endless happiness, barakah, and peace.',
+                createdAt: '2026-10-28T10:00:00Z',
+              },
+              {
+                id: 'wish_2',
+                guestName: 'Farhan & Ayesha',
+                message: 'So thrilled to celebrate your special Walima at Bukhara Royale! You two make the most wonderful couple. Heartiest congratulations!',
+                createdAt: '2026-10-29T14:30:00Z',
+              },
+            ]);
           }
         },
-        (err) => {
-          console.warn('Wishes listener warning, using fallback list', err);
-          setWishes(defaultWishes);
-        }
+        () => {}
       );
       return () => unsubscribe();
-    } catch {
-      setWishes(defaultWishes);
-    }
+    } catch {}
   }, []);
 
   const handleSendWish = async (e: React.FormEvent) => {
@@ -83,10 +104,7 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
       setTimeout(() => setSubmittedWish(false), 4000);
     } catch (err) {
       console.error('Error posting wish', err);
-      setWishes([
-        { id: `local_${Date.now()}`, ...wishData },
-        ...wishes,
-      ]);
+      setWishes([{ id: `local_${Date.now()}`, ...wishData }, ...wishes]);
       setNewMessage('');
       setSubmittedWish(true);
       setTimeout(() => setSubmittedWish(false), 4000);
@@ -100,13 +118,12 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
       <div className="absolute inset-0 dark-damask-pattern opacity-35 pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs uppercase tracking-[0.3em] font-serif-royal text-[#D4AF67] font-bold">
             Cherished Moments &amp; Blessings
           </span>
           <h2 className="font-serif-royal text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide mt-2">
-            Wedding Memories &amp; Du'as
+            Walima Memories &amp; Du'as
           </h2>
           <GoldDivider className="my-5" />
           <p className="font-serif-elegant italic text-base sm:text-lg text-[#F7E7C4]/90">
@@ -117,13 +134,12 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
         {/* Gallery Section */}
         <div className="mb-20">
           {isMemoriesActive ? (
-            /* Activated Gallery */
             <div className="space-y-8 animate-fade-in">
               <div className="flex items-center justify-between pb-4 border-b border-[#D4AF67]/30">
                 <div className="flex items-center gap-2 text-[#D4AF67]">
                   <Film size={22} />
                   <h3 className="font-serif-royal text-xl sm:text-2xl font-bold text-white uppercase tracking-wider">
-                    Official Baraat Gallery &amp; Film
+                    Official Walima Gallery &amp; Film
                   </h3>
                 </div>
                 <div className="text-xs uppercase tracking-widest text-[#F7E7C4] font-serif-royal font-bold">
@@ -137,32 +153,25 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
                   <Film size={32} />
                 </div>
                 <h4 className="font-serif-royal text-2xl font-bold text-white">
-                  The Baraat Cinematic Wedding Highlight
+                  The Walima Cinematic Wedding Highlight
                 </h4>
                 <p className="text-xs text-[#F7E7C4]/85 mt-2 max-w-md font-sans">
-                  A high-definition cinematic short film capturing the arrival, the royal decor of Bukhara Royale Marquee, and joyful family moments.
+                  A high-definition cinematic short film capturing the grand reception, the royal decor of Bukhara Royale Marquee, and joyful family moments.
                 </p>
               </div>
 
-              {/* Photo Cards Grid */}
+              {/* Photo Cards Grid from Firestore collection 'gallery' */}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {[
-                  { title: 'The Royal Istiqbal', label: 'Baraat Entrance' },
-                  { title: 'The Baraat Stage', label: 'Mughal Elegance' },
-                  { title: 'Dawat-e-Khaas', label: 'Banquet & Milni' },
-                  { title: 'Family Blessings', label: 'Cherished Duas' },
-                  { title: 'The Sacred Vows', label: 'Nikah & Union' },
-                  { title: 'The Rukhsati', label: 'New Beginnings' },
-                ].map((item) => (
+                {galleryItems.map((item) => (
                   <div
-                    key={item.title}
+                    key={item.id}
                     className="group relative rounded-2xl border-2 border-[#D4AF67]/35 overflow-hidden bg-gradient-to-br from-[#381523] to-[#1E0912] p-8 min-h-[200px] flex flex-col justify-end transition-all duration-300 hover:border-[#D4AF67] hover:scale-[1.02] shadow-lg"
                   >
                     <div className="absolute top-4 right-4 text-[#D4AF67]/50 group-hover:text-[#D4AF67]">
                       <ImageIcon size={22} />
                     </div>
                     <span className="text-[10px] uppercase tracking-widest text-[#D4AF67] font-serif-royal font-bold">
-                      {item.label}
+                      {item.category}
                     </span>
                     <h5 className="font-serif-royal text-lg font-bold text-white mt-1">
                       {item.title}
@@ -172,7 +181,6 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
               </div>
             </div>
           ) : (
-            /* Pre-Wedding Teaser State */
             <div className="burgundy-card-gradient rounded-3xl border-2 border-[#D4AF67]/50 p-8 sm:p-14 text-center shadow-2xl relative max-w-3xl mx-auto">
               <MughalCorner position="top-left" className="absolute top-3 left-3" size={36} />
               <MughalCorner position="top-right" className="absolute top-3 right-3" size={36} />
@@ -183,10 +191,10 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
                 Event Film &amp; Photo Album
               </span>
               <h3 className="font-serif-royal text-2xl sm:text-3xl font-bold text-white mt-2">
-                Unveiling After The Grand Baraat
+                Unveiling After The Grand Walima
               </h3>
               <p className="text-sm text-[#F8F5EF]/85 max-w-lg mx-auto mt-3 font-sans leading-relaxed">
-                The official wedding photography collection, drone highlights, and high-definition cinematic film will be curated and published here following the ceremony on 8 November 2026.
+                The official wedding photography collection, highlights, and high-definition cinematic film will be curated and published here following the ceremony on 8 November 2026.
               </p>
               <div className="mt-6 text-xs text-[#F7E7C4] font-serif-royal font-medium">
                 Admin Activated Post-Ceremony
@@ -212,7 +220,6 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Wish Submission Form (5 cols) */}
             <div className="lg:col-span-5 bg-[#2D0F1D] border-2 border-[#D4AF67]/40 rounded-3xl p-7 shadow-2xl h-fit relative">
               <MughalCorner position="top-left" className="absolute top-2 left-2" size={28} />
               <h4 className="font-serif-royal text-base font-bold text-white mb-4 flex items-center gap-2">
@@ -259,7 +266,7 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full py-3.5 rounded-xl gold-foil-bg text-[#29101A] font-serif-royal text-xs font-bold uppercase tracking-wider hover:brightness-110 active:scale-98 transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                 >
                   <Send size={14} />
                   <span>{isSubmitting ? 'Posting Du’a...' : 'Post Blessing'}</span>
@@ -267,7 +274,6 @@ export const MemoriesGallery: React.FC<MemoriesGalleryProps> = ({ isMemoriesActi
               </form>
             </div>
 
-            {/* Wishes Feed (7 cols) */}
             <div className="lg:col-span-7 space-y-4 max-h-[540px] overflow-y-auto pr-2">
               {wishes.map((wish) => (
                 <div
